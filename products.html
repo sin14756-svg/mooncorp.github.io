@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products | CV. Golden Seafresh</title>
+    <meta name="description"
+        content="High-quality frozen seafood products from CV. Golden Seafresh – Baby Octopus, Giant Octopus, Cut Poulp Squid, Cuttlefish, Squid, Vannamei Shrimp, Hard Clam, Clam Meat, Yellow Croaker.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Prompt:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Product page size table styles */
+        .product-card-section {
+            padding: 2.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .product-card-section:last-child {
+            border-bottom: none;
+        }
+
+        .product-card-inner {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .product-card-inner {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .product-card-img-wrap {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            flex-shrink: 0;
+        }
+
+        .product-card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-card-info h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #0f2044;
+            margin-bottom: 0.6rem;
+        }
+
+        .product-card-info p {
+            color: #2d4a7a;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Size table — light bg matching home palette */
+        .size-table-wrapper {
+            background: #fff;
+            border: 1.5px solid #bee3f8;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(15, 32, 68, 0.08);
+        }
+
+        .size-table-label {
+            background: #2563a8;
+            padding: 0.55rem 1.2rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #ffffff;
+            border-bottom: 2px solid #1a4e8a;
+        }
+
+        .size-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .size-table td {
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+            color: #0f2044;
+            border: 1px solid #bee3f8;
+            text-align: center;
+            font-weight: 600;
+            background: #fff;
+        }
+
+        .size-table tr:first-child td {
+            font-weight: 700;
+            color: #0f2044;
+            background: #e8f4ff;
+        }
+
+        .size-table td:nth-child(odd) {
+            background: #dbeeff;
+            color: #0f2044;
+        }
+
+        .size-table td:nth-child(even) {
+            background: #fff;
+            color: #0f2044;
+        }
+
+        .size-table tr:first-child td:nth-child(odd) {
+            background: #b8d9f5;
+        }
+
+        .size-table tr:first-child td:nth-child(even) {
+            background: #e8f4ff;
+        }
+
+        .size-table tr:hover td:nth-child(odd) {
+            background: #c8e6f5;
+        }
+
+        .size-table tr:hover td:nth-child(even) {
+            background: #f0f8ff;
+        }
+
+        /* Image slots below size table */
+        .size-img-slots {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .size-img-slot {
+            width: 140px;
+            height: 110px;
+            border: 2px solid rgba(99, 179, 237, 0.4);
+            border-radius: 12px;
+            background: rgba(4, 12, 36, 0.9);
+            overflow: hidden;
+        }
+
+        .size-img-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🌊</span>
+                <span class="logo-text">OCEAN MOON<span class="logo-sub">SEAFOOD</span></span>
+            </a>
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="products.html" class="nav-link active">Product</a></li>
+                    <li><a href="knowledge.html" class="nav-link">Knowledge</a></li>
+                    <li><a href="about.html" class="nav-link">About Us</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="Open Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Page Hero Banner -->
+    <div class="page-hero">
+        <div class="page-hero-bg"></div>
+        <div class="page-hero-content">
+            <div class="label-line" style="justify-content:center;margin-bottom:12px;">
+                <span class="line-left"
+                    style="background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);"></span>
+                <span class="section-label light" style="font-size:22px;letter-spacing:6px;">OUR PRODUCTS</span>
+                <span class="line-right"
+                    style="background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Content -->
+    <section class="products-v2" id="products">
+        <div class="section-banner sweep-in-left"></div>
+        <div class="section-banner sweep-in-right"></div>
+        <div class="container">
+
+            <!-- Circle Grid — 5+4 layout matching homepage -->
+            <div class="products-circles-grid animate-on-scroll" style="margin-top: 3.5rem;">
+                <!-- Row 1: 5 items -->
+                <div class="products-row products-row-5">
+                    <div class="product-circle-item">
+                        <div class="product-circle-img">
+                            <img src="pic/baby octopus/baby_octopus.png" alt="Baby Octopus"
+                                class="product-circle-real-img">
+                        </div>
+                        <span class="product-circle-label">Baby Octopus</span>
+                    </div>
+                    <div class="product-circle-item">
+                        <div class="product-circle-img">
+                            <img src="pic/Giant octopus/giant_octopus.png" alt="Giant Octopus"
+                                class="product-circle-real-img">
+                        </div>
+                        <span class="product-circle-label">Giant Octopus</span>
+                    </div>
+                    <div class="product-circle-item">
+                        <div class="product-circle-img">
+                            <img src="pic/Cut Poulp Squid/cut_poulp_squid.png" alt="Cut Poulp Squid"
+                                class="product-circle-real-img">
+                        </div>
+                        <span class="product-circle-label">Cut Poulp Squid</span>
+                    </div>
+                    <div class="product-circle-item">
+                        <div class="product-circle-img">
+                            <img src="pic/Cuttlefish/cuttlefish.png" alt="Cuttlefish" class="product-circle-real-img">
+                        </div>
+                        <span class="product-circle-label">Cuttlefish</span>
+                    </div>
+                    <div class="product-circle-item">
+                        <div class="product-circle-img">
+                            <img src="pic/Squid/squid.png" alt="Squid" class="product-circle-real-img">
+                        </div>
+                        <span class="product-circle-label">Squid</span>
+                    </div>
+                </div>
+                <!-- Row 2: 4 items (offset) -->
+                <div class="products-row products-row-4">
+                    <div class="product-circle-item">
+                        <div class="product-circle-img">
+                            <img src="pic/Vannamei/vannamei.png" alt="Vannamei Shrimp" class="product-circle-real-img">
+                        </div>
+                        <span class="product-circle-label">Vannamei Shrimp</span>
+                    </div>
+                    <div class="product-circle-item">
+                        <div class="product-circle-img">
+                            <img src="pic/Hard Clam/hard_clam.png" alt="Hard Clam" class="product-circle-real-img">
+                        </div>
+                        <span class="product-circle-label">Hard Clam</span>
+                    </div>
+                    <div class="product-circle-item">
+                        <div class="product-circle-img">
+                            <img src="pic/Clam meat/clam_meat.png" alt="Clam Meat" class="product-circle-real-img">
+                        </div>
+                        <span class="product-circle-label">Clam Meat</span>
+                    </div>
+                    <div class="product-circle-item">
+                        <div class="product-circle-img">
+                            <img src="pic/Pama croaker/pama_croaker.png" alt="Yellow Croaker"
+                                class="product-circle-real-img">
+                        </div>
+                        <span class="product-circle-label">Yellow Croaker</span>
+                    </div>
+                </div>
+
+                <!-- Product Detail List with Size Tables -->
+                <div class="product-detail-list" style="margin-top:3rem;">
+
+                    <!-- 1. Baby Octopus -->
+                    <div class="product-card-section animate-on-scroll">
+                        <div class="product-card-inner">
+                            <div class="product-card-img-wrap">
+                                <img src="pic/baby octopus/baby_octopus.png" alt="Baby Octopus">
+                            </div>
+                            <div class="product-card-info">
+                                <div class="size-table-wrapper">
+                                    <div class="size-table-label">Product name</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:1rem;font-weight:600;color:#0f2044;">
+                                        Baby Octopus</div>
+                                    <div class="size-table-label">Product Type</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">Whole clean /
+                                        Whole round / Cut</div>
+                                    <div class="size-table-label">Size</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">20/30 - 30/50 -
+                                        50/80 - 80/100 - 100/120</div>
+                                </div>
+                                <div class="size-img-slots" style="margin-top:1rem;">
+                                    <div class="size-img-slot"><img src="pic/baby octopus/baby_octopus.png"
+                                            alt="Baby Octopus view 1"></div>
+                                    <div class="size-img-slot"><img src="pic/baby octopus/baby_octopus.png"
+                                            alt="Baby Octopus view 2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Giant Octopus -->
+                    <div class="product-card-section animate-on-scroll">
+                        <div class="product-card-inner">
+                            <div class="product-card-img-wrap">
+                                <img src="pic/Giant octopus/giant_octopus.png" alt="Giant Octopus">
+                            </div>
+                            <div class="product-card-info">
+                                <div class="size-table-wrapper">
+                                    <div class="size-table-label">Product name</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:1rem;font-weight:600;color:#0f2044;">
+                                        Giant Octopus</div>
+                                    <div class="size-table-label">Product Type</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">Flower - Ball
+                                    </div>
+                                    <div class="size-table-label">Size</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">300/500 -
+                                        500/800 - 800/1200 - 1200/1600 - 1600/2000 - 2000up</div>
+                                </div>
+                                <div class="size-img-slots" style="margin-top:1rem;">
+                                    <div class="size-img-slot"><img src="pic/Giant octopus/giant_octopus.png"
+                                            alt="Giant Octopus view 1"></div>
+                                    <div class="size-img-slot"><img src="pic/Giant octopus/giant_octopus.png"
+                                            alt="Giant Octopus view 2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Cut Poulp Squid -->
+                    <div class="product-card-section animate-on-scroll">
+                        <div class="product-card-inner">
+                            <div class="product-card-img-wrap">
+                                <img src="pic/Cut Poulp Squid/cut_poulp_squid.png" alt="Cut Poulp Squid">
+                            </div>
+                            <div class="product-card-info">
+                                <div class="size-table-wrapper">
+                                    <div class="size-table-label">Product name</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:1rem;font-weight:600;color:#0f2044;">Cut
+                                        Poulp Squid</div>
+                                    <div class="size-table-label">Product Type</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">Cut</div>
+                                    <div class="size-table-label">Size</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">M, L</div>
+                                </div>
+                                <div class="size-img-slots" style="margin-top:1rem;">
+                                    <div class="size-img-slot"><img src="pic/Cut Poulp Squid/cut_poulp_squid.png"
+                                            alt="Cut Poulp Squid view 1"></div>
+                                    <div class="size-img-slot"><img src="pic/Cut Poulp Squid/cut_poulp_squid.png"
+                                            alt="Cut Poulp Squid view 2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Cuttlefish -->
+                    <div class="product-card-section animate-on-scroll">
+                        <div class="product-card-inner">
+                            <div class="product-card-img-wrap">
+                                <img src="pic/Cuttlefish/cuttlefish.png" alt="Cuttlefish">
+                            </div>
+                            <div class="product-card-info">
+                                <div class="size-table-wrapper">
+                                    <div class="size-table-label">Product name</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:1rem;font-weight:600;color:#0f2044;">
+                                        Cuttlefish</div>
+                                    <div class="size-table-label">Product Type</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">Whole clean /
+                                        Whole round</div>
+                                    <div class="size-table-label">Size</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">20/40 - 40/60 -
+                                        60/80 - 80/100 - 100/200 - 200/300 - 300/500 - 500/800</div>
+                                </div>
+                                <div class="size-img-slots" style="margin-top:1rem;">
+                                    <div class="size-img-slot"><img src="pic/Cuttlefish/cuttlefish.png"
+                                            alt="Cuttlefish view 1"></div>
+                                    <div class="size-img-slot"><img src="pic/Cuttlefish/cuttlefish.png"
+                                            alt="Cuttlefish view 2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Squid -->
+                    <div class="product-card-section animate-on-scroll">
+                        <div class="product-card-inner">
+                            <div class="product-card-img-wrap">
+                                <img src="pic/Squid/squid.png" alt="Squid">
+                            </div>
+                            <div class="product-card-info">
+                                <div class="size-table-wrapper">
+                                    <div class="size-table-label">Product name</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:1rem;font-weight:600;color:#0f2044;">
+                                        Squid</div>
+                                    <div class="size-table-label">Product Type</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">Whole clean /
+                                        Whole round / Tube / Tentacle</div>
+                                    <div class="size-table-label">Size</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">1P, 2P, 3P, 4P,
+                                        5P &nbsp;/&nbsp; 10/20 - 20/40 - 40/60</div>
+                                </div>
+                                <div class="size-img-slots" style="margin-top:1rem;">
+                                    <div class="size-img-slot"><img src="pic/Squid/squid.png" alt="Squid view 1"></div>
+                                    <div class="size-img-slot"><img src="pic/Squid/squid.png" alt="Squid view 2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. Vannamei Shrimp -->
+                    <div class="product-card-section animate-on-scroll">
+                        <div class="product-card-inner">
+                            <div class="product-card-img-wrap">
+                                <img src="pic/Vannamei/vannamei.png" alt="Vannamei Shrimp">
+                            </div>
+                            <div class="product-card-info">
+                                <div class="size-table-wrapper">
+                                    <div class="size-table-label">Product name</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:1rem;font-weight:600;color:#0f2044;">
+                                        Vannamei</div>
+                                    <div class="size-table-label">Product Type</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">PUD / PD / Head
+                                        on / Head less</div>
+                                    <div class="size-table-label">Size</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">16/20 - 21/25 -
+                                        26/30 - 31/40 - 41/50 - 51/60</div>
+                                </div>
+                                <div class="size-img-slots" style="margin-top:1rem;">
+                                    <div class="size-img-slot"><img src="pic/Vannamei/vannamei.png"
+                                            alt="Vannamei view 1"></div>
+                                    <div class="size-img-slot"><img src="pic/Vannamei/vannamei.png"
+                                            alt="Vannamei view 2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 7. Hard Clam -->
+                    <div class="product-card-section animate-on-scroll">
+                        <div class="product-card-inner">
+                            <div class="product-card-img-wrap">
+                                <img src="pic/Hard Clam/hard_clam.png" alt="Hard Clam">
+                            </div>
+                            <div class="product-card-info">
+                                <div class="size-table-wrapper">
+                                    <div class="size-table-label">Product name</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:1rem;font-weight:600;color:#0f2044;">
+                                        Hard Clam</div>
+                                    <div class="size-table-label">Product Type</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">Whole round
+                                    </div>
+                                    <div class="size-table-label">Size</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">10/20 - 20/30 -
+                                        30/40 - 40/60 - 60/80 - 80/100</div>
+                                </div>
+                                <div class="size-img-slots" style="margin-top:1rem;">
+                                    <div class="size-img-slot"><img src="pic/Hard Clam/hard_clam.png"
+                                            alt="Hard Clam view 1"></div>
+                                    <div class="size-img-slot"><img src="pic/Hard Clam/hard_clam.png"
+                                            alt="Hard Clam view 2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 8. Baby Clam Meat -->
+                    <div class="product-card-section animate-on-scroll">
+                        <div class="product-card-inner">
+                            <div class="product-card-img-wrap">
+                                <img src="pic/Clam meat/clam_meat.png" alt="Baby Clam Meat">
+                            </div>
+                            <div class="product-card-info">
+                                <div class="size-table-wrapper">
+                                    <div class="size-table-label">Product name</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:1rem;font-weight:600;color:#0f2044;">
+                                        Baby Clam Meat</div>
+                                    <div class="size-table-label">Product Type</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">Boiled</div>
+                                    <div class="size-table-label">Size</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">500/800 -
+                                        800/1000 - 1000/1300 - 1300/1500 - 1500/1800</div>
+                                </div>
+                                <div class="size-img-slots" style="margin-top:1rem;">
+                                    <div class="size-img-slot"><img src="pic/Clam meat/clam_meat.png"
+                                            alt="Baby Clam Meat view 1"></div>
+                                    <div class="size-img-slot"><img src="pic/Clam meat/clam_meat.png"
+                                            alt="Baby Clam Meat view 2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 9. Yellow Croaker -->
+                    <div class="product-card-section animate-on-scroll">
+                        <div class="product-card-inner">
+                            <div class="product-card-img-wrap">
+                                <img src="pic/Pama croaker/pama_croaker.png" alt="Yellow Croaker">
+                            </div>
+                            <div class="product-card-info">
+                                <div class="size-table-wrapper">
+                                    <div class="size-table-label">Product name</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:1rem;font-weight:600;color:#0f2044;">
+                                        Yellow Croaker</div>
+                                    <div class="size-table-label">Product Type</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">Whole round /
+                                        GGS</div>
+                                    <div class="size-table-label">Size</div>
+                                    <div style="padding:0.6rem 1.2rem;font-size:0.95rem;color:#2d4a7a;">60/80 - 80/100 -
+                                        100/150 - 150/200 - 200/250 - 250/300</div>
+                                </div>
+                                <div class="size-img-slots" style="margin-top:1rem;">
+                                    <div class="size-img-slot"><img src="pic/Pama croaker/pama_croaker.png"
+                                            alt="Yellow Croaker view 1"></div>
+                                    <div class="size-img-slot"><img src="pic/Pama croaker/pama_croaker.png"
+                                            alt="Yellow Croaker view 2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- end product-detail-list -->
+            </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <span class="logo-icon">🌊</span>
+                        <span class="logo-text">OCEAN MOON <span class="logo-sub">SEAFOOD</span></span>
+                    </a>
+                    <p class="footer-desc">Premium frozen seafood manufacturer &amp; distributor, GMP/HACCP certified.
+                    </p>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li>📍 123 Sukhumvit Rd., Si Racha, Chonburi</li>
+                        <li>📞 038-XXX-XXX</li>
+                        <li>✉️ info@goldenseafresh.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="social-btn social-facebook" aria-label="Facebook" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                    </svg>
+                </a>
+                <a href="#" class="social-btn social-instagram" aria-label="Instagram" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                    </svg>
+                </a>
+                <a href="#" class="social-btn social-youtube" aria-label="YouTube" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                    </svg>
+                </a>
+                <a href="#" class="social-btn social-line" aria-label="LINE" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
+                    </svg>
+                </a>
+                <a href="#" class="social-btn social-tiktok" aria-label="TikTok" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
+                    </svg>
+                </a>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 CV. Golden Seafresh Co., Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
