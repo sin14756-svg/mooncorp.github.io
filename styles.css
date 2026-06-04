@@ -2031,6 +2031,8 @@ a.train-head:active {
     border-radius: var(--radius);
     overflow: hidden;
     box-shadow: var(--shadow-md);
+    min-height: 380px;
+    position: relative;
 }
 
 .image-placeholder-lg {
@@ -2342,6 +2344,8 @@ a.train-head:active {
         margin: 0 auto;
         width: 100% !important;
         max-width: none !important;
+        min-height: 300px;
+        position: relative;
     }
 
     .service-row-img .image-placeholder,
@@ -2539,6 +2543,8 @@ a.train-head:active {
     .company-intro-img {
         width: 100% !important;
         max-width: none !important;
+        min-height: 250px;
+        position: relative;
     }
 
     .image-placeholder-lg {

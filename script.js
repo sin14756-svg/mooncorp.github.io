@@ -18,8 +18,18 @@ document.addEventListener('DOMContentLoaded', function () {
     if (localTextConfig) {
         try {
             var parsed = JSON.parse(localTextConfig);
+            var updated = false;
             for (var key in parsed) {
+                // If it is the old short placeholder text, delete it so it falls back to the new default
+                if (key === "about-company-desc" && parsed[key].indexOf("We are a trusted partner") === 0) {
+                    delete parsed[key];
+                    updated = true;
+                    continue;
+                }
                 textConfig[key] = parsed[key];
+            }
+            if (updated) {
+                localStorage.setItem('cms_text_config', JSON.stringify(parsed));
             }
         } catch (e) {
             console.error("Error parsing cms_text_config", e);
