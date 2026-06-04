@@ -28,12 +28,13 @@ var CMS_ACTIVITIES_CONFIG = [
     {
         "date": "Dec 25, 2025",
         "title": "New Year Celebration",
-        "img": "pic/MyCompany/IMG_5269.jpg"
+        "img": "pic/MyCompany/IMG_5269.jpg",
+        "show": false
     },
     {
         "date": "Nov 20, 2025",
         "title": "Outstanding Factory Award",
         "img": "pic/MyCompany/company_exterior_clean.png",
-        "show": false
+        "show": true
     }
 ];
