@@ -509,8 +509,23 @@ function processImages() {
     if (localImgConfig) {
         try {
             var parsed = JSON.parse(localImgConfig);
+            var updated = false;
             for (var key in parsed) {
-                IMAGE_CONFIG[key] = parsed[key];
+                var val = parsed[key];
+                if (val && typeof val.src === 'string') {
+                    // Auto-migrate old incorrect extensions in browser cache
+                    if (val.src === "pic/Cut Poulp Squid/1.jpg") { val.src = "pic/Cut Poulp Squid/1.png"; updated = true; }
+                    if (val.src === "pic/Vannamei/1.png") { val.src = "pic/Vannamei/1.jpeg"; updated = true; }
+                    if (val.src === "pic/Vannamei/2.jpg") { val.src = "pic/Vannamei/2.jpeg"; updated = true; }
+                    if (val.src === "pic/service/2.jpg") { val.src = "pic/service/2.png"; updated = true; }
+                    if (val.src === "pic/service/3.jpg") { val.src = "pic/service/3.png"; updated = true; }
+                    if (val.src === "pic/service/4.jpg") { val.src = "pic/service/4.png"; updated = true; }
+                    if (val.src === "pic/service/5.jpg") { val.src = "pic/service/5.png"; updated = true; }
+                }
+                IMAGE_CONFIG[key] = val;
+            }
+            if (updated) {
+                localStorage.setItem('cms_image_config', JSON.stringify(parsed));
             }
         } catch (e) {
             console.error("Error parsing cms_image_config", e);
@@ -527,8 +542,14 @@ function processImages() {
         if (cfg.src) {
             var resolver = document.createElement('a');
             resolver.href = cfg.src;
-            if (img.src !== resolver.href) {
+            
+            // Compare URLs without extensions to prevent resetting fallback extensions
+            var cleanImgSrc = img.src.replace(/\.[0-9a-z]+$/i, '');
+            var cleanResolverHref = resolver.href.replace(/\.[0-9a-z]+$/i, '');
+            
+            if (cleanImgSrc !== cleanResolverHref) {
                 img.src = cfg.src;
+                img.removeAttribute('data-tried-exts');
             }
         }
 

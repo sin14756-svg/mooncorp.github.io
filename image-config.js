@@ -55,7 +55,7 @@ var IMAGE_CONFIG = {
         "y": 0,
         "zoom": 1,
         "aspectRatio": "original",
-        "src": "pic/Cut Poulp Squid/1.jpg"
+        "src": "pic/Cut Poulp Squid/1.png"
     },
     "cuttlefish-home": {
         "x": 0,
@@ -76,7 +76,7 @@ var IMAGE_CONFIG = {
         "y": 0,
         "zoom": 1,
         "aspectRatio": "original",
-        "src": "pic/Vannamei/1.png"
+        "src": "pic/Vannamei/1.jpeg"
     },
     "hard-clam-home": {
         "x": 0,
@@ -153,7 +153,7 @@ var IMAGE_CONFIG = {
         "y": 0,
         "zoom": 1,
         "aspectRatio": "original",
-        "src": "pic/Cut Poulp Squid/1.jpg"
+        "src": "pic/Cut Poulp Squid/1.png"
     },
     "cut-poulp-squid-view1": {
         "x": 0,
@@ -216,14 +216,14 @@ var IMAGE_CONFIG = {
         "y": 0,
         "zoom": 1,
         "aspectRatio": "original",
-        "src": "pic/Vannamei/1.png"
+        "src": "pic/Vannamei/1.jpeg"
     },
     "vannamei-view1": {
         "x": 0,
         "y": 0,
         "zoom": 1,
         "aspectRatio": "original",
-        "src": "pic/Vannamei/2.jpg"
+        "src": "pic/Vannamei/2.jpeg"
     },
     "vannamei-view2": {
         "x": 0,
@@ -335,27 +335,27 @@ var IMAGE_CONFIG = {
         "y": 1,
         "zoom": 1,
         "aspectRatio": "original",
-        "src": "pic/service/2.jpg"
+        "src": "pic/service/2.png"
     },
     "service-img-3": {
         "x": 0,
         "y": 0,
         "zoom": 1,
         "aspectRatio": "original",
-        "src": "pic/service/3.jpg"
+        "src": "pic/service/3.png"
     },
     "service-img-4": {
         "x": 0,
         "y": 0,
         "zoom": 1,
         "aspectRatio": "original",
-        "src": "pic/service/4.jpg"
+        "src": "pic/service/4.png"
     },
     "service-img-5": {
         "x": 0,
         "y": 0,
         "zoom": 1,
         "aspectRatio": "original",
-        "src": "pic/service/5.jpg"
+        "src": "pic/service/5.png"
     }
 };
