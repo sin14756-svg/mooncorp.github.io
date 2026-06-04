@@ -625,22 +625,22 @@
                             <img id="uploadPreview" class="upload-preview" alt="Preview Image Upload">
                             <video id="uploadPreviewVideo" class="upload-preview" controls style="display:none;"></video>
 
-                            <div class="divider">หรือ เลือกรูปจากคลังภาพตัวอย่าง</div>
+                            <div class="divider">หรือ เลือกรูปจากคลังภาพสินค้า/โรงงาน</div>
 
-                            <!-- Option B: Choose default preset image -->
-                            <div class="preset-grid">
-                                <div class="preset-option selected" data-img="pic/MyCompany/IMG_5448.jpg">
-                                    <img src="pic/MyCompany/IMG_5448.jpg" alt="Preset 1">
+                            <div style="margin-top: 10px; margin-bottom: 10px;">
+                                <label style="font-size: 11px; color: var(--text-light); display: block; margin-bottom: 4px;">เลือกโฟลเดอร์คลังภาพ:</label>
+                                <select id="activityFolderSelect" style="width: 100%; padding: 8px; border-radius: 4px; background: #0f2044; border: 1px solid rgba(255,255,255,0.15); color: #fff; font-size: 13px;">
+                                    <!-- Folders populated via JS -->
+                                </select>
+                            </div>
+
+                            <div id="activityPresetContainer" style="background: rgba(15, 32, 68, 0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 8px; max-height: 180px; overflow-y: auto; margin-bottom: 8px;">
+                                <div id="activityPresetGrid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;">
+                                    <!-- Gallery items populated via JS -->
                                 </div>
-                                <div class="preset-option" data-img="pic/MyCompany/IMG_5131.jpg">
-                                    <img src="pic/MyCompany/IMG_5131.jpg" alt="Preset 2">
-                                </div>
-                                <div class="preset-option" data-img="pic/MyCompany/IMG_5269.jpg">
-                                    <img src="pic/MyCompany/IMG_5269.jpg" alt="Preset 3">
-                                </div>
-                                <div class="preset-option" data-img="pic/MyCompany/company_exterior_clean.png">
-                                    <img src="pic/MyCompany/company_exterior_clean.png" alt="Preset 4">
-                                </div>
+                            </div>
+                            <div id="activitySelectedPresetLabel" style="font-size: 11px; color: var(--success); margin-bottom: 12px; font-weight: 500; word-break: break-all;">
+                                คลังรูปภาพที่เลือก: pic/MyCompany/IMG_5448.jpg (เริ่มต้น)
                             </div>
                         </div>
 
@@ -787,6 +787,125 @@
                         <textarea id="txt-contact-info-desc" class="form-control" rows="3"></textarea>
                     </div>
 
+                    <h3 style="margin-top: 30px; margin-bottom: 15px; border-top: 2px solid rgba(255,255,255,0.1); padding-top: 20px; color: var(--primary-light);">ข้อมูลหน้าสินค้า (Products Page Texts)</h3>
+
+                    <!-- Product 1 -->
+                    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; margin-bottom: 15px;">
+                        <h4 style="margin: 0 0 10px 0; color: #fff;">1. Baby Octopus</h4>
+                        <div class="input-group" style="margin-bottom: 8px;">
+                            <label for="txt-product-1-type">ประเภทสินค้า (Product Type)</label>
+                            <input type="text" id="txt-product-1-type" class="form-control">
+                        </div>
+                        <div class="input-group">
+                            <label for="txt-product-1-size">ขนาด (Size)</label>
+                            <input type="text" id="txt-product-1-size" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; margin-bottom: 15px;">
+                        <h4 style="margin: 0 0 10px 0; color: #fff;">2. Giant Octopus</h4>
+                        <div class="input-group" style="margin-bottom: 8px;">
+                            <label for="txt-product-2-type">ประเภทสินค้า (Product Type)</label>
+                            <input type="text" id="txt-product-2-type" class="form-control">
+                        </div>
+                        <div class="input-group">
+                            <label for="txt-product-2-size">ขนาด (Size)</label>
+                            <input type="text" id="txt-product-2-size" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; margin-bottom: 15px;">
+                        <h4 style="margin: 0 0 10px 0; color: #fff;">3. Cut Poulp Squid</h4>
+                        <div class="input-group" style="margin-bottom: 8px;">
+                            <label for="txt-product-3-type">ประเภทสินค้า (Product Type)</label>
+                            <input type="text" id="txt-product-3-type" class="form-control">
+                        </div>
+                        <div class="input-group">
+                            <label for="txt-product-3-size">ขนาด (Size)</label>
+                            <input type="text" id="txt-product-3-size" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- Product 4 -->
+                    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; margin-bottom: 15px;">
+                        <h4 style="margin: 0 0 10px 0; color: #fff;">4. Cuttlefish</h4>
+                        <div class="input-group" style="margin-bottom: 8px;">
+                            <label for="txt-product-4-type">ประเภทสินค้า (Product Type)</label>
+                            <input type="text" id="txt-product-4-type" class="form-control">
+                        </div>
+                        <div class="input-group">
+                            <label for="txt-product-4-size">ขนาด (Size)</label>
+                            <input type="text" id="txt-product-4-size" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- Product 5 -->
+                    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; margin-bottom: 15px;">
+                        <h4 style="margin: 0 0 10px 0; color: #fff;">5. Squid</h4>
+                        <div class="input-group" style="margin-bottom: 8px;">
+                            <label for="txt-product-5-type">ประเภทสินค้า (Product Type)</label>
+                            <input type="text" id="txt-product-5-type" class="form-control">
+                        </div>
+                        <div class="input-group">
+                            <label for="txt-product-5-size">ขนาด (Size)</label>
+                            <input type="text" id="txt-product-5-size" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- Product 6 -->
+                    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; margin-bottom: 15px;">
+                        <h4 style="margin: 0 0 10px 0; color: #fff;">6. Vannamei Shrimp</h4>
+                        <div class="input-group" style="margin-bottom: 8px;">
+                            <label for="txt-product-6-type">ประเภทสินค้า (Product Type)</label>
+                            <input type="text" id="txt-product-6-type" class="form-control">
+                        </div>
+                        <div class="input-group">
+                            <label for="txt-product-6-size">ขนาด (Size)</label>
+                            <input type="text" id="txt-product-6-size" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- Product 7 -->
+                    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; margin-bottom: 15px;">
+                        <h4 style="margin: 0 0 10px 0; color: #fff;">7. Hard Clam</h4>
+                        <div class="input-group" style="margin-bottom: 8px;">
+                            <label for="txt-product-7-type">ประเภทสินค้า (Product Type)</label>
+                            <input type="text" id="txt-product-7-type" class="form-control">
+                        </div>
+                        <div class="input-group">
+                            <label for="txt-product-7-size">ขนาด (Size)</label>
+                            <input type="text" id="txt-product-7-size" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- Product 8 -->
+                    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; margin-bottom: 15px;">
+                        <h4 style="margin: 0 0 10px 0; color: #fff;">8. Baby Clam Meat</h4>
+                        <div class="input-group" style="margin-bottom: 8px;">
+                            <label for="txt-product-8-type">ประเภทสินค้า (Product Type)</label>
+                            <input type="text" id="txt-product-8-type" class="form-control">
+                        </div>
+                        <div class="input-group">
+                            <label for="txt-product-8-size">ขนาด (Size)</label>
+                            <input type="text" id="txt-product-8-size" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- Product 9 -->
+                    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; margin-bottom: 15px;">
+                        <h4 style="margin: 0 0 10px 0; color: #fff;">9. Yellow Croaker</h4>
+                        <div class="input-group" style="margin-bottom: 8px;">
+                            <label for="txt-product-9-type">ประเภทสินค้า (Product Type)</label>
+                            <input type="text" id="txt-product-9-type" class="form-control">
+                        </div>
+                        <div class="input-group">
+                            <label for="txt-product-9-size">ขนาด (Size)</label>
+                            <input type="text" id="txt-product-9-size" class="form-control">
+                        </div>
+                    </div>
+
                     <button type="submit" class="btn btn-success" style="margin-top:20px;">💾 บันทึกการอัปเดตข้อความ</button>
                 </form>
             </div>
@@ -889,8 +1008,14 @@
                                 <span>📂 คลังรูปภาพโรงงานและสินค้าทะเล</span>
                                 <span>▼</span>
                             </button>
-                            <div id="galleryPickerContainer" style="display: none; background: rgba(15, 32, 68, 0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; margin-top: 10px; max-height: 250px; overflow-y: auto;">
+                            <div id="galleryPickerContainer" style="display: none; background: rgba(15, 32, 68, 0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; margin-top: 10px; max-height: 320px; overflow-y: auto;">
                                 <p style="font-size: 11px; color: var(--text-light); margin-top: 0; margin-bottom: 10px;">คลิกที่รูปด้านล่างเพื่อสลับรูปเดิมในคลังมาใส่ช่องนี้ทันที:</p>
+                                <div style="margin-bottom: 10px;">
+                                    <label style="font-size: 11px; color: var(--text-light); display: block; margin-bottom: 4px;">เลือกโฟลเดอร์คลังภาพ:</label>
+                                    <select id="galleryFolderSelect" style="width: 100%; padding: 8px; border-radius: 4px; background: #0f2044; border: 1px solid rgba(255,255,255,0.15); color: #fff; font-size: 13px;">
+                                        <!-- Folders populated via JS -->
+                                    </select>
+                                </div>
                                 <div id="galleryPickerGrid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
                                     <!-- Dynamic contents -->
                                 </div>
@@ -1119,7 +1244,25 @@
             "service-5-text": "<p>We support product arrangement according to orders, together with temperature-controlled transportation, to maintain product quality efficiently throughout the process.</p>",
             "contact-header-title": "CONTACT US",
             "contact-info-title": "Get In Touch",
-            "contact-info-desc": "Contact us today to discuss how we can serve your business requirements. Our team is ready to provide you with the finest seafood solutions."
+            "contact-info-desc": "Contact us today to discuss how we can serve your business requirements. Our team is ready to provide you with the finest seafood solutions.",
+            "product-1-type": "Whole clean / Whole round / Cut",
+            "product-1-size": "20/30 - 30/50 - 50/80 - 80/100 - 100/120",
+            "product-2-type": "Flower - Ball",
+            "product-2-size": "300/500 - 500/800 - 800/1200 - 1200/1600 - 1600/2000 - 2000up",
+            "product-3-type": "Cut",
+            "product-3-size": "M, L",
+            "product-4-type": "Whole clean / Whole round",
+            "product-4-size": "20/40 - 40/60 - 60/80 - 80/100 - 100/200 - 200/300 - 300/500 - 500/800",
+            "product-5-type": "Whole clean / Whole round / Tube / Tentacle",
+            "product-5-size": "1P, 2P, 3P, 4P, 5P  /  10/20 - 20/40 - 40/60",
+            "product-6-type": "PUD / PD / Head on / Head less",
+            "product-6-size": "16/20 - 21/25 - 26/30 - 31/40 - 41/50 - 51/60",
+            "product-7-type": "Whole round",
+            "product-7-size": "10/20 - 20/30 - 30/40 - 40/60 - 60/80 - 80/100",
+            "product-8-type": "Boiled",
+            "product-8-size": "500/800 - 800/1000 - 1000/1300 - 1300/1500 - 1500/1800",
+            "product-9-type": "Whole round / GGS",
+            "product-9-size": "60/80 - 80/100 - 100/150 - 150/200 - 200/250 - 250/300"
         };
 
         // IMAGE CONFIG DEFAULT FALLBACK
@@ -1194,6 +1337,26 @@
         let currentTextConfig = {};
         // Local state image layout config
         let currentImageConfig = {};
+
+        const GALLERY_FOLDERS = {
+            "about": ["factory.png"],
+            "baby octopus": ["1.jpeg", "2.jpeg", "3.jpeg"],
+            "cert": ["brc_badge.png", "gmp_badge.png", "haccp_badge.png", "ifs_badge.png"],
+            "Clam meat": ["1.png", "2.png", "3.png"],
+            "Cut Poulp Squid": ["1.png", "2.jpg", "3.jpg"],
+            "Cuttlefish": ["1.png", "2.png", "3.jpg", "IMG_5357.jpg", "cuttlefish.png", "d6585874-b441-4d62-8dda-aa65cf026a74.png"],
+            "Giant octopus": ["1.png", "2.png", "29e1b52c-5455-4b57-830a-ce5a1bdda64f.png", "3.jpg", "IMG_5374.jpg", "d965842d-8667-4706-920e-1f26edd87640.png", "giant_octopus.png"],
+            "Hard Clam": ["1.png", "2.png", "3.webp", "4.png"],
+            "knowledge": ["haccp.png", "iqf.png"],
+            "MyCompany": ["1.png", "1_backup_original.png", "6cab881c-c8ff-4593-8f67-76f4799d3bfe.jfif", "90.png", "IMG_5065.jpg", "IMG_5131.jpg", "IMG_5269.jpg", "IMG_5448.jpg", "af7c5f35-87c7-41d5-9165-abb2a2ee6231.jfif", "company_exterior_clean.png", "company_hero_new.png", "company_hero_with_truck.png"],
+            "package": [
+                "IMG_5132.jpg", "IMG_5175.jpg", "IMG_5176.jpg", "IMG_5187.jpg", "IMG_5188.jpg", "IMG_5191.jpg", "IMG_5192.jpg", "IMG_5194.jpg", "IMG_5209.jpg", "IMG_5257.jpg", "IMG_5258.jpg", "IMG_5261.jpg", "IMG_5301.jpg", "IMG_5310.jpg", "IMG_5318.jpg", "IMG_5319.jpg", "IMG_5324.jpg", "IMG_5336.jpg", "IMG_5337.jpg", "IMG_5338.jpg", "IMG_5340.jpg", "IMG_5341.jpg", "IMG_5343.jpg", "IMG_5348.jpg", "IMG_5352.jpg", "IMG_5353.jpg", "IMG_5354.jpg", "IMG_5355.jpg", "IMG_5357.jpg", "IMG_5358.jpg", "IMG_5365.jpg", "IMG_5366.jpg", "IMG_5370.jpg", "IMG_5371.jpg", "IMG_5374.jpg", "IMG_5380.jpg", "IMG_5381.jpg", "IMG_5382.jpg", "IMG_5383.jpg", "IMG_5384.jpg", "IMG_5395.jpg", "IMG_5398.jpg", "IMG_5401.jpg", "IMG_5402.jpg", "IMG_5403.jpg", "IMG_5404.jpg", "IMG_5405.jpg", "IMG_5406.jpg", "IMG_5407.jpg", "IMG_5408.jpg", "IMG_5409.jpg", "IMG_5410.jpg", "IMG_5411.jpg", "IMG_5412.jpg", "IMG_5413.jpg", "IMG_5415.jpg", "IMG_5416.jpg", "IMG_5432.jpg", "IMG_5433.jpg", "IMG_5434.jpg", "IMG_5445.jpg", "IMG_5447.jpg", "IMG_5451.jpg"
+            ],
+            "Pama croaker": ["1.png", "2.png", "3.png", "d2d89cfa-b3ed-41b4-845b-dbd07aa3d4ed.png", "pama_croaker.png"],
+            "service": ["2.png", "3.png", "4.png", "5.png", "ad (1).jpg", "ad (1).png", "ad (2).jpg", "ad (3).jpg", "ad (4).jpg"],
+            "Squid": ["1.png", "2.png", "2ed604d2-8e4f-493f-9216-8f813037c756.png", "3.png", "33e97b3c-4adc-481b-87fa-0cac41c79b48.png", "62103213-6f84-432e-a217-da2aad12449b.png", "f86c5c09-6767-4b02-b28f-860f43ad4f7d.png", "squid.png"],
+            "Vannamei": ["1.jpeg", "2.jpeg", "3.png", "4.jpg", "45485adc-5e21-4227-9fb4-dc3d26a692e3.png", "50.png", "756831a4-01a4-4ec8-990b-a0250d41c58a.png", "88.png"]
+        };
 
         // Initialization function for texts and images states
         function initCMSConfigStates() {
@@ -1274,6 +1437,14 @@
             document.getElementById('txt-contact-header-title').value = currentTextConfig['contact-header-title'] || "";
             document.getElementById('txt-contact-info-title').value = currentTextConfig['contact-info-title'] || "";
             document.getElementById('txt-contact-info-desc').value = currentTextConfig['contact-info-desc'] || "";
+
+            // Populate Product texts
+            for (let i = 1; i <= 9; i++) {
+                const typeEl = document.getElementById(`txt-product-${i}-type`);
+                const sizeEl = document.getElementById(`txt-product-${i}-size`);
+                if (typeEl) typeEl.value = currentTextConfig[`product-${i}-type`] || "";
+                if (sizeEl) sizeEl.value = currentTextConfig[`product-${i}-size`] || "";
+            }
         }
 
         // SAVE TEXT CONFIG
@@ -1304,6 +1475,14 @@
             currentTextConfig['contact-header-title'] = document.getElementById('txt-contact-header-title').value.trim();
             currentTextConfig['contact-info-title'] = document.getElementById('txt-contact-info-title').value.trim();
             currentTextConfig['contact-info-desc'] = document.getElementById('txt-contact-info-desc').value.trim();
+
+            // Save Product texts
+            for (let i = 1; i <= 9; i++) {
+                const typeEl = document.getElementById(`txt-product-${i}-type`);
+                const sizeEl = document.getElementById(`txt-product-${i}-size`);
+                if (typeEl) currentTextConfig[`product-${i}-type`] = typeEl.value.trim();
+                if (sizeEl) currentTextConfig[`product-${i}-size`] = sizeEl.value.trim();
+            }
 
             localStorage.setItem('cms_text_config', JSON.stringify(currentTextConfig));
             localStorage.setItem('cms_contact_email', currentTextConfig['contact-email']); // sync form submission target
@@ -1400,85 +1579,70 @@
              // --- Dynamic Gallery Picker Logic ---
              const btnToggleGalleryPicker = document.getElementById('btnToggleGalleryPicker');
              const galleryPickerContainer = document.getElementById('galleryPickerContainer');
+             const galleryFolderSelect = document.getElementById('galleryFolderSelect');
              const galleryPickerGrid = document.getElementById('galleryPickerGrid');
- 
-             const GALLERY_PRESETS = [
-                 { name: "Baby Octopus 1", path: "pic/baby octopus/1.jpeg" },
-                 { name: "Baby Octopus 2", path: "pic/baby octopus/2.jpeg" },
-                 { name: "Baby Octopus 3", path: "pic/baby octopus/3.jpeg" },
-                 { name: "Giant Octopus 1", path: "pic/Giant octopus/1.png" },
-                 { name: "Giant Octopus 2", path: "pic/Giant octopus/2.png" },
-                 { name: "Giant Octopus 3", path: "pic/Giant octopus/3.jpg" },
-                 { name: "Cut Poulp Squid 1", path: "pic/Cut Poulp Squid/1.jpg" },
-                 { name: "Cut Poulp Squid 2", path: "pic/Cut Poulp Squid/2.jpg" },
-                 { name: "Cut Poulp Squid 3", path: "pic/Cut Poulp Squid/3.jpg" },
-                 { name: "Cuttlefish 1", path: "pic/Cuttlefish/1.png" },
-                 { name: "Cuttlefish 2", path: "pic/Cuttlefish/2.png" },
-                 { name: "Cuttlefish 3", path: "pic/Cuttlefish/3.jpg" },
-                 { name: "Squid 1", path: "pic/Squid/1.png" },
-                 { name: "Squid 2", path: "pic/Squid/2.png" },
-                 { name: "Squid 3", path: "pic/Squid/3.png" },
-                 { name: "Vannamei 1", path: "pic/Vannamei/1.png" },
-                 { name: "Vannamei 2", path: "pic/Vannamei/2.jpg" },
-                 { name: "Vannamei 3", path: "pic/Vannamei/3.png" },
-                 { name: "Hard Clam 1", path: "pic/Hard Clam/1.png" },
-                 { name: "Hard Clam 2", path: "pic/Hard Clam/2.png" },
-                 { name: "Hard Clam 3", path: "pic/Hard Clam/3.webp" },
-                 { name: "Clam Meat 1", path: "pic/Clam meat/1.png" },
-                 { name: "Clam Meat 2", path: "pic/Clam meat/2.png" },
-                 { name: "Clam Meat 3", path: "pic/Clam meat/3.png" },
-                 { name: "Yellow Croaker 1", path: "pic/Pama croaker/1.png" },
-                 { name: "Yellow Croaker 2", path: "pic/Pama croaker/2.png" },
-                 { name: "Yellow Croaker 3", path: "pic/Pama croaker/3.png" },
-                 { name: "Factory Exterior", path: "pic/MyCompany/company_exterior_clean.png" },
-                 { name: "Factory Office", path: "pic/MyCompany/1.png" },
-                 { name: "Factory Gallery 13", path: "pic/MyCompany/IMG_5448.jpg" },
-                 { name: "Factory Gallery 14", path: "pic/MyCompany/IMG_5131.jpg" },
-                 { name: "Factory Gallery 15", path: "pic/MyCompany/IMG_5269.jpg" },
-                 { name: "Service Raw Material", path: "pic/service/2.jpg" },
-                 { name: "Service Cold Storage", path: "pic/service/3.jpg" },
-                 { name: "Service Packaging", path: "pic/service/4.jpg" },
-                 { name: "Service Transportation", path: "pic/service/5.jpg" }
-             ];
- 
-             galleryPickerGrid.innerHTML = '';
-             GALLERY_PRESETS.forEach(preset => {
-                 const imgWrap = document.createElement('div');
-                 imgWrap.style.cursor = 'pointer';
-                 imgWrap.style.borderRadius = '4px';
-                 imgWrap.style.overflow = 'hidden';
-                 imgWrap.style.border = '1px solid rgba(255,255,255,0.15)';
-                 imgWrap.style.aspectRatio = '1 / 1';
-                 imgWrap.style.transition = 'all 0.2s';
-                 imgWrap.title = preset.name;
-                 imgWrap.innerHTML = `<img src="${preset.path}" style="width:100%; height:100%; object-fit:cover; display:block;">`;
-                 
-                 imgWrap.addEventListener('mouseenter', () => {
-                     imgWrap.style.borderColor = '#2ec866';
-                     imgWrap.style.transform = 'scale(1.05)';
-                 });
-                 imgWrap.addEventListener('mouseleave', () => {
-                     imgWrap.style.borderColor = 'rgba(255,255,255,0.15)';
-                     imgWrap.style.transform = 'scale(1)';
-                 });
-                 
-                 imgWrap.addEventListener('click', () => {
-                     currentImageConfig[currentActiveImgId].src = preset.path;
-                     previewImg.src = preset.path;
-                     imgUploadLabel.textContent = `คลังรูป: ${preset.name}`;
-                     updateLivePreview();
-                     galleryPickerContainer.style.display = 'none';
-                     btnToggleGalleryPicker.querySelector('span:last-child').textContent = '▼';
-                 });
-                 galleryPickerGrid.appendChild(imgWrap);
+
+             // Populate folders in Select
+             galleryFolderSelect.innerHTML = '';
+             Object.keys(GALLERY_FOLDERS).forEach(folder => {
+                 const opt = document.createElement('option');
+                 opt.value = folder;
+                 opt.textContent = folder;
+                 if (folder === 'MyCompany') {
+                     opt.selected = true;
+                 }
+                 galleryFolderSelect.appendChild(opt);
              });
- 
+
+             function renderGalleryPickerImages(folder) {
+                 galleryPickerGrid.innerHTML = '';
+                 const files = GALLERY_FOLDERS[folder] || [];
+                 files.forEach(file => {
+                     const filePath = `pic/${folder}/${file}`;
+                     const imgWrap = document.createElement('div');
+                     imgWrap.style.cursor = 'pointer';
+                     imgWrap.style.borderRadius = '4px';
+                     imgWrap.style.overflow = 'hidden';
+                     imgWrap.style.border = '1px solid rgba(255,255,255,0.15)';
+                     imgWrap.style.aspectRatio = '1 / 1';
+                     imgWrap.style.transition = 'all 0.2s';
+                     imgWrap.title = `${folder}/${file}`;
+                     imgWrap.innerHTML = `<img src="${filePath}" style="width:100%; height:100%; object-fit:cover; display:block;">`;
+
+                     imgWrap.addEventListener('mouseenter', () => {
+                         imgWrap.style.borderColor = '#2ec866';
+                         imgWrap.style.transform = 'scale(1.05)';
+                     });
+                     imgWrap.addEventListener('mouseleave', () => {
+                         imgWrap.style.borderColor = 'rgba(255,255,255,0.15)';
+                         imgWrap.style.transform = 'scale(1)';
+                     });
+
+                     imgWrap.addEventListener('click', () => {
+                         currentImageConfig[currentActiveImgId].src = filePath;
+                         previewImg.src = filePath;
+                         imgUploadLabel.textContent = `คลังรูป: ${folder}/${file}`;
+                         updateLivePreview();
+                         galleryPickerContainer.style.display = 'none';
+                         btnToggleGalleryPicker.querySelector('span:last-child').textContent = '▼';
+                     });
+                     galleryPickerGrid.appendChild(imgWrap);
+                 });
+             }
+
+             galleryFolderSelect.addEventListener('change', (e) => {
+                 renderGalleryPickerImages(e.target.value);
+             });
+
+             // Initialize rendering
+             renderGalleryPickerImages('MyCompany');
+
              btnToggleGalleryPicker.addEventListener('click', () => {
                  const isHidden = galleryPickerContainer.style.display === 'none';
                  galleryPickerContainer.style.display = isHidden ? 'block' : 'none';
                  btnToggleGalleryPicker.querySelector('span:last-child').textContent = isHidden ? '▲' : '▼';
              });
- 
+
              loadSelectedImageToCropper();
          }
 
@@ -1879,25 +2043,91 @@
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         actDateInput.value = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
 
-        const presets = document.querySelectorAll('.preset-option');
         let selectedImgSrc = "pic/MyCompany/IMG_5448.jpg";
         let uploadedType = "image";
 
-        presets.forEach(p => {
-            p.addEventListener('click', () => {
-                presets.forEach(opt => opt.classList.remove('selected'));
-                p.classList.add('selected');
-                selectedImgSrc = p.getAttribute('data-img');
-                uploadedType = "image";
-                uploadedBase64 = null;
-                
-                document.getElementById('actImageFile').value = '';
-                document.getElementById('uploadPreview').style.display = 'none';
-                document.getElementById('uploadPreviewVideo').style.display = 'none';
-                document.getElementById('uploadPreviewVideo').src = '';
-                document.getElementById('uploadLabel').textContent = "📁 เลือกหรือลากไฟล์ภาพ/วิดีโอของคุณที่นี่";
+        function initActivityGalleryPicker() {
+            const activityFolderSelect = document.getElementById('activityFolderSelect');
+            const activityPresetGrid = document.getElementById('activityPresetGrid');
+            const activitySelectedPresetLabel = document.getElementById('activitySelectedPresetLabel');
+
+            activityFolderSelect.innerHTML = '';
+            Object.keys(GALLERY_FOLDERS).forEach(folder => {
+                const opt = document.createElement('option');
+                opt.value = folder;
+                opt.textContent = folder;
+                if (folder === 'MyCompany') {
+                    opt.selected = true;
+                }
+                activityFolderSelect.appendChild(opt);
             });
-        });
+
+            function renderActivityPresets(folder) {
+                activityPresetGrid.innerHTML = '';
+                const files = GALLERY_FOLDERS[folder] || [];
+                files.forEach(file => {
+                    const filePath = `pic/${folder}/${file}`;
+                    const imgWrap = document.createElement('div');
+                    imgWrap.className = 'preset-option';
+                    if (filePath === selectedImgSrc) {
+                        imgWrap.classList.add('selected');
+                    }
+                    imgWrap.style.cursor = 'pointer';
+                    imgWrap.style.borderRadius = '4px';
+                    imgWrap.style.overflow = 'hidden';
+                    imgWrap.style.border = '1px solid rgba(255,255,255,0.15)';
+                    imgWrap.style.aspectRatio = '1 / 1';
+                    imgWrap.style.transition = 'all 0.2s';
+                    imgWrap.setAttribute('data-img', filePath);
+                    imgWrap.innerHTML = `<img src="${filePath}" style="width:100%; height:100%; object-fit:cover; display:block;">`;
+
+                    if (imgWrap.classList.contains('selected')) {
+                        imgWrap.style.borderColor = '#2ec866';
+                        imgWrap.style.boxShadow = '0 0 8px rgba(46, 200, 102, 0.4)';
+                    }
+
+                    imgWrap.addEventListener('click', () => {
+                        document.querySelectorAll('#activityPresetGrid .preset-option').forEach(opt => {
+                            opt.classList.remove('selected');
+                            opt.style.borderColor = 'rgba(255,255,255,0.15)';
+                            opt.style.boxShadow = 'none';
+                        });
+
+                        imgWrap.classList.add('selected');
+                        imgWrap.style.borderColor = '#2ec866';
+                        imgWrap.style.boxShadow = '0 0 8px rgba(46, 200, 102, 0.4)';
+
+                        selectedImgSrc = filePath;
+                        uploadedType = "image";
+                        uploadedBase64 = null;
+
+                        document.getElementById('actImageFile').value = '';
+                        document.getElementById('uploadPreview').style.display = 'none';
+                        document.getElementById('uploadPreviewVideo').style.display = 'none';
+                        document.getElementById('uploadPreviewVideo').src = '';
+                        document.getElementById('uploadLabel').textContent = "📁 เลือกหรือลากไฟล์ภาพ/วิดีโอของคุณที่นี่";
+                        activitySelectedPresetLabel.textContent = `คลังรูปภาพที่เลือก: ${filePath}`;
+                    });
+
+                    activityPresetGrid.appendChild(imgWrap);
+                });
+            }
+
+            activityFolderSelect.addEventListener('change', (e) => {
+                renderActivityPresets(e.target.value);
+            });
+
+            renderActivityPresets('MyCompany');
+
+            window.resetActivityPresetSelection = function() {
+                activityFolderSelect.value = 'MyCompany';
+                selectedImgSrc = "pic/MyCompany/IMG_5448.jpg";
+                renderActivityPresets('MyCompany');
+                activitySelectedPresetLabel.textContent = `คลังรูปภาพที่เลือก: pic/MyCompany/IMG_5448.jpg (เริ่มต้น)`;
+            };
+        }
+
+        initActivityGalleryPicker();
 
         const fileInput = document.getElementById('actImageFile');
         const uploadPreview = document.getElementById('uploadPreview');
@@ -1914,8 +2144,13 @@
                     return;
                 }
 
-                presets.forEach(opt => opt.classList.remove('selected'));
+                document.querySelectorAll('#activityPresetGrid .preset-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    opt.style.borderColor = 'rgba(255,255,255,0.15)';
+                    opt.style.boxShadow = 'none';
+                });
                 selectedImgSrc = null;
+                document.getElementById('activitySelectedPresetLabel').textContent = "ใช้ไฟล์ที่อัปโหลดด้านล่างแทน";
 
                 if (file.type.startsWith('video/')) {
                     uploadedType = "video";
@@ -1972,13 +2207,26 @@
                                 <h4>${escapeHTML(item.title)}</h4>
                                 <span>📅 ${escapeHTML(item.date)} ${isVideo ? '📹 (วิดีโอ)' : '🖼️ (ภาพ)'}</span>
                             </div>
-                            <button class="btn-delete" onclick="deleteActivity(${index})">ลบ</button>
+                            <div style="display: flex; align-items: center; gap: 15px; margin-right: 8px;">
+                                <label style="display: flex; align-items: center; gap: 5px; font-size: 13px; color: #fff; cursor: pointer; user-select: none;">
+                                    <input type="checkbox" ${item.show !== false ? 'checked' : ''} onchange="toggleActivityVisibility(${index}, this.checked)" style="width:16px;height:16px;cursor:pointer;">
+                                    แสดงบนเว็บ
+                                </label>
+                                <button class="btn-delete" onclick="deleteActivity(${index})">ลบ</button>
+                            </div>
                         </div>
                     `;
                 });
             }
             listContainer.innerHTML = html;
         }
+
+        window.toggleActivityVisibility = function(index, checked) {
+            const list = getActivities();
+            list[index].show = checked;
+            saveActivities(list);
+            renderDashboard();
+        };
 
         window.deleteActivity = function(index) {
             if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบกิจกรรมนี้?")) {
@@ -2024,7 +2272,7 @@
             uploadPreviewVideo.src = '';
             uploadLabel.textContent = "📁 เลือกหรือลากไฟล์ภาพ/วิดีโอของคุณที่นี่";
             
-            presets[0].click();
+            if (window.resetActivityPresetSelection) { window.resetActivityPresetSelection(); }
             actDateInput.value = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
 
             alert("✅ บันทึกกิจกรรมสำเร็จแล้ว!");

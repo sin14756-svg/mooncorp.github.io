@@ -326,8 +326,16 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem('activities_list', JSON.stringify(baseActivities));
         }
 
-        // Home page only shows the latest 4 activities
-        var displayList = activities.slice(0, 4);
+        // Filter out hidden activities (where show is false)
+        var visibleActivities = [];
+        for (var k = 0; k < activities.length; k++) {
+            if (activities[k].show !== false) {
+                visibleActivities.push(activities[k]);
+            }
+        }
+
+        // Home page only shows the latest 4 visible activities
+        var displayList = visibleActivities.slice(0, 4);
 
         var html = '';
         for (var i = 0; i < displayList.length; i++) {
@@ -516,8 +524,12 @@ function processImages() {
         var cfg = IMAGE_CONFIG[id];
         if (!cfg) continue;
 
-        if (cfg.src && img.src !== cfg.src) {
-            img.src = cfg.src;
+        if (cfg.src) {
+            var resolver = document.createElement('a');
+            resolver.href = cfg.src;
+            if (img.src !== resolver.href) {
+                img.src = cfg.src;
+            }
         }
 
         if (img.complete) {

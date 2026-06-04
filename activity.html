@@ -161,8 +161,15 @@
             var container = document.getElementById('activitiesContainer');
             var html = '';
 
-            for (var i = 0; i < activities.length; i++) {
-                var act = activities[i];
+            var visibleActivities = [];
+            for (var k = 0; k < activities.length; k++) {
+                if (activities[k].show !== false) {
+                    visibleActivities.push(activities[k]);
+                }
+            }
+
+            for (var i = 0; i < visibleActivities.length; i++) {
+                var act = visibleActivities[i];
                 var isVideo = act.type === 'video' || (act.img && (act.img.startsWith('data:video/') || act.img.endsWith('.mp4')));
                 var mediaSrc = (act.type === 'video' && act.videoUrl) ? act.videoUrl : act.img;
 
