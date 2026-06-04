@@ -328,12 +328,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         ];
 
-        var baseActivities = (typeof CMS_ACTIVITIES_CONFIG !== 'undefined') ? CMS_ACTIVITIES_CONFIG : defaultActivities;
-        var stored = localStorage.getItem('activities_list');
-        var activities = stored ? JSON.parse(stored) : baseActivities;
+        var activities = (typeof CMS_ACTIVITIES_CONFIG !== 'undefined') ? CMS_ACTIVITIES_CONFIG : defaultActivities;
 
-        if (!stored) {
-            localStorage.setItem('activities_list', JSON.stringify(baseActivities));
+        // Clear old stale activities_list cache if present
+        if (localStorage.getItem('activities_list')) {
+            localStorage.removeItem('activities_list');
         }
 
         // Filter out hidden activities (where show is false)

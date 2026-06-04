@@ -154,9 +154,7 @@
                 }
             ];
 
-            var baseActivities = (typeof CMS_ACTIVITIES_CONFIG !== 'undefined') ? CMS_ACTIVITIES_CONFIG : defaultActivities;
-            var stored = localStorage.getItem('activities_list');
-            var activities = stored ? JSON.parse(stored) : baseActivities;
+            var activities = (typeof CMS_ACTIVITIES_CONFIG !== 'undefined') ? CMS_ACTIVITIES_CONFIG : defaultActivities;
 
             var container = document.getElementById('activitiesContainer');
             var html = '';
