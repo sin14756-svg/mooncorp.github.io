@@ -65,9 +65,9 @@ var IMAGE_CONFIG = {
         "src": "pic/Cuttlefish/1.png"
     },
     "squid-home": {
-        "x": 10,
-        "y": 0,
-        "zoom": 1,
+        "x": -15,
+        "y": 5,
+        "zoom": 1.5,
         "aspectRatio": "original",
         "src": "pic/Squid/1.png"
     },
@@ -358,5 +358,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1780604592938
+    "_version": 1780605286464
 };
