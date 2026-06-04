@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', parallax);
 
     // ============================================= 
-    // 8. CONTACT FORM
+    // 8. CONTACT FORM (Real Email Sending via FormSubmit AJAX)
     // ============================================= 
     var form = document.getElementById('contactForm');
     if (form) {
@@ -136,15 +136,56 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             var btn = form.querySelector('button[type="submit"]');
             var txt = btn.textContent;
-            btn.textContent = '✓ ส่งข้อความเรียบร้อยแล้ว!';
-            btn.style.background = 'linear-gradient(135deg, #0a6b2a 0%, #2ed660 100%)';
+            
+            // เปลี่ยนสถานะปุ่มเป็นกำลังส่ง
+            btn.textContent = '⌛ กำลังส่งข้อความ...';
             btn.disabled = true;
-            setTimeout(function () {
-                form.reset();
-                btn.textContent = txt;
-                btn.style.background = '';
-                btn.disabled = false;
-            }, 3000);
+
+            // ดึงค่าจากฟอร์ม
+            var nameVal = form.querySelector('[name="name"]').value;
+            var emailVal = form.querySelector('[name="email"]').value;
+            var subjectVal = form.querySelector('[name="subject"]').value;
+            var otherVal = form.querySelector('[name="other"]').value;
+            var messageVal = form.querySelector('[name="message"]').value;
+
+            // ส่งข้อมูลไปยัง FormSubmit.co ด้วย AJAX
+            fetch("https://formsubmit.co/ajax/info@goldenseafresh.com", {
+                method: "POST",
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: nameVal,
+                    email: emailVal,
+                    subject: subjectVal,
+                    other: otherVal,
+                    message: messageVal
+                })
+            })
+            .then(function(response) {
+                if (response.ok) {
+                    // ส่งสำเร็จ
+                    btn.textContent = '✓ ส่งข้อความเรียบร้อยแล้ว!';
+                    btn.style.background = 'linear-gradient(135deg, #0a6b2a 0%, #2ed660 100%)';
+                    form.reset();
+                } else {
+                    throw new Error("Failed to send");
+                }
+            })
+            .catch(function(error) {
+                // ส่งไม่สำเร็จ
+                btn.textContent = '❌ เกิดข้อผิดพลาด กรุณาลองใหม่';
+                btn.style.background = 'linear-gradient(135deg, #b31010 0%, #e63e3e 100%)';
+            })
+            .finally(function() {
+                // คืนสถานะปุ่มหลังจากผ่านไป 4 วินาที
+                setTimeout(function () {
+                    btn.textContent = txt;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 4000);
+            });
         });
     }
 
