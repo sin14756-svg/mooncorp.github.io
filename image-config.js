@@ -1,4 +1,4 @@
-﻿/* =========================================================
+/* =========================================================
  * IMAGE CONTROL CONFIG — แก้ค่าตรงนี้เพื่อเลื่อน/ซูมรูป
  * ---------------------------------------------------------
  * x           = เลื่อนซ้าย-ขวา (px)  บวก=ขวา  ลบ=ซ้าย
@@ -113,6 +113,10 @@ var IMAGE_CONFIG = {
 
     // --- Company Section (รูปโรงงาน) ---
     "about-factory": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
+    "about-gallery-13": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
+    "about-gallery-14": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
+    "about-gallery-15": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
+    "about-gallery-16": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
 
 
     // ==========================================

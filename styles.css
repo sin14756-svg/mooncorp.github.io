@@ -2148,10 +2148,13 @@ a.train-head:active {
     z-index: 20;
 }
 
-.gallery-item .image-placeholder {
+.gallery-item .image-placeholder,
+.gallery-item img {
     width: 100%;
     height: 100%;
     min-height: 0;
+    object-fit: cover;
+    display: block;
 }
 
 /* 13 — top-left */

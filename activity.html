@@ -113,10 +113,13 @@
         </div>
     </footer>
 
+    <script src="image-config.js"></script>
+    <script src="cms-text-config.js"></script>
+    <script src="activities-config.js"></script>
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // โหลดกิจกรรมทั้งหมดจาก LocalStorage
+            // โหลดกิจกรรมทั้งหมดจาก LocalStorage หรือ Config File
             var defaultActivities = [
                 {
                     date: "15 ก.พ. 2569",
@@ -145,8 +148,9 @@
                 }
             ];
 
+            var baseActivities = (typeof CMS_ACTIVITIES_CONFIG !== 'undefined') ? CMS_ACTIVITIES_CONFIG : defaultActivities;
             var stored = localStorage.getItem('activities_list');
-            var activities = stored ? JSON.parse(stored) : defaultActivities;
+            var activities = stored ? JSON.parse(stored) : baseActivities;
 
             var container = document.getElementById('activitiesContainer');
             var html = '';

@@ -5,6 +5,55 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     // ============================================= 
+    // 0. LOAD & APPLY CMS TEXTS AND EMAIL CONFIG
+    // ============================================= 
+    var textConfig = {};
+    if (typeof CMS_TEXT_CONFIG !== 'undefined') {
+        for (var k in CMS_TEXT_CONFIG) {
+            textConfig[k] = CMS_TEXT_CONFIG[k];
+        }
+    }
+    
+    var localTextConfig = localStorage.getItem('cms_text_config');
+    if (localTextConfig) {
+        try {
+            var parsed = JSON.parse(localTextConfig);
+            for (var key in parsed) {
+                textConfig[key] = parsed[key];
+            }
+        } catch (e) {
+            console.error("Error parsing cms_text_config", e);
+        }
+    }
+
+    // Apply text content to elements with data-cms-key
+    var cmsElements = document.querySelectorAll('[data-cms-key]');
+    for (var i = 0; i < cmsElements.length; i++) {
+        var el = cmsElements[i];
+        var key = el.getAttribute('data-cms-key');
+        if (textConfig[key]) {
+            el.innerHTML = textConfig[key];
+        }
+    }
+
+    // Apply custom email in footers and other elements
+    var targetEmail = textConfig["contact-email"] || "sin14756@gmail.com";
+    localStorage.setItem('cms_contact_email', targetEmail); // sync for forms
+
+    // Scan footer or other elements to replace default email display
+    var emailElements = document.querySelectorAll('.footer-contact li, .site-footer li, .contact-info li, a[href^="mailto:"]');
+    for (var j = 0; j < emailElements.length; j++) {
+        var el = emailElements[j];
+        if (el.tagName.toLowerCase() === 'a' && el.getAttribute('href').indexOf('sin14756@gmail.com') !== -1) {
+            el.setAttribute('href', 'mailto:' + targetEmail);
+            el.textContent = targetEmail;
+        } else if (el.textContent.indexOf('sin14756@gmail.com') !== -1) {
+            el.innerHTML = '✉️ ' + targetEmail;
+        }
+    }
+
+
+    // ============================================= 
     // 1. STICKY HEADER
     // ============================================= 
     const header = document.getElementById('header');
@@ -148,8 +197,9 @@ document.addEventListener('DOMContentLoaded', function () {
             var otherVal = form.querySelector('[name="other"]').value;
             var messageVal = form.querySelector('[name="message"]').value;
 
+            var mailTarget = localStorage.getItem('cms_contact_email') || "sin14756@gmail.com";
             // ส่งข้อมูลไปยัง FormSubmit.co ด้วย AJAX
-            fetch("https://formsubmit.co/ajax/sin14756@gmail.com", {
+            fetch("https://formsubmit.co/ajax/" + mailTarget, {
                 method: "POST",
                 headers: { 
                     'Content-Type': 'application/json',
@@ -268,11 +318,12 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         ];
 
+        var baseActivities = (typeof CMS_ACTIVITIES_CONFIG !== 'undefined') ? CMS_ACTIVITIES_CONFIG : defaultActivities;
         var stored = localStorage.getItem('activities_list');
-        var activities = stored ? JSON.parse(stored) : defaultActivities;
+        var activities = stored ? JSON.parse(stored) : baseActivities;
 
         if (!stored) {
-            localStorage.setItem('activities_list', JSON.stringify(defaultActivities));
+            localStorage.setItem('activities_list', JSON.stringify(baseActivities));
         }
 
         // Home page only shows the latest 4 activities
@@ -444,12 +495,30 @@ function applyImageZoom(img, cfg) {
 
 function processImages() {
     if (typeof IMAGE_CONFIG === 'undefined') return;
+    
+    // Merge custom image overrides from localStorage
+    var localImgConfig = localStorage.getItem('cms_image_config');
+    if (localImgConfig) {
+        try {
+            var parsed = JSON.parse(localImgConfig);
+            for (var key in parsed) {
+                IMAGE_CONFIG[key] = parsed[key];
+            }
+        } catch (e) {
+            console.error("Error parsing cms_image_config", e);
+        }
+    }
+
     var imgs = document.querySelectorAll('img[data-img-id]');
     for (var i = 0; i < imgs.length; i++) {
         var img = imgs[i];
         var id = img.getAttribute('data-img-id');
         var cfg = IMAGE_CONFIG[id];
         if (!cfg) continue;
+
+        if (cfg.src && img.src !== cfg.src) {
+            img.src = cfg.src;
+        }
 
         if (img.complete) {
             applyImageZoom(img, cfg);
