@@ -7,13 +7,13 @@
 
 var CMS_TEXT_CONFIG = {
     "contact-email": "sin14756@gmail.com",
-    "home-hero-label": "FRESH FROM THE SEA69",
+    "home-hero-label": "FRESH FROM THE SEA",
     "home-hero-title": "CV. GOLDEN SEAFRESH",
     "home-hero-sub": "FROZEN SEAFOOD",
     "home-hero-desc": "CV. Golden Seafresh is a manufacturer and distributor of high-quality frozen seafood, committed to delivering freshness from the sea to customers both domestically and internationally.<br><br>We rigorously select fresh seafood directly from natural sources, preserving freshness, taste, and nutritional value at every stage — under HACCP and GMP international standards.",
     "home-vision-label": "OUR VISION & STRATEGY",
     "home-vision-title": "OUR VISION",
-    "home-vision-text": "To be the leading producer of premium quality frozen seafood, recognized globally for our commitment to sustainability, quality assurance, and customer satisfaction.",
+    "home-vision-text": "To be the leading producer of premium quality frozen seafood recognized globally for our commitment to sustainability, quality assurance, and customer satisfaction.",
     "about-header-title": "ABOUT US",
     "about-company-title": "CV. GOLDEN SEAFRESH",
     "about-company-desc": "CV. Golden Seafresh is a manufacturer and distributor of high-quality frozen seafood, committed to delivering freshness from the sea to customers both domestically and internationally.<br><br>We rigorously select fresh seafood directly from natural sources, through meticulous sourcing and handling. With proprietary techniques developed from years of experience, we preserve the freshness, taste, and nutritional value of our products at every stage of the process.<br><br>We understand our customers’ expectations for quality and food safety. Therefore, we place great importance on strict quality control throughout our production process, under HACCP and GMP standards, ensuring that every product meets the highest standards.<br><br>Currently, we serve both domestic markets and export internationally, maintaining consistent product standards, reliable delivery, and professional service.",
@@ -47,5 +47,5 @@ var CMS_TEXT_CONFIG = {
     "product-8-size": "500/800 - 800/1000 - 1000/1300 - 1300/1500 - 1500/1800",
     "product-9-type": "Whole round / GGS",
     "product-9-size": "60/80 - 80/100 - 100/150 - 150/200 - 200/250 - 250/300",
-    "_version": 1780605363773
+    "_version": 1780605447929
 };
