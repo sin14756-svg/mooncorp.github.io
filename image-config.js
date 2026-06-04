@@ -23,11 +23,11 @@ var IMAGE_CONFIG = {
         "src": "pic/baby octopus/1.jpeg"
     },
     "qnav-service": {
-        "x": -115,
+        "x": 0,
         "y": 0,
-        "zoom": 3.3,
+        "zoom": 1,
         "aspectRatio": "original",
-        "src": "pic/MyCompany/IMG_5448.jpg"
+        "src": "pic/MyCompany/IMG_5269.jpg"
     },
     "qnav-company": {
         "x": 0,
