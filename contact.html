@@ -153,9 +153,15 @@
         </div>
     </footer>
 
-    <script src="image-config.js"></script>
-    <script src="cms-text-config.js"></script>
-    <script src="script.js"></script>
+    <!-- โหลดไฟล์การตั้งค่าและสคริปต์แบบป้องกันแคช (Dynamic Cache Busting) -->
+    <script>
+        (function() {
+            var t = Date.now();
+            document.write('<script src="image-config.js?t=' + t + '"><\/script>');
+            document.write('<script src="cms-text-config.js?t=' + t + '"><\/script>');
+            document.write('<script src="script.js?t=' + t + '"><\/script>');
+        })();
+    </script>
 </body>
 
 </html>

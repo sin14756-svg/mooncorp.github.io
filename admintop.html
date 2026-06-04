@@ -1039,9 +1039,14 @@
     </div>
 
     <!-- Configuration dictionaries -->
-    <script src="image-config.js"></script>
-    <script src="cms-text-config.js"></script>
-    <script src="activities-config.js"></script>
+    <script>
+        (function() {
+            var t = Date.now();
+            document.write('<script src="image-config.js?t=' + t + '"><\/script>');
+            document.write('<script src="cms-text-config.js?t=' + t + '"><\/script>');
+            document.write('<script src="activities-config.js?t=' + t + '"><\/script>');
+        })();
+    </script>
     
     <script>
         // Password verification logic
