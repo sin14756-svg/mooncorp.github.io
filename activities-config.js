@@ -7,18 +7,19 @@
 
 var CMS_ACTIVITIES_CONFIG = [
     {
-        "title": "first lot",
+        "title": "ยะโอ่",
         "date": "Jun 5, 2026",
-        "img": "pic/MyCompany/IMG_5065.jpg",
+        "img": "pic/MyCompany/company_hero_new.png",
         "type": "image",
         "videoUrl": ""
     },
     {
-        "title": "Service",
+        "title": "บริษัทใหย่",
         "date": "Jun 5, 2026",
         "img": "pic/MyCompany/1.png",
         "type": "image",
-        "videoUrl": ""
+        "videoUrl": "",
+        "show": false
     },
     {
         "date": "15 ก.พ. 2569",
