@@ -465,10 +465,6 @@
     </div>
 
     <script>
-        // Check session verify state to bypass password overlay
-        if (sessionStorage.getItem('admin_verified') === 'true') {
-            document.getElementById('passwordOverlay').style.display = 'none';
-        }
 
         // Verify password
         const btnVerify = document.getElementById('btnVerify');
