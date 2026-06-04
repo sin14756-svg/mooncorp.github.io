@@ -8,127 +8,354 @@
  * ========================================================= */
 
 var IMAGE_CONFIG = {
-
-    // ==========================================
-    // HOME PAGE (index.html)
-    // ==========================================
-
-    // --- Hero Section (รูปบริษัทใหญ่ด้านซ้าย) ---
-    "hero-company": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-
-    // --- Quick Nav Cards (3 การ์ดด้านล่าง Hero) ---
-    "qnav-product": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },   // การ์ด Product
-    "qnav-service": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },   // การ์ด Service
-    "qnav-company": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },   // การ์ด Company
-
-    // --- Our Products — วงกลม แถวที่ 1 (5 ตัว) ---
-    "baby-octopus-home": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "giant-octopus-home": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "cut-poulp-squid-home": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "cuttlefish-home": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "squid-home": { x: 10, y: 0, zoom: 1, aspectRatio: "original" },
-
-    // --- Our Products — วงกลม แถวที่ 2 (4 ตัว) ---
-    "vannamei-home": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "hard-clam-home": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "clam-meat-home": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "pama-croaker-home": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-
-    // --- Our Vision (รูป background เต็มจอ) ---
-    "vision-bg": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-
-    // --- Company Activities (รถไฟ 4 ตู้) ---
-    "activity-1": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },   // งานแสดงสินค้า
-    "activity-2": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },   // CSR Marine Release
-    "activity-3": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },   // New Year Celebration
-    "activity-4": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },   // Outstanding Factory Award
-
-
-    // ==========================================
-    // PRODUCTS PAGE (products.html)
-    // ==========================================
-
-    // --- วงกลมด้านบน แถว 1 (5 ตัว) ---
-    "baby-octopus-prod": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "giant-octopus-prod": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "cut-poulp-squid-prod": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "cuttlefish-prod": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "squid-prod": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-
-    // --- วงกลมด้านบน แถว 2 (4 ตัว) ---
-    "vannamei-prod": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "hard-clam-prod": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "clam-meat-prod": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "pama-croaker-prod": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-
-    // --- Detail Card: Baby Octopus ---
-    "baby-octopus-detail": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },   // วงกลมใหญ่
-    "baby-octopus-view1": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },   // รูปเล็กซ้าย
-    "baby-octopus-view2": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },   // รูปเล็กขวา
-
-    // --- Detail Card: Giant Octopus ---
-    "giant-octopus-detail": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "giant-octopus-view1": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "giant-octopus-view2": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-
-    // --- Detail Card: Cut Poulp Squid ---
-    "cut-poulp-squid-detail": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "cut-poulp-squid-view1": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "cut-poulp-squid-view2": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-
-    // --- Detail Card: Cuttlefish ---
-    "cuttlefish-detail": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "cuttlefish-view1": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "cuttlefish-view2": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-
-    // --- Detail Card: Squid ---
-    "squid-detail": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "squid-view1": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "squid-view2": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-
-    // --- Detail Card: Vannamei Shrimp ---
-    "vannamei-detail": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "vannamei-view1": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "vannamei-view2": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-
-    // --- Detail Card: Hard Clam ---
-    "hard-clam-detail": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "hard-clam-view1": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "hard-clam-view2": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-
-    // --- Detail Card: Baby Clam Meat ---
-    "clam-meat-detail": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "clam-meat-view1": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "clam-meat-view2": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-
-    // --- Detail Card: Yellow Croaker ---
-    "pama-croaker-detail": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "pama-croaker-view1": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "pama-croaker-view2": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-
-
-    // ==========================================
-    // ABOUT PAGE (about.html)
-    // ==========================================
-
-    // --- Company Section (รูปโรงงาน) ---
-    "about-factory": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "about-gallery-13": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "about-gallery-14": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "about-gallery-15": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-    "about-gallery-16": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },
-
-
-    // ==========================================
-    // SERVICES PAGE (services.html)
-    // ==========================================
-
-    // --- Service Row Images (รูปที่ 2–5 ในโฟลเดอร์ pic/service/) ---
-    //     x/y = เลื่อนซ้าย-ขวา / ขึ้น-ลง (px)   zoom = ซูม   aspectRatio = "16 / 9" ฯลฯ
-    "service-img-2": { x: 0, y: 1, zoom: 1, aspectRatio: "original" },  // Raw Material Processing
-    "service-img-3": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },  // Storage & Inventory Management
-    "service-img-4": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },  // Packaging Service
-    "service-img-5": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },  // Transportation
-    "service-img-6": { x: 0, y: 0, zoom: 1, aspectRatio: "original" },  // (สำรอง)
+    "hero-company": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/MyCompany/1.png"
+    },
+    "qnav-product": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/baby octopus/1.jpeg"
+    },
+    "qnav-service": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/MyCompany/IMG_5448.jpg"
+    },
+    "qnav-company": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/MyCompany/company_exterior_clean.png"
+    },
+    "baby-octopus-home": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/baby octopus/1.jpeg"
+    },
+    "giant-octopus-home": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Giant octopus/1.png"
+    },
+    "cut-poulp-squid-home": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Cut Poulp Squid/1.jpg"
+    },
+    "cuttlefish-home": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Cuttlefish/1.png"
+    },
+    "squid-home": {
+        "x": 10,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Squid/1.png"
+    },
+    "vannamei-home": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Vannamei/1.png"
+    },
+    "hard-clam-home": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Hard Clam/1.png"
+    },
+    "clam-meat-home": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Clam meat/1.png"
+    },
+    "pama-croaker-home": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Pama croaker/1.png"
+    },
+    "vision-bg": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/MyCompany/IMG_5269.jpg"
+    },
+    "baby-octopus-detail": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/baby octopus/1.jpeg"
+    },
+    "baby-octopus-view1": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/baby octopus/2.jpeg"
+    },
+    "baby-octopus-view2": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/baby octopus/3.jpeg"
+    },
+    "giant-octopus-detail": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Giant octopus/1.png"
+    },
+    "giant-octopus-view1": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Giant octopus/2.png"
+    },
+    "giant-octopus-view2": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Giant octopus/3.jpg"
+    },
+    "cut-poulp-squid-detail": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Cut Poulp Squid/1.jpg"
+    },
+    "cut-poulp-squid-view1": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Cut Poulp Squid/2.jpg"
+    },
+    "cut-poulp-squid-view2": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Cut Poulp Squid/3.jpg"
+    },
+    "cuttlefish-detail": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Cuttlefish/1.png"
+    },
+    "cuttlefish-view1": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Cuttlefish/2.png"
+    },
+    "cuttlefish-view2": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Cuttlefish/3.jpg"
+    },
+    "squid-detail": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Squid/1.png"
+    },
+    "squid-view1": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Squid/2.png"
+    },
+    "squid-view2": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Squid/3.png"
+    },
+    "vannamei-detail": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Vannamei/1.png"
+    },
+    "vannamei-view1": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Vannamei/2.jpg"
+    },
+    "vannamei-view2": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Vannamei/3.png"
+    },
+    "hard-clam-detail": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Hard Clam/1.png"
+    },
+    "hard-clam-view1": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Hard Clam/2.png"
+    },
+    "hard-clam-view2": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Hard Clam/3.webp"
+    },
+    "clam-meat-detail": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Clam meat/1.png"
+    },
+    "clam-meat-view1": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Clam meat/2.png"
+    },
+    "clam-meat-view2": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Clam meat/3.png"
+    },
+    "pama-croaker-detail": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Pama croaker/1.png"
+    },
+    "pama-croaker-view1": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Pama croaker/2.png"
+    },
+    "pama-croaker-view2": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/Pama croaker/3.png"
+    },
+    "about-factory": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/MyCompany/1.png"
+    },
+    "about-gallery-13": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/MyCompany/IMG_5448.jpg"
+    },
+    "about-gallery-14": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/MyCompany/IMG_5131.jpg"
+    },
+    "about-gallery-15": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/MyCompany/IMG_5269.jpg"
+    },
+    "about-gallery-16": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/MyCompany/company_exterior_clean.png"
+    },
+    "service-img-2": {
+        "x": 0,
+        "y": 1,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/service/2.jpg"
+    },
+    "service-img-3": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/service/3.jpg"
+    },
+    "service-img-4": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/service/4.jpg"
+    },
+    "service-img-5": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/service/5.jpg"
+    }
 };
-
