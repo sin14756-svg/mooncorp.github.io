@@ -669,20 +669,7 @@
                     หากต้องการนำข้อมูลเหล่านี้ไปแสดงถาวร ให้ไปที่แท็บ <strong>"ดาวน์โหลด / นำออกไฟล์"</strong> เพื่อคัดลอกไฟล์ไปอัปเดตบน Git
                 </p>
 
-                <!-- Preset Theme Switcher -->
-                <div class="card" style="background: rgba(46,125,230,0.06); border: 1px solid rgba(46,125,230,0.15); margin-bottom: 25px; padding: 15px;">
-                    <h4 style="margin: 0 0 8px; color: var(--primary-light); display:flex; align-items:center; gap:6px;">🎭 สลับธีมเทศกาล / โหมดข้อความสำเร็จรูป</h4>
-                    <p style="font-size:12px; color:var(--text-light); margin-bottom: 12px; margin-top:0;">
-                        สามารถสลับข้อความบรรยากาศในหน้าหลักตามเทศกาลต่าง ๆ ได้ทันทีด้วยปุ่มเดียว เช่น ธีมเริ่มต้นปกติ, ตรุษจีน หรือปีใหม่
-                    </p>
-                    <div style="display: flex; gap: 10px;">
-                        <button type="button" class="btn btn-secondary btn-theme-switch active" data-theme="default" style="flex:1; font-size:12px; padding:8px;">🌊 ธีมเริ่มต้น (Default)</button>
-                        <button type="button" class="btn btn-secondary btn-theme-switch" data-theme="cny" style="flex:1; font-size:12px; padding:8px;">🧧 ตรุษจีน (Chinese New Year)</button>
-                        <button type="button" class="btn btn-secondary btn-theme-switch" data-theme="newyear" style="flex:1; font-size:12px; padding:8px;">🎄 ปีใหม่ (New Year)</button>
-                    </div>
-                </div>
-
-                <form id="textConfigForm">
+                 <form id="textConfigForm">
                     <!-- General Settings -->
                     <div class="card-section-title">ตั้งค่าทั่วไป / การติดต่อ</div>
                     <div class="input-group">
@@ -1641,40 +1628,9 @@
             link.click();
             URL.revokeObjectURL(link.href);
         };
-
         // ==============================================
-        // GitHub API Integration & Theme Preset Switcher Logic
+        // GitHub API Integration Logic
         // ==============================================
-        const THEME_PRESETS = {
-            default: {
-                "home-hero-label": "FRESH FROM THE SEA",
-                "home-hero-title": "OCEAN MOON SEAFOOD",
-                "home-hero-sub": "FROZEN SEAFOOD",
-                "home-hero-desc": "Ocean Moon Seafood is a manufacturer and distributor of high-quality frozen seafood, committed to delivering freshness from the sea to customers both domestically and internationally.<br><br>We rigorously select fresh seafood directly from natural sources, preserving freshness, taste, and nutritional value at every stage — under HACCP and GMP international standards.",
-                "home-vision-label": "OUR VISION",
-                "home-vision-title": "Delivering Quality Across<br>the Seafood Supply Chain",
-                "home-vision-text": "We are committed to providing high-quality frozen seafood through sourcing, processing, and delivery. Strict quality control under HACCP and GMP ensures that every product meets international standards."
-            },
-            cny: {
-                "home-hero-label": "🧧 新年快乐 - HAPPY CHINESE NEW YEAR 🧧",
-                "home-hero-title": "OCEAN MOON SEAFOOD",
-                "home-hero-sub": "恭喜发财 - ขอให้มั่งมีศรีสุข สุขภาพแข็งแรง",
-                "home-hero-desc": "ต้อนรับเทศกาลตรุษจีนปีนี้ Ocean Moon Seafood พร้อมส่งมอบอาหารทะเลแช่แข็งคุณภาพพรีเมียม เพื่อประกอบพิธีไหว้และมื้ออาหารมงคลของครอบครัวท่าน<br><br>เรามุ่งมั่นคัดสรรวัตถุดิบที่สด สะอาด และปลอดภัยสูงสุด ตามมาตรฐานระดับสากล GMP/HACCP เพื่อความเป็นสิริมงคลและความอร่อยในเทศกาลสุดพิเศษนี้",
-                "home-vision-label": "🏮 恭贺新禧 🏮",
-                "home-vision-title": "ส่งมอบความมั่งคั่งและสุขภาพดี<br>ผ่านอาหารทะเลคุณภาพสูงสุด",
-                "home-vision-text": "ในเทศกาลแห่งการเฉลิมฉลองนี้ เรายังคงมุ่งมั่นรักษามาตรฐานคุณภาพอาหารทะเลทุกขั้นตอน เพื่อสุขอนามัยและความพึงพอใจสูงสุดของคู่ค้าและผู้บริโภคทั่วโลก ซินเจียยู่อี่ ซินนี้ฮวดไช้!"
-            },
-            newyear: {
-                "home-hero-label": "🎄 HAPPY NEW YEAR 2026 🎄",
-                "home-hero-title": "OCEAN MOON SEAFOOD",
-                "home-hero-sub": "ส่งความสุขและความปรารถนาดีแด่ทุกท่าน",
-                "home-hero-desc": "เริ่มต้นปีใหม่ด้วยสิ่งดีๆ และความอร่อยสดใหม่จากท้องทะเล Ocean Moon Seafood ขอขอบคุณลูกค้าและพันธมิตรทุกท่านที่ให้การสนับสนุนเราตลอดปีที่ผ่านมา<br><br>เราพร้อมก้าวสู่ปีใหม่ด้วยการพัฒนาเทคโนโลยีและบริการ เพื่อส่งมอบผลิตภัณฑ์อาหารทะเลแช่แข็งมาตรฐานความปลอดภัยสูงสุดสู่ครัวของคุณในทุกๆ วัน",
-                "home-vision-label": "✨ HAPPY HOLIDAYS ✨",
-                "home-vision-title": "ก้าวสู่ปีใหม่ด้วยความมุ่งมั่น<br>และคุณภาพที่ยั่งยืนยิ่งขึ้น",
-                "home-vision-text": "เราพร้อมเดินหน้าสร้างสรรค์และพัฒนาห่วงโซ่อุปทานอาหารทะเลแช่แข็งที่ยั่งยืนและมีประสิทธิภาพ ตลอดจนรักษามาตรฐาน GMP/HACCP เพื่อส่งมอบคุณค่าและสิ่งที่ดีที่สุดให้กับทุกท่านตลอดปีใหม่นี้"
-            }
-        };
-
         function initGitHubIntegration() {
             // Load saved settings
             const savedUser = localStorage.getItem('gh_username') || "sin14756-svg";
@@ -1704,27 +1660,6 @@
 
             // Trigger Push
             document.getElementById('btnPushToGitHub').addEventListener('click', pushToGitHub);
-
-            // Theme switch event handlers
-            document.querySelectorAll('.btn-theme-switch').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const theme = btn.getAttribute('data-theme');
-                    if (confirm(`คุณต้องการสลับเป็น "${btn.textContent}" หรือไม่? การดำเนินการนี้จะแก้ไขช่องข้อความด้านล่างทันที (อย่าลืมคลิกบันทึกหลังเลือกเสร็จ)`)) {
-                        // Update currentTextConfig state
-                        const preset = THEME_PRESETS[theme];
-                        for (const key in preset) {
-                            currentTextConfig[key] = preset[key];
-                        }
-                        
-                        // Repopulate form
-                        populateTextFormFields();
-                        
-                        // Highlight active button
-                        document.querySelectorAll('.btn-theme-switch').forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                    }
-                });
-            });
         }
 
         function logGH(msg, type="info") {
