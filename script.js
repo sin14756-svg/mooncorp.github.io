@@ -18,18 +18,23 @@ document.addEventListener('DOMContentLoaded', function () {
     if (localTextConfig) {
         try {
             var parsed = JSON.parse(localTextConfig);
-            var updated = false;
-            for (var key in parsed) {
-                // If it is the old short placeholder text, delete it so it falls back to the new default
-                if (key === "about-company-desc" && parsed[key].indexOf("We are a trusted partner") === 0) {
-                    delete parsed[key];
-                    updated = true;
-                    continue;
+            if (typeof CMS_TEXT_CONFIG !== 'undefined' && CMS_TEXT_CONFIG._version && (!parsed._version || CMS_TEXT_CONFIG._version > parsed._version)) {
+                // Stale cache detected, clear it!
+                localStorage.removeItem('cms_text_config');
+            } else {
+                var updated = false;
+                for (var key in parsed) {
+                    // If it is the old short placeholder text, delete it so it falls back to the new default
+                    if (key === "about-company-desc" && parsed[key].indexOf("We are a trusted partner") === 0) {
+                        delete parsed[key];
+                        updated = true;
+                        continue;
+                    }
+                    textConfig[key] = parsed[key];
                 }
-                textConfig[key] = parsed[key];
-            }
-            if (updated) {
-                localStorage.setItem('cms_text_config', JSON.stringify(parsed));
+                if (updated) {
+                    localStorage.setItem('cms_text_config', JSON.stringify(parsed));
+                }
             }
         } catch (e) {
             console.error("Error parsing cms_text_config", e);
@@ -518,23 +523,28 @@ function processImages() {
     if (localImgConfig) {
         try {
             var parsed = JSON.parse(localImgConfig);
-            var updated = false;
-            for (var key in parsed) {
-                var val = parsed[key];
-                if (val && typeof val.src === 'string') {
-                    // Auto-migrate old incorrect extensions in browser cache
-                    if (val.src === "pic/Cut Poulp Squid/1.jpg") { val.src = "pic/Cut Poulp Squid/1.png"; updated = true; }
-                    if (val.src === "pic/Vannamei/1.png") { val.src = "pic/Vannamei/1.jpeg"; updated = true; }
-                    if (val.src === "pic/Vannamei/2.jpg") { val.src = "pic/Vannamei/2.jpeg"; updated = true; }
-                    if (val.src === "pic/service/2.jpg") { val.src = "pic/service/2.png"; updated = true; }
-                    if (val.src === "pic/service/3.jpg") { val.src = "pic/service/3.png"; updated = true; }
-                    if (val.src === "pic/service/4.jpg") { val.src = "pic/service/4.png"; updated = true; }
-                    if (val.src === "pic/service/5.jpg") { val.src = "pic/service/5.png"; updated = true; }
+            if (typeof IMAGE_CONFIG !== 'undefined' && IMAGE_CONFIG._version && (!parsed._version || IMAGE_CONFIG._version > parsed._version)) {
+                // Stale cache detected, clear it!
+                localStorage.removeItem('cms_image_config');
+            } else {
+                var updated = false;
+                for (var key in parsed) {
+                    var val = parsed[key];
+                    if (val && typeof val.src === 'string') {
+                        // Auto-migrate old incorrect extensions in browser cache
+                        if (val.src === "pic/Cut Poulp Squid/1.jpg") { val.src = "pic/Cut Poulp Squid/1.png"; updated = true; }
+                        if (val.src === "pic/Vannamei/1.png") { val.src = "pic/Vannamei/1.jpeg"; updated = true; }
+                        if (val.src === "pic/Vannamei/2.jpg") { val.src = "pic/Vannamei/2.jpeg"; updated = true; }
+                        if (val.src === "pic/service/2.jpg") { val.src = "pic/service/2.png"; updated = true; }
+                        if (val.src === "pic/service/3.jpg") { val.src = "pic/service/3.png"; updated = true; }
+                        if (val.src === "pic/service/4.jpg") { val.src = "pic/service/4.png"; updated = true; }
+                        if (val.src === "pic/service/5.jpg") { val.src = "pic/service/5.png"; updated = true; }
+                    }
+                    IMAGE_CONFIG[key] = val;
                 }
-                IMAGE_CONFIG[key] = val;
-            }
-            if (updated) {
-                localStorage.setItem('cms_image_config', JSON.stringify(parsed));
+                if (updated) {
+                    localStorage.setItem('cms_image_config', JSON.stringify(parsed));
+                }
             }
         } catch (e) {
             console.error("Error parsing cms_image_config", e);

@@ -1484,6 +1484,7 @@
                 if (sizeEl) currentTextConfig[`product-${i}-size`] = sizeEl.value.trim();
             }
 
+            currentTextConfig._version = Date.now();
             localStorage.setItem('cms_text_config', JSON.stringify(currentTextConfig));
             localStorage.setItem('cms_contact_email', currentTextConfig['contact-email']); // sync form submission target
             
@@ -1572,6 +1573,7 @@
                 currentImageConfig[key].aspectRatio = selectAspect.value;
                 // .src is updated directly upon load/upload
                 
+                 currentImageConfig._version = Date.now();
                  localStorage.setItem('cms_image_config', JSON.stringify(currentImageConfig));
                  alert("✅ บันทึกตำแหน่งและรูปภาพสำเร็จแล้ว! คุณสามารถเปิดดูที่หน้าหลักได้ทันที");
              });
@@ -1740,6 +1742,7 @@
  * แล้วนำไฟล์ที่ดาวน์โหลดมาบันทึกทับไฟล์นี้เพื่อการอัปเดตถาวร
  * ========================================================= */\n\n`;
             
+            currentTextConfig._version = Date.now();
             const textJSCode = textHeader + "var CMS_TEXT_CONFIG = " + JSON.stringify(currentTextConfig, null, 4) + ";\n";
             document.getElementById('codeTextConfig').value = textJSCode;
 
@@ -1753,6 +1756,7 @@
  * aspectRatio = (Optional) ปรับสัดส่วนรูป เช่น "1 / 1" (จัตุรัส), "16 / 9" (แนวนอน), "4 / 3"
  * ========================================================= */\n\n`;
 
+            currentImageConfig._version = Date.now();
             const imageJSCode = imageHeader + "var IMAGE_CONFIG = " + JSON.stringify(currentImageConfig, null, 4) + ";\n";
             document.getElementById('codeImageConfig').value = imageJSCode;
 
@@ -1935,7 +1939,8 @@
                 
                 if (imageConfigChanged) {
                     logGH("บันทึกการซิงก์รูปภาพใน local บราวเซอร์...", "info");
-                    localStorage.setItem('cms_image_config', JSON.stringify(currentImageConfig));
+                   currentImageConfig._version = Date.now();
+                 localStorage.setItem('cms_image_config', JSON.stringify(currentImageConfig));
                 }
                 
                 // Update export code preview
