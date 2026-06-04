@@ -189,6 +189,64 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // ============================================= 
+    // 8.5 DYNAMIC ACTIVITIES RENDERING (from LocalStorage)
+    // ============================================= 
+    function renderActivities() {
+        var container = document.querySelector('.train-body');
+        if (!container) return;
+
+        var defaultActivities = [
+            {
+                date: "15 ก.พ. 2569",
+                title: "งานแสดงสินค้า",
+                img: "pic/MyCompany/IMG_5448.jpg"
+            },
+            {
+                date: "Jan 10, 2026",
+                title: "CSR Marine Release",
+                img: "pic/MyCompany/IMG_5131.jpg"
+            },
+            {
+                date: "Dec 25, 2025",
+                title: "New Year Celebration",
+                img: "pic/MyCompany/IMG_5269.jpg"
+            },
+            {
+                date: "Nov 20, 2025",
+                title: "Outstanding Factory Award",
+                img: "pic/MyCompany/company_exterior_clean.png"
+            }
+        ];
+
+        var stored = localStorage.getItem('activities_list');
+        var activities = stored ? JSON.parse(stored) : defaultActivities;
+
+        // เริ่มต้นบันทึกใส่ LocalStorage เผื่อเปิดไปหน้า Admin จะได้ดึงข้อมูลชุดเดียวกัน
+        if (!stored) {
+            localStorage.setItem('activities_list', JSON.stringify(defaultActivities));
+        }
+
+        // แสดงผลเฉพาะล่าสุด 4 กิจกรรมแรก
+        var displayList = activities.slice(0, 4);
+
+        var html = '';
+        for (var i = 0; i < displayList.length; i++) {
+            var act = displayList[i];
+            html += '<div class="train-car">' +
+                    '    <div class="train-car-img">' +
+                    '        <img src="' + act.img + '" alt="' + act.title + '" style="width:100%;height:100%;object-fit:cover;">' +
+                    '    </div>' +
+                    '    <div class="train-car-info">' +
+                    '        <span class="activity-date">' + act.date + '</span>' +
+                    '        <h4>' + act.title + '</h4>' +
+                    '    </div>' +
+                    '</div>';
+        }
+        container.innerHTML = html;
+    }
+    renderActivities();
+
 });
 
 // ============================================= 

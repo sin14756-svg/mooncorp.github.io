@@ -1295,7 +1295,9 @@ img {
 }
 
 /* หัวรถไฟ — มุมโค้งรอบทุกด้าน แยกออกจากตัวรถ */
+a.train-head,
 .train-head {
+    text-decoration: none;
     flex-shrink: 0;
     width: 300px;
     background: var(--grad-main);
@@ -1310,6 +1312,18 @@ img {
     z-index: 2;
     box-shadow: var(--shadow-md);
     margin-right: -20px;
+    cursor: pointer;
+    transition: all var(--tr-fast);
+}
+
+a.train-head:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(46, 125, 230, 0.4);
+}
+
+a.train-head:active {
+    transform: scale(0.97) translateY(2px);
+    box-shadow: var(--shadow-sm);
 }
 
 .train-head-label {

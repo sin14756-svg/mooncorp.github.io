@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจัดการกิจกรรม | Ocean Moon Seafood</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b1329;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --primary: #003B73;
+            --primary-light: #2E7DE6;
+            --white: #ffffff;
+            --text-light: #a0aec0;
+            --success: #2ed660;
+            --danger: #e63e3e;
+            --radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Prompt', 'Inter', sans-serif;
+            background: radial-gradient(circle at 50% 50%, #0d1e36 0%, #060b14 100%);
+            color: var(--white);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Password Modal */
+        .password-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 11, 20, 0.85);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: var(--transition);
+        }
+
+        .password-box {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            animation: modalFadeIn 0.5s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .password-box h2 {
+            margin-bottom: 12px;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .password-box p {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            color: var(--white);
+            font-family: inherit;
+            font-size: 15px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 10px rgba(46, 125, 230, 0.3);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary-light) 0%, #1e5bb8 100%);
+            color: var(--white);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(46, 125, 230, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .password-error {
+            color: var(--danger);
+            font-size: 13px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Admin Dashboard layout */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #fff, #8aafc8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            width: auto;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--white);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius);
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 10px;
+            color: #8aafc8;
+        }
+
+        /* Preset Images Option */
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .preset-option {
+            aspect-ratio: 4/3;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .preset-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preset-option.selected {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 8px rgba(46, 125, 230, 0.6);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 15px 0;
+            font-size: 12px;
+            color: var(--text-light);
+            position: relative;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .divider::before { left: 0; }
+        .divider::after { right: 0; }
+
+        /* Current Activities List */
+        .activity-item-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .activity-item-row:last-child {
+            border-bottom: none;
+        }
+
+        .activity-thumb {
+            width: 70px;
+            height: 52px;
+            border-radius: 6px;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .activity-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .activity-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .activity-info h4 {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .activity-info span {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .btn-delete {
+            background: rgba(230, 62, 62, 0.15);
+            color: var(--danger);
+            border: 1px solid rgba(230, 62, 62, 0.2);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .btn-delete:hover {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        .btn-add {
+            margin-top: 15px;
+        }
+
+        .file-upload-box {
+            position: relative;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-upload-box:hover {
+            border-color: var(--primary-light);
+            background: rgba(46, 125, 230, 0.05);
+        }
+
+        .file-upload-box input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-label {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .upload-preview {
+            display: none;
+            width: 100%;
+            height: 120px;
+            border-radius: 6px;
+            object-fit: cover;
+            margin-top: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            body {
+                padding: 20px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Password Verification Layer -->
+    <div id="passwordOverlay" class="password-overlay">
+        <div class="password-box">
+            <h2>🔒 ยืนยันผู้ดูแลระบบ</h2>
+            <p>กรุณากรอกรหัสผ่านเพื่อจัดการกิจกรรมบริษัท<br>(รหัสผ่านคือ <strong>admin123</strong> เพื่อทดลองใช้งาน)</p>
+            <div class="input-group">
+                <label for="adminPass">รหัสผ่าน</label>
+                <input type="password" id="adminPass" class="form-control" placeholder="ระบุรหัสผ่านของคุณ">
+                <div id="passwordError" class="password-error">รหัสผ่านไม่ถูกต้อง! กรุณาลองใหม่อีกครั้ง</div>
+            </div>
+            <button id="btnVerify" class="btn">เข้าสู่ระบบ</button>
+        </div>
+    </div>
+
+    <!-- Main Admin Dashboard Content -->
+    <div class="container">
+        <header class="dashboard-header">
+            <div>
+                <h1>Company Activities Management</h1>
+                <p style="font-size:13px; color:var(--text-light); margin-top:4px;">เพิ่ม/ลบ กิจกรรมเพื่อนำไปแสดงผลที่หน้าแรก</p>
+            </div>
+            <a href="index.html" class="btn-outline">← กลับไปยังหน้าแรก</a>
+        </header>
+
+        <div class="grid">
+            <!-- Left panel: Form to add activity -->
+            <div class="card">
+                <h3 class="card-title">➕ เพิ่มกิจกรรมใหม่</h3>
+                <form id="addForm">
+                    <div class="input-group">
+                        <label for="actTitle">ชื่อกิจกรรม / หัวข้อข่าว</label>
+                        <input type="text" id="actTitle" class="form-control" placeholder="เช่น กิจกรรมปล่อยพันธุ์สัตว์น้ำ" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="actDate">วันที่จัดกิจกรรม</label>
+                        <input type="text" id="actDate" class="form-control" placeholder="เช่น Jan 10, 2026 หรือ 15 ก.พ. 2569" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>เลือกรูปภาพสำหรับกิจกรรม</label>
+                        
+                        <!-- Option A: Upload image -->
+                        <div class="file-upload-box">
+                            <span class="upload-label" id="uploadLabel">📁 เลือกหรือลากไฟล์ภาพของคุณที่นี่</span>
+                            <input type="file" id="actImageFile" accept="image/*">
+                        </div>
+                        <img id="uploadPreview" class="upload-preview" alt="Preview Upload">
+
+                        <div class="divider">หรือ เลือกรูปจากคลังภาพตัวอย่าง</div>
+
+                        <!-- Option B: Choose default preset image -->
+                        <div class="preset-grid">
+                            <div class="preset-option selected" data-img="pic/MyCompany/IMG_5448.jpg">
+                                <img src="pic/MyCompany/IMG_5448.jpg" alt="Preset 1">
+                            </div>
+                            <div class="preset-option" data-img="pic/MyCompany/IMG_5131.jpg">
+                                <img src="pic/MyCompany/IMG_5131.jpg" alt="Preset 2">
+                            </div>
+                            <div class="preset-option" data-img="pic/MyCompany/IMG_5269.jpg">
+                                <img src="pic/MyCompany/IMG_5269.jpg" alt="Preset 3">
+                            </div>
+                            <div class="preset-option" data-img="pic/MyCompany/company_exterior_clean.png">
+                                <img src="pic/MyCompany/company_exterior_clean.png" alt="Preset 4">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-add">บันทึกกิจกรรม</button>
+                </form>
+            </div>
+
+            <!-- Right panel: Listing current activities -->
+            <div class="card">
+                <h3 class="card-title">📋 กิจกรรมทั้งหมดในระบบ</h3>
+                <div id="activitiesListContainer">
+                    <!-- Activities list will be rendered dynamically here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check session verify state to bypass password overlay
+        if (sessionStorage.getItem('admin_verified') === 'true') {
+            document.getElementById('passwordOverlay').style.display = 'none';
+        }
+
+        // Verify password
+        const btnVerify = document.getElementById('btnVerify');
+        const adminPass = document.getElementById('adminPass');
+        const passwordError = document.getElementById('passwordError');
+
+        function doVerify() {
+            if (adminPass.value === 'admin123') {
+                sessionStorage.setItem('admin_verified', 'true');
+                document.getElementById('passwordOverlay').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('passwordOverlay').style.display = 'none';
+                }, 300);
+            } else {
+                passwordError.style.display = 'block';
+                adminPass.value = '';
+                adminPass.focus();
+            }
+        }
+
+        btnVerify.addEventListener('click', doVerify);
+        adminPass.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') doVerify();
+        });
+
+        // Initialize Defaults
+        const defaultActivities = [
+            {
+                date: "15 ก.พ. 2569",
+                title: "งานแสดงสินค้า",
+                img: "pic/MyCompany/IMG_5448.jpg"
+            },
+            {
+                date: "Jan 10, 2026",
+                title: "CSR Marine Release",
+                img: "pic/MyCompany/IMG_5131.jpg"
+            },
+            {
+                date: "Dec 25, 2025",
+                title: "New Year Celebration",
+                img: "pic/MyCompany/IMG_5269.jpg"
+            },
+            {
+                date: "Nov 20, 2025",
+                title: "Outstanding Factory Award",
+                img: "pic/MyCompany/company_exterior_clean.png"
+            }
+        ];
+
+        // Retrieve current list from localStorage
+        function getActivities() {
+            const stored = localStorage.getItem('activities_list');
+            return stored ? JSON.parse(stored) : defaultActivities;
+        }
+
+        // Save list to localStorage
+        function saveActivities(list) {
+            localStorage.setItem('activities_list', JSON.stringify(list));
+        }
+
+        // Set Date placeholder to today's date dynamically for better UX
+        const actDateInput = document.getElementById('actDate');
+        const now = new Date();
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        actDateInput.value = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+
+        // Handling Preset Selection
+        const presets = document.querySelectorAll('.preset-option');
+        let selectedImgSrc = "pic/MyCompany/IMG_5448.jpg"; // default preset
+
+        presets.forEach(p => {
+            p.addEventListener('click', () => {
+                presets.forEach(opt => opt.classList.remove('selected'));
+                p.classList.add('selected');
+                selectedImgSrc = p.getAttribute('data-img');
+                
+                // Clear file input upload preview if choosing preset
+                document.getElementById('actImageFile').value = '';
+                document.getElementById('uploadPreview').style.display = 'none';
+                document.getElementById('uploadLabel').textContent = "📁 เลือกหรือลากไฟล์ภาพของคุณที่นี่";
+            });
+        });
+
+        // Handling Custom Image Upload and Base64 conversion
+        const fileInput = document.getElementById('actImageFile');
+        const uploadPreview = document.getElementById('uploadPreview');
+        const uploadLabel = document.getElementById('uploadLabel');
+        let uploadedBase64 = null;
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                // Remove preset selected styling
+                presets.forEach(opt => opt.classList.remove('selected'));
+                uploadLabel.textContent = `ไฟล์: ${file.name}`;
+                
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    uploadedBase64 = event.target.result;
+                    uploadPreview.src = uploadedBase64;
+                    uploadPreview.style.display = 'block';
+                    selectedImgSrc = null; // using uploaded base64 instead
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Render dashboard list
+        const listContainer = document.getElementById('activitiesListContainer');
+
+        function renderDashboard() {
+            const list = getActivities();
+            let html = '';
+            
+            if (list.length === 0) {
+                html = '<div style="text-align:center; padding: 20px 0; color: var(--text-light); font-size: 14px;">ไม่มีกิจกรรมในระบบขณะนี้</div>';
+            } else {
+                list.forEach((item, index) => {
+                    html += `
+                        <div class="activity-item-row">
+                            <div class="activity-thumb">
+                                <img src="${item.img}" alt="Activity Image">
+                            </div>
+                            <div class="activity-info">
+                                <h4>${escapeHTML(item.title)}</h4>
+                                <span>📅 ${escapeHTML(item.date)}</span>
+                            </div>
+                            <button class="btn-delete" onclick="deleteActivity(${index})">ลบ</button>
+                        </div>
+                    `;
+                });
+            }
+            listContainer.innerHTML = html;
+        }
+
+        // Delete activity handler
+        window.deleteActivity = function(index) {
+            if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบกิจกรรมนี้?")) {
+                const list = getActivities();
+                list.splice(index, 1);
+                saveActivities(list);
+                renderDashboard();
+            }
+        };
+
+        // Form submission handler
+        const addForm = document.getElementById('addForm');
+        addForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const titleVal = document.getElementById('actTitle').value.trim();
+            const dateVal = document.getElementById('actDate').value.trim();
+            
+            let finalImg = selectedImgSrc;
+            if (uploadedBase64) {
+                finalImg = uploadedBase64;
+            }
+
+            if (!titleVal || !dateVal || !finalImg) {
+                alert("กรุณากรอกข้อมูลให้ครบถ้วนและระบุรูปภาพ!");
+                return;
+            }
+
+            const newAct = {
+                title: titleVal,
+                date: dateVal,
+                img: finalImg
+            };
+
+            const list = getActivities();
+            // unshift: เพิ่มไว้ที่ตำแหน่งแรกสุด (ล่าสุด) ของอาเรย์
+            list.unshift(newAct);
+            saveActivities(list);
+
+            // Reset form
+            addForm.reset();
+            uploadedBase64 = null;
+            uploadPreview.style.display = 'none';
+            uploadLabel.textContent = "📁 เลือกหรือลากไฟล์ภาพของคุณที่นี่";
+            
+            // Re-select first preset as default state
+            presets[0].click();
+            
+            // Reset date input back to today
+            actDateInput.value = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+
+            alert("✅ บันทึกกิจกรรมสำเร็จแล้ว!");
+            renderDashboard();
+        });
+
+        // Helper to escape HTML tags
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag] || tag)
+            );
+        }
+
+        // Initial render on load
+        renderDashboard();
+    </script>
+</body>
+
+</html>
