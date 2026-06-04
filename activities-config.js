@@ -14,13 +14,6 @@ var CMS_ACTIVITIES_CONFIG = [
         "videoUrl": ""
     },
     {
-        "title": "กล่องสวย",
-        "date": "Jun 5, 2026",
-        "img": "pic/MyCompany/IMG_5065.jpg",
-        "type": "image",
-        "videoUrl": ""
-    },
-    {
         "date": "15 ก.พ. 2569",
         "title": "งานแสดงสินค้า",
         "img": "pic/MyCompany/IMG_5448.jpg"
@@ -34,6 +27,6 @@ var CMS_ACTIVITIES_CONFIG = [
         "date": "Nov 20, 2025",
         "title": "Outstanding Factory Award",
         "img": "pic/MyCompany/company_exterior_clean.png",
-        "show": false
+        "show": true
     }
 ];
