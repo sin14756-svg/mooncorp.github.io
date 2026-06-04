@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var messageVal = form.querySelector('[name="message"]').value;
 
             // ส่งข้อมูลไปยัง FormSubmit.co ด้วย AJAX
-            fetch("https://formsubmit.co/ajax/info@goldenseafresh.com", {
+            fetch("https://formsubmit.co/ajax/sin14756@gmail.com", {
                 method: "POST",
                 headers: { 
                     'Content-Type': 'application/json',
