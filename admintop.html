@@ -651,8 +651,16 @@
                 <!-- Right panel: Listing current activities -->
                 <div class="card">
                     <h3 class="card-title">📋 กิจกรรมทั้งหมดในระบบ</h3>
-                    <div id="activitiesListContainer">
+                    <div id="activitiesListContainer" style="margin-bottom: 20px;">
                         <!-- Activities list will be rendered dynamically here -->
+                    </div>
+                    <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+                        <button type="button" id="btnPushActivitiesOnly" class="btn btn-success" style="width: 100%; background: linear-gradient(135deg, #2ec866, #1f9c4d); border: none; font-weight: bold; padding: 12px; font-size:14px; cursor:pointer; border-radius: 4px; color:#fff;">
+                            🚀 อัปเดตการแสดงผลกิจกรรมขึ้น GitHub
+                        </button>
+                        <span style="font-size: 11px; color: var(--text-light); text-align: center; line-height: 1.4;">
+                            * กดปุ่มนี้เมื่อต้องการให้ค่าที่เลือก (ติ๊กถูกแสดงหน้าเว็บ) หรือการลบกิจกรรม อัปเดตขึ้นสู่หน้าเว็บจริงโดยตรง
+                        </span>
                     </div>
                 </div>
             </div>
@@ -1198,21 +1206,29 @@
             if (e.key === 'Enter') doVerify();
         });
 
+        // Helper to switch tab programmatically
+        window.switchToTab = function(tabId) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+            
+            const btn = document.querySelector(`[data-tab="${tabId}"]`);
+            if (btn) btn.classList.add('active');
+            const content = document.getElementById(tabId);
+            if (content) content.classList.add('active');
+            
+            if (tabId === 'tab-export-config') {
+                generateExportConfigs();
+            }
+        };
+
         // Tab Switching logic
         const tabs = document.querySelectorAll('.tab-btn');
-        const contents = document.querySelectorAll('.tab-content');
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                contents.forEach(c => c.classList.remove('active'));
-                tab.classList.add('active');
-                
                 const target = tab.getAttribute('data-tab');
-                document.getElementById(target).classList.add('active');
-                
-                if (target === 'tab-export-config') {
-                    generateExportConfigs();
-                }
+                switchToTab(target);
             });
         });
 
@@ -1834,6 +1850,10 @@
 
             // Trigger Push
             document.getElementById('btnPushToGitHub').addEventListener('click', pushToGitHub);
+            const btnPushAct = document.getElementById('btnPushActivitiesOnly');
+            if (btnPushAct) {
+                btnPushAct.addEventListener('click', pushToGitHub);
+            }
         }
 
         function logGH(msg, type="info") {
@@ -1855,6 +1875,9 @@
         }
 
         async function pushToGitHub() {
+            // Switch to export tab to show logs
+            switchToTab('tab-export-config');
+            
             const username = document.getElementById('gh-username').value.trim();
             const repo = document.getElementById('gh-repo').value.trim();
             const branch = document.getElementById('gh-branch').value.trim();
@@ -1941,6 +1964,71 @@
                     logGH("บันทึกการซิงก์รูปภาพใน local บราวเซอร์...", "info");
                    currentImageConfig._version = Date.now();
                  localStorage.setItem('cms_image_config', JSON.stringify(currentImageConfig));
+                }
+                
+                // --- UPLOAD BASE64 IMAGES IN ACTIVITIES LIST ---
+                logGH("ตรวจสอบข้อมูลรูปภาพกิจกรรมที่เพิ่มเข้ามาใหม่...", "info");
+                const activitiesList = getActivities();
+                let activitiesChanged = false;
+                
+                for (let i = 0; i < activitiesList.length; i++) {
+                    const act = activitiesList[i];
+                    if (act.img && act.img.startsWith('data:')) {
+                        logGH(`พบรูปภาพ/วิดีโอใหม่ในกิจกรรม [${act.title || 'กิจกรรมไม่มีชื่อ'}] กำลังเตรียมอัปโหลดไฟล์...`, "info");
+                        
+                        const parts = act.img.split(',');
+                        const mimeMatch = parts[0].match(/data:(.*?);/);
+                        const mimeType = mimeMatch ? mimeMatch[1] : 'image/png';
+                        const base64Data = parts[1];
+                        
+                        let ext = 'png';
+                        if (mimeType.includes('jpeg') || mimeType.includes('jpg')) ext = 'jpg';
+                        else if (mimeType.includes('webp')) ext = 'webp';
+                        else if (mimeType.includes('gif')) ext = 'gif';
+                        else if (mimeType.includes('mp4') || mimeType.includes('video/')) ext = 'mp4';
+                        
+                        const fileName = `img_act_${Date.now()}_${i}.${ext}`;
+                        const filePath = `pic/uploads/${fileName}`;
+                        
+                        logGH(`กำลังอัปโหลดไฟล์กิจกรรมไปยัง GitHub: ${filePath}...`, "info");
+                        
+                        let sha = null;
+                        try {
+                            const checkRes = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${filePath}?ref=${branch}`, { headers });
+                            if (checkRes.ok) {
+                                const checkData = await checkRes.json();
+                                sha = checkData.sha;
+                            }
+                        } catch (e) {}
+                        
+                        const uploadBody = {
+                            message: `Upload new activity media via CMS admin`,
+                            content: base64Data,
+                            branch: branch
+                        };
+                        if (sha) uploadBody.sha = sha;
+                        
+                        const uploadRes = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${filePath}`, {
+                            method: 'PUT',
+                            headers,
+                            body: JSON.stringify(uploadBody)
+                        });
+                        
+                        if (!uploadRes.ok) {
+                            const errText = await uploadRes.text();
+                            throw new Error(`อัปโหลดรูปภาพกิจกรรม ${filePath} ล้มเหลว: ${errText}`);
+                        }
+                        
+                        logGH(`อัปโหลดไฟล์กิจกรรม ${filePath} สำเร็จแล้ว`, "success");
+                        
+                        act.img = filePath;
+                        activitiesChanged = true;
+                    }
+                }
+                
+                if (activitiesChanged) {
+                    logGH("บันทึกข้อมูลการเชื่อมรูปภาพกิจกรรมในบราวเซอร์...", "info");
+                    saveActivities(activitiesList);
                 }
                 
                 // Update export code preview
