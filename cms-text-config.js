@@ -7,7 +7,7 @@
 
 var CMS_TEXT_CONFIG = {
     "contact-email": "sin14756@gmail.com",
-    "home-hero-label": "FRESH FROM THE SEA153",
+    "home-hero-label": "FRESH FROM THE SEA1",
     "home-hero-title": "CV. GOLDEN SEAFRESH",
     "home-hero-sub": "FROZEN SEAFOOD",
     "home-hero-desc": "CV. Golden Seafresh is a manufacturer and distributor of high-quality frozen seafood, committed to delivering freshness from the sea to customers both domestically and internationally.<br><br>We rigorously select fresh seafood directly from natural sources, preserving freshness, taste, and nutritional value at every stage — under HACCP and GMP international standards.",
