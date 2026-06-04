@@ -276,9 +276,11 @@
             overflow: hidden;
             flex-shrink: 0;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #000;
         }
 
-        .activity-thumb img {
+        .activity-thumb img,
+        .activity-thumb video {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -395,7 +397,7 @@
         <header class="dashboard-header">
             <div>
                 <h1>Company Activities Management</h1>
-                <p style="font-size:13px; color:var(--text-light); margin-top:4px;">เพิ่ม/ลบ กิจกรรมเพื่อนำไปแสดงผลที่หน้าแรก</p>
+                <p style="font-size:13px; color:var(--text-light); margin-top:4px;">เพิ่ม/ลบ กิจกรรมและวิดีโอเพื่อนำไปแสดงผลที่หน้าแรก</p>
             </div>
             <a href="index.html" class="btn-outline">← กลับไปยังหน้าแรก</a>
         </header>
@@ -416,14 +418,18 @@
                     </div>
 
                     <div class="input-group">
-                        <label>เลือกรูปภาพสำหรับกิจกรรม</label>
+                        <label>เลือกรูปภาพหรือวิดีโอสำหรับกิจกรรม</label>
                         
-                        <!-- Option A: Upload image -->
+                        <!-- Option A: Upload image/video -->
                         <div class="file-upload-box">
-                            <span class="upload-label" id="uploadLabel">📁 เลือกหรือลากไฟล์ภาพของคุณที่นี่</span>
-                            <input type="file" id="actImageFile" accept="image/*">
+                            <span class="upload-label" id="uploadLabel">📁 เลือกหรือลากไฟล์ภาพ/วิดีโอของคุณที่นี่</span>
+                            <input type="file" id="actImageFile" accept="image/*,video/*">
                         </div>
-                        <img id="uploadPreview" class="upload-preview" alt="Preview Upload">
+                        <div style="font-size: 11px; color: var(--text-light); margin-top: 6px; line-height: 1.4;">
+                            * จำกัดขนาดไฟล์ภาพหรือวิดีโอไม่เกิน <strong style="color:var(--danger)">4MB</strong> เนื่องจากเก็บบันทึกข้อมูลในความจำของบราวเซอร์
+                        </div>
+                        <img id="uploadPreview" class="upload-preview" alt="Preview Image Upload">
+                        <video id="uploadPreviewVideo" class="upload-preview" controls style="display:none;"></video>
 
                         <div class="divider">หรือ เลือกรูปจากคลังภาพตัวอย่าง</div>
 
@@ -493,22 +499,27 @@
             {
                 date: "15 ก.พ. 2569",
                 title: "งานแสดงสินค้า",
-                img: "pic/MyCompany/IMG_5448.jpg"
+                img: "pic/MyCompany/IMG_5448.jpg",
+                type: "image"
             },
             {
                 date: "Jan 10, 2026",
-                title: "CSR Marine Release",
-                img: "pic/MyCompany/IMG_5131.jpg"
+                title: "CSR Marine Release (คลิกเล่นวิดีโอ)",
+                img: "pic/MyCompany/IMG_5131.jpg",
+                type: "video",
+                videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
             },
             {
                 date: "Dec 25, 2025",
                 title: "New Year Celebration",
-                img: "pic/MyCompany/IMG_5269.jpg"
+                img: "pic/MyCompany/IMG_5269.jpg",
+                type: "image"
             },
             {
                 date: "Nov 20, 2025",
                 title: "Outstanding Factory Award",
-                img: "pic/MyCompany/company_exterior_clean.png"
+                img: "pic/MyCompany/company_exterior_clean.png",
+                type: "image"
             }
         ];
 
@@ -532,39 +543,67 @@
         // Handling Preset Selection
         const presets = document.querySelectorAll('.preset-option');
         let selectedImgSrc = "pic/MyCompany/IMG_5448.jpg"; // default preset
+        let uploadedType = "image"; // "image" or "video"
 
         presets.forEach(p => {
             p.addEventListener('click', () => {
                 presets.forEach(opt => opt.classList.remove('selected'));
                 p.classList.add('selected');
                 selectedImgSrc = p.getAttribute('data-img');
+                uploadedType = "image";
+                uploadedBase64 = null;
                 
-                // Clear file input upload preview if choosing preset
+                // Clear file inputs
                 document.getElementById('actImageFile').value = '';
                 document.getElementById('uploadPreview').style.display = 'none';
-                document.getElementById('uploadLabel').textContent = "📁 เลือกหรือลากไฟล์ภาพของคุณที่นี่";
+                document.getElementById('uploadPreviewVideo').style.display = 'none';
+                document.getElementById('uploadPreviewVideo').src = '';
+                document.getElementById('uploadLabel').textContent = "📁 เลือกหรือลากไฟล์ภาพ/วิดีโอของคุณที่นี่";
             });
         });
 
-        // Handling Custom Image Upload and Base64 conversion
+        // Handling Custom Media Upload
         const fileInput = document.getElementById('actImageFile');
         const uploadPreview = document.getElementById('uploadPreview');
+        const uploadPreviewVideo = document.getElementById('uploadPreviewVideo');
         const uploadLabel = document.getElementById('uploadLabel');
         let uploadedBase64 = null;
 
         fileInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
+                // Size validation: max 4MB (4 * 1024 * 1024 bytes)
+                if (file.size > 4 * 1024 * 1024) {
+                    alert("⚠️ ไฟล์มีขนาดเกิน 4MB! กรุณาเลือกไฟล์ภาพหรือวิดีโอที่มีขนาดเล็กลง เพื่อรองรับระบบจัดเก็บข้อมูล LocalStorage ของบราวเซอร์");
+                    fileInput.value = '';
+                    return;
+                }
+
                 // Remove preset selected styling
                 presets.forEach(opt => opt.classList.remove('selected'));
-                uploadLabel.textContent = `ไฟล์: ${file.name}`;
+                selectedImgSrc = null;
+
+                if (file.type.startsWith('video/')) {
+                    uploadedType = "video";
+                    uploadLabel.textContent = `วิดีโอ: ${file.name}`;
+                } else {
+                    uploadedType = "image";
+                    uploadLabel.textContent = `ภาพ: ${file.name}`;
+                }
                 
                 const reader = new FileReader();
                 reader.onload = (event) => {
                     uploadedBase64 = event.target.result;
-                    uploadPreview.src = uploadedBase64;
-                    uploadPreview.style.display = 'block';
-                    selectedImgSrc = null; // using uploaded base64 instead
+                    if (uploadedType === 'video') {
+                        uploadPreview.style.display = 'none';
+                        uploadPreviewVideo.src = uploadedBase64;
+                        uploadPreviewVideo.style.display = 'block';
+                    } else {
+                        uploadPreviewVideo.style.display = 'none';
+                        uploadPreviewVideo.src = '';
+                        uploadPreview.src = uploadedBase64;
+                        uploadPreview.style.display = 'block';
+                    }
                 };
                 reader.readAsDataURL(file);
             }
@@ -581,14 +620,24 @@
                 html = '<div style="text-align:center; padding: 20px 0; color: var(--text-light); font-size: 14px;">ไม่มีกิจกรรมในระบบขณะนี้</div>';
             } else {
                 list.forEach((item, index) => {
+                    const isVideo = item.type === 'video' || (item.img && (item.img.startsWith('data:video/') || item.img.endsWith('.mp4')));
+                    const mediaSrc = (item.type === 'video' && item.videoUrl) ? item.videoUrl : item.img;
+                    
+                    let thumbHtml = '';
+                    if (isVideo) {
+                        thumbHtml = `<video src="${mediaSrc}" muted style="width:100%;height:100%;object-fit:cover;"></video>`;
+                    } else {
+                        thumbHtml = `<img src="${item.img}" alt="Activity Thumbnail">`;
+                    }
+
                     html += `
                         <div class="activity-item-row">
                             <div class="activity-thumb">
-                                <img src="${item.img}" alt="Activity Image">
+                                ${thumbHtml}
                             </div>
                             <div class="activity-info">
                                 <h4>${escapeHTML(item.title)}</h4>
-                                <span>📅 ${escapeHTML(item.date)}</span>
+                                <span>📅 ${escapeHTML(item.date)} ${isVideo ? '📹 (วิดีโอ)' : '🖼️ (ภาพ)'}</span>
                             </div>
                             <button class="btn-delete" onclick="deleteActivity(${index})">ลบ</button>
                         </div>
@@ -621,18 +670,19 @@
             }
 
             if (!titleVal || !dateVal || !finalImg) {
-                alert("กรุณากรอกข้อมูลให้ครบถ้วนและระบุรูปภาพ!");
+                alert("กรุณากรอกข้อมูลให้ครบถ้วนและระบุรูปภาพหรือวิดีโอ!");
                 return;
             }
 
             const newAct = {
                 title: titleVal,
                 date: dateVal,
-                img: finalImg
+                img: finalImg,
+                type: uploadedType,
+                videoUrl: uploadedType === 'video' ? finalImg : ''
             };
 
             const list = getActivities();
-            // unshift: เพิ่มไว้ที่ตำแหน่งแรกสุด (ล่าสุด) ของอาเรย์
             list.unshift(newAct);
             saveActivities(list);
 
@@ -640,7 +690,9 @@
             addForm.reset();
             uploadedBase64 = null;
             uploadPreview.style.display = 'none';
-            uploadLabel.textContent = "📁 เลือกหรือลากไฟล์ภาพของคุณที่นี่";
+            uploadPreviewVideo.style.display = 'none';
+            uploadPreviewVideo.src = '';
+            uploadLabel.textContent = "📁 เลือกหรือลากไฟล์ภาพ/วิดีโอของคุณที่นี่";
             
             // Re-select first preset as default state
             presets[0].click();
