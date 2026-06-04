@@ -25,9 +25,9 @@ var IMAGE_CONFIG = {
     "qnav-service": {
         "x": 0,
         "y": 0,
-        "zoom": 2.7,
+        "zoom": 0.95,
         "aspectRatio": "original",
-        "src": "pic/MyCompany/IMG_5065.jpg"
+        "src": "pic/uploads/img_qnav-service_1780603632536.png"
     },
     "qnav-company": {
         "x": 0,
