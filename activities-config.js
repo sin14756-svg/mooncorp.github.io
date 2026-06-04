@@ -7,14 +7,14 @@
 
 var CMS_ACTIVITIES_CONFIG = [
     {
-        "title": "ยะโอ่",
+        "title": "first lot",
         "date": "Jun 5, 2026",
-        "img": "pic/MyCompany/company_hero_new.png",
+        "img": "pic/MyCompany/IMG_5065.jpg",
         "type": "image",
         "videoUrl": ""
     },
     {
-        "title": "บริษัทใหย่",
+        "title": "Service",
         "date": "Jun 5, 2026",
         "img": "pic/MyCompany/1.png",
         "type": "image",
@@ -28,13 +28,12 @@ var CMS_ACTIVITIES_CONFIG = [
     {
         "date": "Dec 25, 2025",
         "title": "New Year Celebration",
-        "img": "pic/MyCompany/IMG_5269.jpg",
-        "show": false
+        "img": "pic/MyCompany/IMG_5269.jpg"
     },
     {
         "date": "Nov 20, 2025",
         "title": "Outstanding Factory Award",
         "img": "pic/MyCompany/company_exterior_clean.png",
-        "show": true
+        "show": false
     }
 ];
