@@ -2510,6 +2510,14 @@ a.train-head:active {
         z-index: 1 !important;
     }
 
+    .gallery-item-1,
+    .gallery-item-2,
+    .gallery-item-3,
+    .gallery-item-4 {
+        left: auto !important;
+        top: auto !important;
+    }
+
     .gallery-item .image-placeholder {
         min-height: auto !important;
         height: 100% !important;
