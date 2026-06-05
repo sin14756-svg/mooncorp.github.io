@@ -7,19 +7,12 @@
 
 var CMS_ACTIVITIES_CONFIG = [
     {
-        "title": "ยะโอ่",
-        "date": "Jun 5, 2026",
-        "img": "pic/MyCompany/company_hero_new.png",
-        "type": "image",
-        "videoUrl": ""
-    },
-    {
         "title": "บริษัทใหย่",
         "date": "Jun 5, 2026",
         "img": "pic/MyCompany/1.png",
         "type": "image",
         "videoUrl": "",
-        "show": false
+        "show": true
     },
     {
         "date": "15 ก.พ. 2569",
@@ -35,6 +28,6 @@ var CMS_ACTIVITIES_CONFIG = [
         "date": "Nov 20, 2025",
         "title": "Outstanding Factory Award",
         "img": "pic/MyCompany/company_exterior_clean.png",
-        "show": false
+        "show": true
     }
 ];
