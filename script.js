@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
     
-    var localTextConfig = localStorage.getItem('cms_text_config');
+    var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '';
+    var localTextConfig = isLocal ? localStorage.getItem('cms_text_config') : null;
     if (localTextConfig) {
         try {
             var parsed = JSON.parse(localTextConfig);
@@ -333,12 +334,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         ];
 
-        var activities = (typeof CMS_ACTIVITIES_CONFIG !== 'undefined') ? CMS_ACTIVITIES_CONFIG : defaultActivities;
-
-        // Clear old stale activities_list cache if present
-        if (localStorage.getItem('activities_list')) {
-            localStorage.removeItem('activities_list');
-        }
+        var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '';
+        var stored = isLocal ? localStorage.getItem('activities_list') : null;
+        var activities = stored ? JSON.parse(stored) : ((typeof CMS_ACTIVITIES_CONFIG !== 'undefined') ? CMS_ACTIVITIES_CONFIG : defaultActivities);
 
         // Filter out hidden activities (where show is false)
         var visibleActivities = [];
@@ -519,7 +517,8 @@ function processImages() {
     if (typeof IMAGE_CONFIG === 'undefined') return;
     
     // Merge custom image overrides from localStorage
-    var localImgConfig = localStorage.getItem('cms_image_config');
+    var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '';
+    var localImgConfig = isLocal ? localStorage.getItem('cms_image_config') : null;
     if (localImgConfig) {
         try {
             var parsed = JSON.parse(localImgConfig);

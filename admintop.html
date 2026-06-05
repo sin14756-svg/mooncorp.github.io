@@ -655,11 +655,11 @@
                         <!-- Activities list will be rendered dynamically here -->
                     </div>
                     <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 15px; display: flex; flex-direction: column; gap: 10px;">
-                        <button type="button" id="btnPushActivitiesOnly" class="btn btn-success" style="width: 100%; background: linear-gradient(135deg, #2ec866, #1f9c4d); border: none; font-weight: bold; padding: 12px; font-size:14px; cursor:pointer; border-radius: 4px; color:#fff;">
-                            🚀 อัปเดตการแสดงผลกิจกรรมขึ้น GitHub
+                        <button type="button" id="btnSaveActivitiesChecklist" class="btn" style="width: 100%; background: linear-gradient(135deg, #2e7de6, #1f5ca8); border: none; font-weight: bold; padding: 12px; font-size:14px; cursor:pointer; border-radius: 4px; color:#fff;">
+                            💾 บันทึกเครื่องหมายและการแสดงผลกิจกรรม
                         </button>
                         <span style="font-size: 11px; color: var(--text-light); text-align: center; line-height: 1.4;">
-                            * กดปุ่มนี้เมื่อต้องการให้ค่าที่เลือก (ติ๊กถูกแสดงหน้าเว็บ) หรือการลบกิจกรรม อัปเดตขึ้นสู่หน้าเว็บจริงโดยตรง
+                            * เมื่อปรับแก้เครื่องหมายหรือลบเสร็จแล้ว ให้กดปุ่มนี้เพื่อบันทึกในเบราว์เซอร์ จากนั้นไปแท็บสุดท้ายเพื่ออัปโหลดขึ้น GitHub พร้อมกัน
                         </span>
                     </div>
                 </div>
@@ -1749,7 +1749,60 @@
         // ==============================================
         // 4. EXPORT & DOWNLOAD LOGIC
         // ==============================================
+        function updateConfigsFromDOM() {
+            let changed = false;
+            const textFields = [
+                'contact-email', 'home-hero-label', 'home-hero-title', 'home-hero-sub', 'home-hero-desc',
+                'home-vision-label', 'home-vision-title', 'home-vision-text', 'about-header-title',
+                'about-company-title', 'about-company-desc', 'service-header-title', 'service-2-title',
+                'service-2-text', 'service-3-title', 'service-3-text', 'service-4-title', 'service-4-text',
+                'service-5-title', 'service-5-text', 'contact-header-title', 'contact-info-title',
+                'contact-info-desc'
+            ];
+            
+            textFields.forEach(key => {
+                const el = document.getElementById(`txt-${key}`);
+                if (el) {
+                    const val = el.value.trim();
+                    if (currentTextConfig[key] !== val) {
+                        currentTextConfig[key] = val;
+                        changed = true;
+                    }
+                }
+            });
+            
+            for (let i = 1; i <= 9; i++) {
+                const typeEl = document.getElementById(`txt-product-${i}-type`);
+                const sizeEl = document.getElementById(`txt-product-${i}-size`);
+                if (typeEl) {
+                    const val = typeEl.value.trim();
+                    if (currentTextConfig[`product-${i}-type`] !== val) {
+                        currentTextConfig[`product-${i}-type`] = val;
+                        changed = true;
+                    }
+                }
+                if (sizeEl) {
+                    const val = sizeEl.value.trim();
+                    if (currentTextConfig[`product-${i}-size`] !== val) {
+                        currentTextConfig[`product-${i}-size`] = val;
+                        changed = true;
+                    }
+                }
+            }
+            
+            if (changed) {
+                currentTextConfig._version = Date.now();
+                localStorage.setItem('cms_text_config', JSON.stringify(currentTextConfig));
+                if (currentTextConfig['contact-email']) {
+                    localStorage.setItem('cms_contact_email', currentTextConfig['contact-email']);
+                }
+            }
+        }
+
         function generateExportConfigs() {
+            // Update config states with latest DOM input values
+            updateConfigsFromDOM();
+
             // Text Config generator
             const textHeader = `/* =========================================================
  * CMS TEXT CONFIGURATION — เก็บข้อความทั้งหมดของเว็บไซต์
@@ -1758,7 +1811,6 @@
  * แล้วนำไฟล์ที่ดาวน์โหลดมาบันทึกทับไฟล์นี้เพื่อการอัปเดตถาวร
  * ========================================================= */\n\n`;
             
-            currentTextConfig._version = Date.now();
             const textJSCode = textHeader + "var CMS_TEXT_CONFIG = " + JSON.stringify(currentTextConfig, null, 4) + ";\n";
             document.getElementById('codeTextConfig').value = textJSCode;
 
@@ -1772,7 +1824,6 @@
  * aspectRatio = (Optional) ปรับสัดส่วนรูป เช่น "1 / 1" (จัตุรัส), "16 / 9" (แนวนอน), "4 / 3"
  * ========================================================= */\n\n`;
 
-            currentImageConfig._version = Date.now();
             const imageJSCode = imageHeader + "var IMAGE_CONFIG = " + JSON.stringify(currentImageConfig, null, 4) + ";\n";
             document.getElementById('codeImageConfig').value = imageJSCode;
 
@@ -1850,9 +1901,13 @@
 
             // Trigger Push
             document.getElementById('btnPushToGitHub').addEventListener('click', pushToGitHub);
-            const btnPushAct = document.getElementById('btnPushActivitiesOnly');
-            if (btnPushAct) {
-                btnPushAct.addEventListener('click', pushToGitHub);
+            
+            // Save Activities Checklist locally
+            const btnSaveActChecklist = document.getElementById('btnSaveActivitiesChecklist');
+            if (btnSaveActChecklist) {
+                btnSaveActChecklist.addEventListener('click', () => {
+                    alert("💾 บันทึกเครื่องหมายและการแสดงผลกิจกรรมสำเร็จแล้ว! อย่าลืมไปที่แท็บสุดท้ายเพื่อกดอัปโหลดขึ้น GitHub");
+                });
             }
         }
 
@@ -2058,17 +2113,26 @@
 
         async function pushFileToGH(username, repo, branch, headers, filePath, fileContent) {
             let sha = null;
+            let existingBase64 = null;
             try {
                 const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${filePath}?ref=${branch}`, { headers });
                 if (res.ok) {
                     const data = await res.json();
                     sha = data.sha;
+                    existingBase64 = data.content ? data.content.replace(/\s/g, '') : null;
                 }
             } catch(e) {
                 logGH(`ไม่พบประวัติไฟล์เดิม หรือกิ่งใหม่ จะทำการสร้างไฟล์ใหม่สำหรับ ${filePath}`, "warning");
             }
             
             const base64Content = btoa(unescape(encodeURIComponent(fileContent)));
+            
+            // Check if content is identical
+            if (sha && existingBase64 === base64Content) {
+                logGH(`ไฟล์ ${filePath} ไม่มีข้อมูลเปลี่ยนแปลง (ข้ามการเขียนไฟล์)`, "info");
+                return;
+            }
+            
             const body = {
                 message: `CMS Auto Sync: update ${filePath}`,
                 content: base64Content,

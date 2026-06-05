@@ -154,7 +154,9 @@
                 }
             ];
 
-            var activities = (typeof CMS_ACTIVITIES_CONFIG !== 'undefined') ? CMS_ACTIVITIES_CONFIG : defaultActivities;
+            var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '';
+            var stored = isLocal ? localStorage.getItem('activities_list') : null;
+            var activities = stored ? JSON.parse(stored) : ((typeof CMS_ACTIVITIES_CONFIG !== 'undefined') ? CMS_ACTIVITIES_CONFIG : defaultActivities);
 
             var container = document.getElementById('activitiesContainer');
             var html = '';

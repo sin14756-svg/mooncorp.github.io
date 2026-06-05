@@ -2502,7 +2502,7 @@ a.train-head:active {
     }
 
     .gallery-item {
-        position: static !important;
+        position: relative !important;
         width: 100% !important;
         height: 180px !important;
         margin: 0 !important;
