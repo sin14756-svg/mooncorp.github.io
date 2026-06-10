@@ -591,6 +591,9 @@ function processImages() {
             }
         }
 
+        // Logo images (header/footer) — skip position/zoom, CSS controls sizing
+        if (id === 'logo-header' || id === 'logo-footer') continue;
+
         if (img.complete) {
             applyImageZoom(img, cfg);
         } else {

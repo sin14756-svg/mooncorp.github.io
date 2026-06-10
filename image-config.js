@@ -8,6 +8,34 @@
  * ========================================================= */
 
 var IMAGE_CONFIG = {
+    "logo-header": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/uploads/CV. GOLDEN SEAFRESH.png"
+    },
+    "logo-footer": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
+        "src": "pic/uploads/CV. GOLDEN SEAFRESH.png"
+    },
+    "cert-haccp": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "1/1",
+        "src": "pic/cert/haccp_badge.png"
+    },
+    "cert-gmp": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "1/1",
+        "src": "pic/cert/gmp_badge.png"
+    },
     "hero-company": {
         "x": 0,
         "y": 0,
