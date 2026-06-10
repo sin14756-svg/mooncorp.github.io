@@ -6,6 +6,9 @@
  * ========================================================= */
 
 var CMS_TEXT_CONFIG = {
+    "show-activities": "true",
+    "logo-header-height": "32",
+    "logo-footer-height": "32",
     "contact-email": "sin14756@gmail.com",
     "home-hero-label": "FRESH FROM THE SEA5",
     "home-hero-title": "CV. GOLDEN SEAFRESH",

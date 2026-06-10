@@ -62,6 +62,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Apply dynamic logo sizes
+    var logoHeaderHeight = textConfig['logo-header-height'] || "32";
+    var logoFooterHeight = textConfig['logo-footer-height'] || "32";
+    var logoStyleTag = document.createElement('style');
+    logoStyleTag.innerHTML = '\
+        .logo-icon img { height: ' + logoHeaderHeight + 'px !important; }\
+        .footer-logo .logo-icon img { height: ' + logoFooterHeight + 'px !important; }\
+    ';
+    document.head.appendChild(logoStyleTag);
+
     // Apply custom email in footers and other elements
     var targetEmail = textConfig["contact-email"] || "sin14756@gmail.com";
     localStorage.setItem('cms_contact_email', targetEmail); // sync for forms

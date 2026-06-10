@@ -1092,6 +1092,24 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- การตั้งค่าขนาดโลโก้เพิ่มเติม -->
+            <div class="card" style="margin-top: 25px;">
+                <h3 class="card-title">📏 ปรับขนาดโลโก้บริษัท (Logo Size Settings)</h3>
+                <p style="font-size:13px; color:var(--text-light); margin-bottom:20px;">
+                    ปรับขนาดความสูงของโลโก้บริษัทด้านบน (Header Logo) และด้านล่าง (Footer Logo) ได้ตามต้องการ
+                </p>
+                <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="input-group">
+                        <label>ขนาดโลโก้ด้านบน (Header Logo Height): <strong id="valLogoHeader">32</strong>px</label>
+                        <input type="range" id="rangeLogoHeader" min="20" max="100" step="1" value="32" class="slider-control">
+                    </div>
+                    <div class="input-group">
+                        <label>ขนาดโลโก้ด้านล่าง (Footer Logo Height): <strong id="valLogoFooter">32</strong>px</label>
+                        <input type="range" id="rangeLogoFooter" min="20" max="100" step="1" value="32" class="slider-control">
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- ============================================== -->
@@ -1252,6 +1270,8 @@
 
         // TEXT DEFAULT FALLBACK
         const defaultTextConfig = {
+            "logo-header-height": "32",
+            "logo-footer-height": "32",
             "show-activities": "true",
             "contact-email": "sin14756@gmail.com",
             "home-hero-label": "FRESH FROM THE SEA",
@@ -1482,6 +1502,23 @@
             if (chkShow) {
                 chkShow.checked = (currentTextConfig['show-activities'] !== 'false');
             }
+
+            // Populate Logo Size Sliders
+            const rangeHeader = document.getElementById('rangeLogoHeader');
+            const rangeFooter = document.getElementById('rangeLogoFooter');
+            const valHeader = document.getElementById('valLogoHeader');
+            const valFooter = document.getElementById('valLogoFooter');
+            if (rangeHeader) {
+                const val = currentTextConfig['logo-header-height'] || "32";
+                rangeHeader.value = val;
+                if (valHeader) valHeader.textContent = val;
+            }
+            if (rangeFooter) {
+                const val = currentTextConfig['logo-footer-height'] || "32";
+                rangeFooter.value = val;
+                if (valFooter) valFooter.textContent = val;
+            }
+            applyRealtimeLogoSizes();
         }
 
         // SAVE TEXT CONFIG
@@ -1535,6 +1572,46 @@
                 currentTextConfig['show-activities'] = chkShowActivities.checked ? 'true' : 'false';
                 currentTextConfig._version = Date.now();
                 localStorage.setItem('cms_text_config', JSON.stringify(currentTextConfig));
+            });
+        }
+
+        // Apply Logo size in real-time in Admin Panel
+        function applyRealtimeLogoSizes() {
+            const hSize = currentTextConfig['logo-header-height'] || "32";
+            const fSize = currentTextConfig['logo-footer-height'] || "32";
+            let styleTag = document.getElementById('dyn-logo-sizes');
+            if (!styleTag) {
+                styleTag = document.createElement('style');
+                styleTag.id = 'dyn-logo-sizes';
+                document.head.appendChild(styleTag);
+            }
+            styleTag.innerHTML = `
+                .logo-icon img { height: ${hSize}px !important; }
+                .footer-logo .logo-icon img { height: ${fSize}px !important; }
+            `;
+        }
+
+        // Handle Logo Size sliders change
+        const rangeLogoHeader = document.getElementById('rangeLogoHeader');
+        if (rangeLogoHeader) {
+            rangeLogoHeader.addEventListener('input', () => {
+                const val = rangeLogoHeader.value;
+                document.getElementById('valLogoHeader').textContent = val;
+                currentTextConfig['logo-header-height'] = val;
+                currentTextConfig._version = Date.now();
+                localStorage.setItem('cms_text_config', JSON.stringify(currentTextConfig));
+                applyRealtimeLogoSizes();
+            });
+        }
+        const rangeLogoFooter = document.getElementById('rangeLogoFooter');
+        if (rangeLogoFooter) {
+            rangeLogoFooter.addEventListener('input', () => {
+                const val = rangeLogoFooter.value;
+                document.getElementById('valLogoFooter').textContent = val;
+                currentTextConfig['logo-footer-height'] = val;
+                currentTextConfig._version = Date.now();
+                localStorage.setItem('cms_text_config', JSON.stringify(currentTextConfig));
+                applyRealtimeLogoSizes();
             });
         }
 
@@ -1825,6 +1902,23 @@
                 const val = chkShow.checked ? 'true' : 'false';
                 if (currentTextConfig['show-activities'] !== val) {
                     currentTextConfig['show-activities'] = val;
+                    changed = true;
+                }
+            }
+            
+            const rHeader = document.getElementById('rangeLogoHeader');
+            if (rHeader) {
+                const val = rHeader.value;
+                if (currentTextConfig['logo-header-height'] !== val) {
+                    currentTextConfig['logo-header-height'] = val;
+                    changed = true;
+                }
+            }
+            const rFooter = document.getElementById('rangeLogoFooter');
+            if (rFooter) {
+                const val = rFooter.value;
+                if (currentTextConfig['logo-footer-height'] !== val) {
+                    currentTextConfig['logo-footer-height'] = val;
                     changed = true;
                 }
             }
