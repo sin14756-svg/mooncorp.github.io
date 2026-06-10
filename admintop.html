@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบหลังบ้านผู้ดูแลระบบ (CMS Dashboard) | Ocean Moon Seafood</title>
+    <title>ระบบหลังบ้านผู้ดูแลระบบ (CMS Dashboard) | CV. Golden Seafresh</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -578,7 +578,7 @@
     <div class="container">
         <header class="dashboard-header">
             <div>
-                <h1>Ocean Moon Seafood CMS Console</h1>
+                <h1>CV. Golden Seafresh CMS Console</h1>
                 <p style="font-size:13px; color:var(--text-light); margin-top:4px;">ระบบปรับแต่งเนื้อหา ข้อความ รูปภาพ ขยับครอป และกิจกรรมของเว็บไซต์</p>
             </div>
             <a href="index.html" class="btn-outline">← กลับไปยังหน้าแรก</a>
@@ -596,6 +596,20 @@
         <!-- TAB 1: ACTIVITIES MANAGEMENT                   -->
         <!-- ============================================== -->
         <div id="tab-activities" class="tab-content active">
+            <!-- ตั้งค่าการแสดงผลส่วนกิจกรรม -->
+            <div class="card" style="margin-bottom: 20px;">
+                <h3 class="card-title">⚙️ ตั้งค่าการแสดงผลบนเว็บไซต์หน้าหลัก</h3>
+                <div style="margin-top: 15px; margin-bottom: 15px;">
+                    <label style="display: inline-flex; align-items: center; gap: 12px; cursor: pointer; font-size: 15px; font-weight: 500; color: #fff; user-select: none;">
+                        <input type="checkbox" id="chkShowActivities" style="width: 20px; height: 20px; cursor: pointer;">
+                        <span>แสดงส่วนกิจกรรม (Company Activities) บนหน้าหลัก</span>
+                    </label>
+                </div>
+                <p style="font-size: 12px; color: var(--text-light); line-height: 1.5; margin: 0;">
+                    * เมื่อปิดระบบนี้ แถบกิจกรรมทั้งหมดบนหน้าแรก (index.html) จะถูกซ่อนไปโดยอัตโนมัติ และแถบ Our Vision จะเลื่อนลงมาต่อกันอย่างราบรื่นโดยไม่มีช่องว่างหรือพื้นที่สีขาว
+                </p>
+            </div>
+
             <div class="grid">
                 <!-- Left panel: Form to add activity -->
                 <div class="card">
@@ -1238,6 +1252,7 @@
 
         // TEXT DEFAULT FALLBACK
         const defaultTextConfig = {
+            "show-activities": "true",
             "contact-email": "sin14756@gmail.com",
             "home-hero-label": "FRESH FROM THE SEA",
             "home-hero-title": "CV. GOLDEN SEAFRESH",
@@ -1461,6 +1476,12 @@
                 if (typeEl) typeEl.value = currentTextConfig[`product-${i}-type`] || "";
                 if (sizeEl) sizeEl.value = currentTextConfig[`product-${i}-size`] || "";
             }
+            
+            // Populate Activities toggle
+            const chkShow = document.getElementById('chkShowActivities');
+            if (chkShow) {
+                chkShow.checked = (currentTextConfig['show-activities'] !== 'false');
+            }
         }
 
         // SAVE TEXT CONFIG
@@ -1506,6 +1527,16 @@
             
             alert("✅ อัปเดตบันทึกข้อมูลข้อความในบราวเซอร์สำเร็จแล้ว! อย่าลืมดาวน์โหลดไฟล์ไปอัปเดตบน Git ในแท็บสุดท้าย");
         });
+
+        // Handle Activities toggle change
+        const chkShowActivities = document.getElementById('chkShowActivities');
+        if (chkShowActivities) {
+            chkShowActivities.addEventListener('change', () => {
+                currentTextConfig['show-activities'] = chkShowActivities.checked ? 'true' : 'false';
+                currentTextConfig._version = Date.now();
+                localStorage.setItem('cms_text_config', JSON.stringify(currentTextConfig));
+            });
+        }
 
         // ==============================================
         // 3. IMAGE EDITOR CROPPER TOOL LOGIC
@@ -1787,6 +1818,14 @@
                         currentTextConfig[`product-${i}-size`] = val;
                         changed = true;
                     }
+                }
+            }
+            const chkShow = document.getElementById('chkShowActivities');
+            if (chkShow) {
+                const val = chkShow.checked ? 'true' : 'false';
+                if (currentTextConfig['show-activities'] !== val) {
+                    currentTextConfig['show-activities'] = val;
+                    changed = true;
                 }
             }
             

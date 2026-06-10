@@ -52,6 +52,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Show/hide activities section based on configuration
+    var activitiesSec = document.querySelector('.activities');
+    if (activitiesSec) {
+        if (textConfig['show-activities'] === 'false') {
+            activitiesSec.style.display = 'none';
+        } else {
+            activitiesSec.style.display = '';
+        }
+    }
+
     // Apply custom email in footers and other elements
     var targetEmail = textConfig["contact-email"] || "sin14756@gmail.com";
     localStorage.setItem('cms_contact_email', targetEmail); // sync for forms
