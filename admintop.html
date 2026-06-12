@@ -829,6 +829,10 @@
                     </div>
 
                     <h3 style="margin-top: 30px; margin-bottom: 15px; border-top: 2px solid rgba(255,255,255,0.1); padding-top: 20px; color: var(--primary-light);">ข้อมูลหน้าสินค้า (Products Page Texts)</h3>
+                    <div class="input-group">
+                        <label for="txt-product-header-title">Product - หัวข้อหน้าหลัก</label>
+                        <input type="text" id="txt-product-header-title" class="form-control">
+                    </div>
 
                     <!-- Product 1 -->
                     <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; margin-bottom: 15px;">
@@ -1317,7 +1321,8 @@
             "about-header-title": "Company",
             "about-company-title": "CV. Golden Seafresh",
             "about-company-desc": "<p>CV. Golden Seafresh is a manufacturer and distributor of high-quality frozen seafood, committed to delivering freshness from the sea to customers both domestically and internationally.</p>\n<p>We rigorously select fresh seafood directly from natural sources, through meticulous sourcing and handling. With proprietary techniques developed from years of experience, we preserve the freshness, taste, and nutritional value of our products at every stage of the process.</p>\n<p>We understand our customers’ expectations for quality and food safety. Therefore, we place great importance on strict quality control throughout our production process, under HACCP and GMP standards, ensuring that every product is clean, safe, and meets international standards.</p>\n<p>Currently, we serve both domestic markets and export internationally, maintaining consistent product standards, reliable delivery, and professional service.</p>",
-            "service-header-title": "Service",
+            "service-header-title": "Capabilities",
+            "product-header-title": "Frozen Seafood",
             "service-2-title": "Raw Material Processing",
             "service-2-text": "<p>We provide seafood processing and cutting according to each customer's specifications, making the products ideal for further production, cooking, or distribution in different formats.</p>\n<p><em>For example: Whole Round, Whole Clean, Cut, Peeling</em></p>",
             "service-3-title": "Storage &amp; Inventory Management",
@@ -1559,6 +1564,7 @@
             document.getElementById('txt-contact-info-desc').value = currentTextConfig['contact-info-desc'] || "";
 
             // Populate Product texts
+            document.getElementById('txt-product-header-title').value = currentTextConfig['product-header-title'] || "";
             for (let i = 1; i <= 9; i++) {
                 const typeEl = document.getElementById(`txt-product-${i}-type`);
                 const sizeEl = document.getElementById(`txt-product-${i}-size`);
@@ -1624,6 +1630,7 @@
             currentTextConfig['contact-info-desc'] = document.getElementById('txt-contact-info-desc').value.trim();
 
             // Save Product texts
+            currentTextConfig['product-header-title'] = document.getElementById('txt-product-header-title').value.trim();
             for (let i = 1; i <= 9; i++) {
                 const typeEl = document.getElementById(`txt-product-${i}-type`);
                 const sizeEl = document.getElementById(`txt-product-${i}-size`);
@@ -1716,6 +1723,13 @@
         const imgUploadLabel = document.getElementById('imgUploadLabel');
 
         let currentActiveImgId = "hero-company";
+        let draftImageConfig = {
+            src: "",
+            zoom: 1.0,
+            x: 0,
+            y: 0,
+            aspectRatio: "original"
+        };
 
         function initImageEditor() {
             imgSelector.addEventListener('change', loadSelectedImageToCropper);
@@ -1737,7 +1751,7 @@
                     const reader = new FileReader();
                     reader.onload = (event) => {
                         const base64Src = event.target.result;
-                        currentImageConfig[currentActiveImgId].src = base64Src;
+                        draftImageConfig.src = base64Src;
                         previewImg.src = base64Src;
                         imgUploadLabel.textContent = `รูปภาพ: ${file.name}`;
                         updateLivePreview();
@@ -1758,7 +1772,7 @@
             document.getElementById('btnResetImgDefault').addEventListener('click', () => {
                 if (confirm("ต้องการรีเซ็ตภาพและค่าการจัดตำแหน่งของตำแหน่งนี้ กลับเป็นแบบเริ่มต้นจากระบบโรงงานหรือไม่?")) {
                     const def = defaultImageConfigFallback[currentActiveImgId];
-                    currentImageConfig[currentActiveImgId] = {
+                    draftImageConfig = {
                         x: def.x || 0,
                         y: def.y || 0,
                         zoom: def.zoom || 1,
@@ -1767,7 +1781,14 @@
                     };
                     imgNewFile.value = '';
                     imgUploadLabel.textContent = "📁 เลือกหรือวางรูปภาพใหม่ที่นี่";
-                    loadSelectedImageToCropper();
+                    
+                    // Populate sliders from draft
+                    rangeZoom.value = draftImageConfig.zoom;
+                    rangeX.value = draftImageConfig.x;
+                    rangeY.value = draftImageConfig.y;
+                    selectAspect.value = draftImageConfig.aspectRatio;
+                    previewImg.src = draftImageConfig.src;
+                    updateLivePreview();
                 }
             });
 
@@ -1777,11 +1798,13 @@
                     alert("⚠️ ไม่พบโครงสร้างข้อมูลรูปภาพสำหรับคีย์: " + key);
                     return;
                 }
-                currentImageConfig[key].zoom = parseFloat(rangeZoom.value);
-                currentImageConfig[key].x = parseInt(rangeX.value);
-                currentImageConfig[key].y = parseInt(rangeY.value);
-                currentImageConfig[key].aspectRatio = selectAspect.value;
-                // .src is updated directly upon load/upload
+                
+                // Copy draft values to active config
+                currentImageConfig[key].zoom = draftImageConfig.zoom;
+                currentImageConfig[key].x = draftImageConfig.x;
+                currentImageConfig[key].y = draftImageConfig.y;
+                currentImageConfig[key].aspectRatio = draftImageConfig.aspectRatio;
+                currentImageConfig[key].src = draftImageConfig.src;
                 
                 currentImageConfig._version = Date.now();
                 const success = saveImageConfigToLocalStorage();
@@ -1871,10 +1894,20 @@
                 return;
             }
             
-            rangeZoom.value = cfg.zoom || 1.0;
-            rangeX.value = cfg.x || 0;
-            rangeY.value = cfg.y || 0;
-            selectAspect.value = cfg.aspectRatio || "original";
+            // Initialize draft config from the saved config
+            draftImageConfig = {
+                src: cfg.src || (defaultImageConfigFallback[currentActiveImgId] ? defaultImageConfigFallback[currentActiveImgId].src : ""),
+                zoom: cfg.zoom || 1.0,
+                x: cfg.x || 0,
+                y: cfg.y || 0,
+                aspectRatio: cfg.aspectRatio || "original"
+            };
+            
+            // Populate inputs from draft
+            rangeZoom.value = draftImageConfig.zoom;
+            rangeX.value = draftImageConfig.x;
+            rangeY.value = draftImageConfig.y;
+            selectAspect.value = draftImageConfig.aspectRatio;
             
             // Assign onload handler BEFORE setting the src to avoid race conditions on cached/fast images
             previewImg.onload = function() {
@@ -1886,13 +1919,20 @@
                 const fallbackSrc = defaultImageConfigFallback[currentActiveImgId] ? defaultImageConfigFallback[currentActiveImgId].src : "";
                 if (fallbackSrc && previewImg.src !== window.location.origin + '/' + fallbackSrc && previewImg.src !== fallbackSrc) {
                     console.log("Attempting fallback to: " + fallbackSrc);
+                    draftImageConfig.src = fallbackSrc;
                     previewImg.src = fallbackSrc;
                 }
             };
             
-            previewImg.src = cfg.src || (defaultImageConfigFallback[currentActiveImgId] ? defaultImageConfigFallback[currentActiveImgId].src : "");
+            previewImg.src = draftImageConfig.src;
             imgNewFile.value = '';
-            imgUploadLabel.textContent = "📁 เลือกหรือวางรูปภาพใหม่ที่นี่";
+            
+            // Update file label based on path style
+            if (draftImageConfig.src.startsWith('data:')) {
+                imgUploadLabel.textContent = "รูปภาพใหม่ (อัปโหลด)";
+            } else {
+                imgUploadLabel.textContent = `ไฟล์: ${draftImageConfig.src.substring(draftImageConfig.src.lastIndexOf('/') + 1)}`;
+            }
             
             // Force rendering if image cached
             if (previewImg.complete) {
@@ -1901,16 +1941,18 @@
         }
 
         function updateLivePreview() {
-            const zoom = parseFloat(rangeZoom.value);
-            const x = parseInt(rangeX.value);
-            const y = parseInt(rangeY.value);
-            const aspect = selectAspect.value;
+            // Update draft config with current slider positions
+            draftImageConfig.zoom = parseFloat(rangeZoom.value);
+            draftImageConfig.x = parseInt(rangeX.value);
+            draftImageConfig.y = parseInt(rangeY.value);
+            draftImageConfig.aspectRatio = selectAspect.value;
 
-            valZoom.textContent = zoom.toFixed(2);
-            valX.textContent = x;
-            valY.textContent = y;
+            valZoom.textContent = draftImageConfig.zoom.toFixed(2);
+            valX.textContent = draftImageConfig.x;
+            valY.textContent = draftImageConfig.y;
 
             // Resize container according to aspect ratio
+            const aspect = draftImageConfig.aspectRatio;
             if (aspect === 'original') {
                 previewContainer.style.width = '300px';
                 previewContainer.style.height = '200px';
@@ -1956,25 +1998,15 @@
 
             previewImg.style.width = baseW + 'px';
             previewImg.style.height = baseH + 'px';
-            previewImg.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(${zoom})`;
+            previewImg.style.transform = `translate(calc(-50% + ${draftImageConfig.x}px), calc(-50% + ${draftImageConfig.y}px)) scale(${draftImageConfig.zoom})`;
         }
 
         // ==============================================
         // 4. EXPORT & DOWNLOAD LOGIC
         // ==============================================
         function updateConfigsFromDOM() {
-            // Sync current active image controls to state before export
-            if (currentActiveImgId && currentImageConfig[currentActiveImgId]) {
-                const rZoom = document.getElementById('rangeZoom');
-                const rX = document.getElementById('rangeX');
-                const rY = document.getElementById('rangeY');
-                const sAspect = document.getElementById('selectAspect');
-                
-                if (rZoom) currentImageConfig[currentActiveImgId].zoom = parseFloat(rZoom.value);
-                if (rX) currentImageConfig[currentActiveImgId].x = parseInt(rX.value);
-                if (rY) currentImageConfig[currentActiveImgId].y = parseInt(rY.value);
-                if (sAspect) currentImageConfig[currentActiveImgId].aspectRatio = sAspect.value;
-            }
+            // DO NOT auto-sync draft image values to the config.
+            // Images must be explicitly saved via btnSaveImageConfig.
 
             let changed = false;
             const textFields = [
@@ -1983,7 +2015,7 @@
                 'about-company-title', 'about-company-desc', 'service-header-title', 'service-2-title',
                 'service-2-text', 'service-3-title', 'service-3-text', 'service-4-title', 'service-4-text',
                 'service-5-title', 'service-5-text', 'contact-header-title', 'contact-info-title',
-                'contact-info-desc'
+                'contact-info-desc', 'product-header-title'
             ];
             
             textFields.forEach(key => {
