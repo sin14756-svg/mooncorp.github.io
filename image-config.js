@@ -18,7 +18,7 @@ var IMAGE_CONFIG = {
     "logo-footer": {
         "x": 0,
         "y": 0,
-        "zoom": 2.25,
+        "zoom": 0.5,
         "aspectRatio": "original",
         "src": "pic/uploads/CV. GOLDEN SEAFRESH.png"
     },
@@ -44,9 +44,9 @@ var IMAGE_CONFIG = {
         "src": "pic/MyCompany/1.png"
     },
     "qnav-product": {
-        "x": -10,
+        "x": -1,
         "y": 0,
-        "zoom": 1.4,
+        "zoom": 1.45,
         "aspectRatio": "original",
         "src": "pic/baby octopus/1.jpeg"
     },
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1781260803480
+    "_version": 1781260911504
 };
