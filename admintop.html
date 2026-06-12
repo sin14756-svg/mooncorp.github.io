@@ -1426,6 +1426,28 @@
         // Local state image layout config
         let currentImageConfig = {};
 
+        // Helper functions to save configurations to LocalStorage safely (preventing QuotaExceededError crashes)
+        function saveTextConfigToLocalStorage() {
+            try {
+                localStorage.setItem('cms_text_config', JSON.stringify(currentTextConfig));
+                if (currentTextConfig['contact-email']) {
+                    localStorage.setItem('cms_contact_email', currentTextConfig['contact-email']);
+                }
+            } catch (e) {
+                console.warn("localStorage quota exceeded for text config:", e);
+            }
+        }
+
+        function saveImageConfigToLocalStorage() {
+            try {
+                localStorage.setItem('cms_image_config', JSON.stringify(currentImageConfig));
+                return true;
+            } catch (e) {
+                console.warn("localStorage quota exceeded for image config, saving in-memory only:", e);
+                return false;
+            }
+        }
+
         const GALLERY_FOLDERS = {
             "about": ["factory.png"],
             "baby octopus": ["1.jpeg", "2.jpeg", "3.jpeg"],
@@ -1610,8 +1632,7 @@
             }
 
             currentTextConfig._version = Date.now();
-            localStorage.setItem('cms_text_config', JSON.stringify(currentTextConfig));
-            localStorage.setItem('cms_contact_email', currentTextConfig['contact-email']); // sync form submission target
+            saveTextConfigToLocalStorage();
             
             alert("✅ บันทึกข้อมูลข้อความทั้งหมดเรียบร้อยแล้ว!\n(หมายเหตุ: ข้อมูลบันทึกไว้ในบราวเซอร์เครื่องนี้ชั่วคราว อย่าลืมไปที่แท็บสุดท้ายเพื่อกดอัปโหลดขึ้น GitHub เพื่อแสดงผลจริงบนเว็บ)");
         });
@@ -1622,7 +1643,7 @@
             chkShowActivities.addEventListener('change', () => {
                 currentTextConfig['show-activities'] = chkShowActivities.checked ? 'true' : 'false';
                 currentTextConfig._version = Date.now();
-                localStorage.setItem('cms_text_config', JSON.stringify(currentTextConfig));
+                saveTextConfigToLocalStorage();
             });
         }
 
@@ -1632,7 +1653,7 @@
             chkShowAboutGallery.addEventListener('change', () => {
                 currentTextConfig['show-about-gallery'] = chkShowAboutGallery.checked ? 'true' : 'false';
                 currentTextConfig._version = Date.now();
-                localStorage.setItem('cms_text_config', JSON.stringify(currentTextConfig));
+                saveTextConfigToLocalStorage();
             });
         }
 
@@ -1660,7 +1681,7 @@
                 document.getElementById('valLogoHeader').textContent = val;
                 currentTextConfig['logo-header-height'] = val;
                 currentTextConfig._version = Date.now();
-                localStorage.setItem('cms_text_config', JSON.stringify(currentTextConfig));
+                saveTextConfigToLocalStorage();
                 applyRealtimeLogoSizes();
             });
         }
@@ -1671,7 +1692,7 @@
                 document.getElementById('valLogoFooter').textContent = val;
                 currentTextConfig['logo-footer-height'] = val;
                 currentTextConfig._version = Date.now();
-                localStorage.setItem('cms_text_config', JSON.stringify(currentTextConfig));
+                saveTextConfigToLocalStorage();
                 applyRealtimeLogoSizes();
             });
         }
@@ -1762,10 +1783,14 @@
                 currentImageConfig[key].aspectRatio = selectAspect.value;
                 // .src is updated directly upon load/upload
                 
-                 currentImageConfig._version = Date.now();
-                 localStorage.setItem('cms_image_config', JSON.stringify(currentImageConfig));
-                 alert("✅ บันทึกตำแหน่งและรูปภาพสำหรับการครอปสำเร็จแล้ว!\nตำแหน่ง: " + key + "\n(หมายเหตุ: อย่าลืมไปที่แท็บสุดท้ายเพื่อกดอัปโหลดขึ้น GitHub เพื่อแสดงผลจริงบนเว็บ)");
-             });
+                currentImageConfig._version = Date.now();
+                const success = saveImageConfigToLocalStorage();
+                if (success) {
+                    alert("✅ บันทึกตำแหน่งและรูปภาพสำหรับการครอปสำเร็จแล้ว!\nตำแหน่ง: " + key + "\n(หมายเหตุ: อย่าลืมไปที่แท็บสุดท้ายเพื่อกดอัปโหลดขึ้น GitHub เพื่อแสดงผลจริงบนเว็บ)");
+                } else {
+                    alert("✅ บันทึกข้อมูลและจัดตำแหน่งลงหน่วยความจำสำเร็จแล้ว!\n⚠️ เนื่องจากรูปภาพที่คุณอัปโหลดมีขนาดไฟล์ใหญ่เกินขีดจำกัดของเบราว์เซอร์ (Storage Quota Exceeded) ระบบจึงบันทึกในหน่วยความจำชั่วคราวแทน\n\n👉 กรุณาห้ามปิดหรือรีเฟรชหน้าเว็บนี้ และให้ไปที่แท็บสุดท้าย \"ซิงก์ข้อมูลไป GitHub\" เพื่อกดอัปเดตข้อมูลขึ้นเซิร์ฟเวอร์ทันที!");
+                }
+            });
  
              // --- Dynamic Gallery Picker Logic ---
              const btnToggleGalleryPicker = document.getElementById('btnToggleGalleryPicker');
@@ -1938,6 +1963,19 @@
         // 4. EXPORT & DOWNLOAD LOGIC
         // ==============================================
         function updateConfigsFromDOM() {
+            // Sync current active image controls to state before export
+            if (currentActiveImgId && currentImageConfig[currentActiveImgId]) {
+                const rZoom = document.getElementById('rangeZoom');
+                const rX = document.getElementById('rangeX');
+                const rY = document.getElementById('rangeY');
+                const sAspect = document.getElementById('selectAspect');
+                
+                if (rZoom) currentImageConfig[currentActiveImgId].zoom = parseFloat(rZoom.value);
+                if (rX) currentImageConfig[currentActiveImgId].x = parseInt(rX.value);
+                if (rY) currentImageConfig[currentActiveImgId].y = parseInt(rY.value);
+                if (sAspect) currentImageConfig[currentActiveImgId].aspectRatio = sAspect.value;
+            }
+
             let changed = false;
             const textFields = [
                 'contact-email', 'home-hero-label', 'home-hero-title', 'home-hero-sub', 'home-hero-desc',
@@ -2013,10 +2051,7 @@
             
             if (changed) {
                 currentTextConfig._version = Date.now();
-                localStorage.setItem('cms_text_config', JSON.stringify(currentTextConfig));
-                if (currentTextConfig['contact-email']) {
-                    localStorage.setItem('cms_contact_email', currentTextConfig['contact-email']);
-                }
+                saveTextConfigToLocalStorage();
             }
         }
 
@@ -2423,7 +2458,11 @@
         }
 
         function saveActivities(list) {
-            localStorage.setItem('activities_list', JSON.stringify(list));
+            try {
+                localStorage.setItem('activities_list', JSON.stringify(list));
+            } catch (e) {
+                console.warn("localStorage quota exceeded for activities list, saving in memory:", e);
+            }
         }
 
         const actDateInput = document.getElementById('actDate');
