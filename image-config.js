@@ -25,16 +25,16 @@ var IMAGE_CONFIG = {
     "cert-haccp": {
         "x": 0,
         "y": 0,
-        "zoom": 1,
-        "aspectRatio": "1/1",
-        "src": "pic/cert/haccp_badge.png"
+        "zoom": 0.8,
+        "aspectRatio": "original",
+        "src": "pic/uploads/img_cert-haccp_1781251249548.png"
     },
     "cert-gmp": {
-        "x": 0,
+        "x": 3,
         "y": 0,
-        "zoom": 1,
-        "aspectRatio": "1/1",
-        "src": "pic/cert/gmp_badge.png"
+        "zoom": 0.9,
+        "aspectRatio": "original",
+        "src": "pic/uploads/img_cert-gmp_1781251252304.png"
     },
     "hero-company": {
         "x": 0,
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1781249569000
+    "_version": 1781251255064
 };
