@@ -44,9 +44,9 @@ var IMAGE_CONFIG = {
         "src": "pic/MyCompany/1.png"
     },
     "qnav-product": {
-        "x": 0,
-        "y": 0,
-        "zoom": 2.65,
+        "x": -12,
+        "y": -13,
+        "zoom": 1.35,
         "aspectRatio": "original",
         "src": "pic/baby octopus/1.jpeg"
     },
@@ -129,10 +129,10 @@ var IMAGE_CONFIG = {
     },
     "vision-bg": {
         "x": 0,
-        "y": 0,
-        "zoom": 1,
-        "aspectRatio": "original",
-        "src": "pic/MyCompany/IMG_5269.jpg"
+        "y": -51,
+        "zoom": 1.6,
+        "aspectRatio": "16/9",
+        "src": "pic/uploads/img_vision-bg_1781255813470.png"
     },
     "baby-octopus-detail": {
         "x": 0,
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1781254583910
+    "_version": 1781255819586
 };
