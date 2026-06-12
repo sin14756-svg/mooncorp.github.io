@@ -25,7 +25,7 @@ var IMAGE_CONFIG = {
     "cert-haccp": {
         "x": 0,
         "y": 0,
-        "zoom": 1.05,
+        "zoom": 1,
         "aspectRatio": "original",
         "src": "pic/uploads/img_cert-haccp_1781252327920.png"
     },
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1781254345139
+    "_version": 1781254583910
 };
