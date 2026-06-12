@@ -51,5 +51,5 @@ var CMS_TEXT_CONFIG = {
     "product-8-size": "500/800 - 800/1000 - 1000/1300 - 1300/1500 - 1500/1800",
     "product-9-type": "Whole round / GGS",
     "product-9-size": "60/80 - 80/100 - 100/150 - 150/200 - 200/250 - 250/300",
-    "_version": 1781073600000
+    "_version": 1781249569000
 };
