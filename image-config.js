@@ -30,9 +30,9 @@ var IMAGE_CONFIG = {
         "src": "pic/uploads/img_cert-haccp_1781252327920.png"
     },
     "cert-gmp": {
-        "x": 2,
-        "y": 4,
-        "zoom": 1.1,
+        "x": 1,
+        "y": 3,
+        "zoom": 1.05,
         "aspectRatio": "original",
         "src": "pic/uploads/img_cert-gmp_1781253350271.png"
     },
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1781254140376
+    "_version": 1781254270584
 };
