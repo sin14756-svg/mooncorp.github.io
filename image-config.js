@@ -32,9 +32,9 @@ var IMAGE_CONFIG = {
     "cert-gmp": {
         "x": 3,
         "y": 0,
-        "zoom": 0.9,
+        "zoom": 1.1,
         "aspectRatio": "original",
-        "src": "pic/uploads/img_cert-gmp_1781251252304.png"
+        "src": "pic/uploads/img_cert-gmp_1781253350271.png"
     },
     "hero-company": {
         "x": 0,
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1781252961068
+    "_version": 1781253352841
 };
