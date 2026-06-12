@@ -31,7 +31,7 @@ var IMAGE_CONFIG = {
     },
     "cert-gmp": {
         "x": 2,
-        "y": 6,
+        "y": 4,
         "zoom": 1.1,
         "aspectRatio": "original",
         "src": "pic/uploads/img_cert-gmp_1781253350271.png"
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1781253982626
+    "_version": 1781254140376
 };
