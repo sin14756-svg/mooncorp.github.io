@@ -579,7 +579,7 @@
     <div id="passwordOverlay" class="password-overlay">
         <div class="password-box">
             <h2>🔒 ยืนยันผู้ดูแลระบบ</h2>
-            <p>กรุณากรอกรหัสผ่านเพื่อเข้าใช้งานเครื่องมือผู้ดูแลระบบ<br>(รหัสผ่านคือ <strong>admin123</strong> เพื่อทดลองใช้งาน)</p>
+            <p>กรุณากรอกรหัสผ่านเพื่อเข้าใช้งานเครื่องมือผู้ดูแลระบบ</p>
             <div class="input-group">
                 <label for="adminPass">รหัสผ่าน</label>
                 <input type="password" id="adminPass" class="form-control" placeholder="ระบุรหัสผ่านของคุณ">
@@ -1252,7 +1252,7 @@
         }
 
         function doVerify() {
-            if (adminPass.value === 'admin123') {
+            if (adminPass.value === 'top12358') {
                 sessionStorage.setItem('admin_verified', 'true');
                 document.getElementById('passwordOverlay').style.opacity = '0';
                 setTimeout(() => {
