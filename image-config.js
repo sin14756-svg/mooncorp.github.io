@@ -128,8 +128,8 @@ var IMAGE_CONFIG = {
         "src": "pic/Pama croaker/1.png"
     },
     "vision-bg": {
-        "x": 3,
-        "y": -109,
+        "x": 20,
+        "y": -131,
         "zoom": 1.6,
         "aspectRatio": "16/9",
         "src": "pic/uploads/img_vision-bg_1781255813470.png"
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1781255899888
+    "_version": 1781255973674
 };
