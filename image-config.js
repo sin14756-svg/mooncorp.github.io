@@ -130,7 +130,7 @@ var IMAGE_CONFIG = {
     "vision-bg": {
         "x": -4,
         "y": -109,
-        "zoom": 1.05,
+        "zoom": 1.1,
         "aspectRatio": "16/9",
         "src": "pic/uploads/img_vision-bg_1781256577035.png"
     },
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1781256683712
+    "_version": 1781256781628
 };
