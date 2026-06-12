@@ -18,7 +18,7 @@ var IMAGE_CONFIG = {
     "logo-footer": {
         "x": 0,
         "y": 0,
-        "zoom": 1,
+        "zoom": 0.5,
         "aspectRatio": "original",
         "src": "pic/uploads/CV. GOLDEN SEAFRESH.png"
     },
@@ -44,9 +44,9 @@ var IMAGE_CONFIG = {
         "src": "pic/MyCompany/1.png"
     },
     "qnav-product": {
-        "x": -12,
-        "y": -13,
-        "zoom": 1.35,
+        "x": -1,
+        "y": 0,
+        "zoom": 1.45,
         "aspectRatio": "original",
         "src": "pic/baby octopus/1.jpeg"
     },
@@ -62,7 +62,7 @@ var IMAGE_CONFIG = {
         "y": 0,
         "zoom": 1,
         "aspectRatio": "original",
-        "src": "pic/MyCompany/company_exterior_clean.png"
+        "src": "pic/MyCompany/1.png"
     },
     "baby-octopus-home": {
         "x": 0,
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1781259107181
+    "_version": 1781260911504
 };
