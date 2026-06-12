@@ -8,10 +8,10 @@
 var CMS_TEXT_CONFIG = {
     "logo-header-height": "58",
     "logo-footer-height": "58",
-    "show-activities": "false",
-    "show-about-gallery": "false",
+    "show-activities": "true",
+    "show-about-gallery": "true",
     "contact-email": "goldenseafresh.marketing@gmail.com",
-    "home-hero-label": "FRESH FROM THE SEA",
+    "home-hero-label": "FRESH FROM THE SEA19",
     "home-hero-title": "CV. GOLDEN SEAFRESH",
     "home-hero-sub": "FROZEN SEAFOOD",
     "home-hero-desc": "CV. Golden Seafresh is a manufacturer and distributor of high-quality frozen seafood, committed to delivering freshness from the sea to customers both domestically and internationally.<br><br>We rigorously select fresh seafood directly from natural sources, preserving freshness, taste, and nutritional value at every stage — under HACCP and GMP international standards.",
@@ -51,5 +51,5 @@ var CMS_TEXT_CONFIG = {
     "product-8-size": "500/800 - 800/1000 - 1000/1300 - 1300/1500 - 1500/1800",
     "product-9-type": "Whole round / GGS",
     "product-9-size": "60/80 - 80/100 - 100/150 - 150/200 - 200/250 - 250/300",
-    "_version": 1781259108428
+    "_version": 1781260889735
 };
