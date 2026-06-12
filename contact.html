@@ -11,7 +11,42 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Prompt:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=3">
+    <!-- Prevent logo flashing/flickering by applying height instantly during head load -->
+    <script>
+        (function() {
+            var t = Date.now();
+            document.write('<script src="cms-text-config.js?t=' + t + '"><\/script>');
+        })();
+    </script>
+    <script>
+        (function() {
+            var textConfig = {};
+            if (typeof CMS_TEXT_CONFIG !== 'undefined') {
+                for (var k in CMS_TEXT_CONFIG) {
+                    textConfig[k] = CMS_TEXT_CONFIG[k];
+                }
+            }
+            var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '';
+            var localTextConfig = isLocal ? localStorage.getItem('cms_text_config') : null;
+            if (localTextConfig) {
+                try {
+                    var parsed = JSON.parse(localTextConfig);
+                    for (var key in parsed) {
+                        textConfig[key] = parsed[key];
+                    }
+                } catch(e){}
+            }
+            var logoHeaderHeight = textConfig['logo-header-height'] || "58";
+            var logoFooterHeight = textConfig['logo-footer-height'] || "58";
+            var styleTag = document.createElement('style');
+            styleTag.innerHTML = '\
+                .logo-icon img { height: ' + logoHeaderHeight + 'px !important; transition: none !important; }\
+                .footer-logo .logo-icon img { height: ' + logoFooterHeight + 'px !important; transition: none !important; }\
+            ';
+            document.head.appendChild(styleTag);
+        })();
+    </script>
 </head>
 
 <body>
@@ -106,17 +141,16 @@
             <div class="footer-top">
                 <div class="footer-brand">
                     <a href="index.html" class="footer-logo">
-                        <span class="logo-icon"><img src="pic/uploads/CV. GOLDEN SEAFRESH.png" alt="CV. GOLDEN SEAFRESH Logo"></span>
+                        <span class="logo-icon"><img data-img-id="logo-footer" src="pic/uploads/CV. GOLDEN SEAFRESH.png" alt="CV. GOLDEN SEAFRESH Logo"></span>
                         <span class="logo-text">CV. GOLDEN <span class="logo-sub">SEAFRESH</span></span>
                     </a>
-                    <p class="footer-desc">Premium frozen seafood manufacturer & distributor, GMP/HACCP certified.</p>
-                </div>
+                    </div>
                 <div class="footer-contact">
                     <h4>Contact Us</h4>
                     <ul>
                         <li>📍 Jl. Kapten rahmat budin lingkungan 14,<br>&nbsp;&nbsp;&nbsp;&nbsp;kelurahan terjun,kecamatan medan marelan 20255</li>
                         <li>📞 +62 821-6794-0889</li>
-                        <li>✉️ sin14756@gmail.com</li>
+                        <li>✉️ goldenseafresh.marketing@gmail.com</li>
                     </ul>
                 </div>
             </div>

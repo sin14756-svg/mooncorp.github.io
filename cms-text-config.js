@@ -7,9 +7,10 @@
 
 var CMS_TEXT_CONFIG = {
     "show-activities": "false",
-    "logo-header-height": "32",
-    "logo-footer-height": "32",
-    "contact-email": "sin14756@gmail.com",
+    "show-about-gallery": "true",
+    "logo-header-height": "58",
+    "logo-footer-height": "58",
+    "contact-email": "goldenseafresh.marketing@gmail.com",
     "home-hero-label": "FRESH FROM THE SEA5",
     "home-hero-title": "CV. GOLDEN SEAFRESH8",
     "home-hero-sub": "FROZEN SEAFOOD",
@@ -50,5 +51,5 @@ var CMS_TEXT_CONFIG = {
     "product-8-size": "500/800 - 800/1000 - 1000/1300 - 1300/1500 - 1500/1800",
     "product-9-type": "Whole round / GGS",
     "product-9-size": "60/80 - 80/100 - 100/150 - 150/200 - 200/250 - 250/300",
-    "_version": 1781070177426
+    "_version": 1781073600000
 };

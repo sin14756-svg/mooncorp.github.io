@@ -556,9 +556,24 @@
             }
         }
     </style>
+    <script>
+        // Global error console to show errors on screen
+        window.onerror = function(message, source, lineno, colno, error) {
+            const errDiv = document.getElementById('global-error-banner');
+            if (errDiv) {
+                errDiv.style.display = 'block';
+                errDiv.innerHTML = `<strong>⚠️ เกิดข้อผิดพลาดทางระบบ (JS Error):</strong> ${message} (ที่ ${source}:${lineno}:${colno})`;
+            }
+            console.error("Global captured error:", message, source, lineno, colno, error);
+            return false;
+        };
+    </script>
 </head>
 
 <body>
+
+    <!-- Global Error Banner -->
+    <div id="global-error-banner" style="display:none; background:#ff4d4d; color:#fff; padding:15px; text-align:center; font-weight:bold; position:sticky; top:0; z-index:10000; border-bottom:3px solid #b30000; font-size:14px; box-shadow:0 4px 10px rgba(0,0,0,0.3);"></div>
 
     <!-- Password Verification Layer -->
     <div id="passwordOverlay" class="password-overlay">
@@ -598,15 +613,19 @@
         <div id="tab-activities" class="tab-content active">
             <!-- ตั้งค่าการแสดงผลส่วนกิจกรรม -->
             <div class="card" style="margin-bottom: 20px;">
-                <h3 class="card-title">⚙️ ตั้งค่าการแสดงผลบนเว็บไซต์หน้าหลัก</h3>
-                <div style="margin-top: 15px; margin-bottom: 15px;">
+                <h3 class="card-title">⚙️ ตั้งค่าการแสดงผลส่วนต่างๆ ของเว็บไซต์</h3>
+                <div style="margin-top: 15px; margin-bottom: 15px; display: flex; flex-direction: column; gap: 15px;">
                     <label style="display: inline-flex; align-items: center; gap: 12px; cursor: pointer; font-size: 15px; font-weight: 500; color: #fff; user-select: none;">
                         <input type="checkbox" id="chkShowActivities" style="width: 20px; height: 20px; cursor: pointer;">
                         <span>แสดงส่วนกิจกรรม (Company Activities) บนหน้าหลัก</span>
                     </label>
+                    <label style="display: inline-flex; align-items: center; gap: 12px; cursor: pointer; font-size: 15px; font-weight: 500; color: #fff; user-select: none;">
+                        <input type="checkbox" id="chkShowAboutGallery" style="width: 20px; height: 20px; cursor: pointer;">
+                        <span>แสดงรูปภาพ 4 รูปในหน้าเกี่ยวกับเรา (About Us Gallery)</span>
+                    </label>
                 </div>
                 <p style="font-size: 12px; color: var(--text-light); line-height: 1.5; margin: 0;">
-                    * เมื่อปิดระบบนี้ แถบกิจกรรมทั้งหมดบนหน้าแรก (index.html) จะถูกซ่อนไปโดยอัตโนมัติ และแถบ Our Vision จะเลื่อนลงมาต่อกันอย่างราบรื่นโดยไม่มีช่องว่างหรือพื้นที่สีขาว
+                    * เมื่อปิดระบบกิกจรรม แถบกิจกรรมหน้าแรกจะถูกซ่อน และเมื่อปิดระบบรูปภาพ 4 รูปในหน้าเกี่ยวกับเรา (about.html) รูปภาพเหล่านั้นจะถูกซ่อนโดยที่ส่วนเนื้อหาจะขยับขึ้นมาชิดด้านบนแทนเพื่อไม่ให้มีช่องว่างโบ๋
                 </p>
             </div>
 
@@ -1109,12 +1128,12 @@
                 </p>
                 <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div class="input-group">
-                        <label>ขนาดโลโก้ด้านบน (Header Logo Height): <strong id="valLogoHeader">32</strong>px</label>
-                        <input type="range" id="rangeLogoHeader" min="20" max="100" step="1" value="32" class="slider-control">
+                        <label>ขนาดโลโก้ด้านบน (Header Logo Height): <strong id="valLogoHeader">58</strong>px</label>
+                        <input type="range" id="rangeLogoHeader" min="20" max="150" step="1" value="58" class="slider-control">
                     </div>
                     <div class="input-group">
-                        <label>ขนาดโลโก้ด้านล่าง (Footer Logo Height): <strong id="valLogoFooter">32</strong>px</label>
-                        <input type="range" id="rangeLogoFooter" min="20" max="100" step="1" value="32" class="slider-control">
+                        <label>ขนาดโลโก้ด้านล่าง (Footer Logo Height): <strong id="valLogoFooter">58</strong>px</label>
+                        <input type="range" id="rangeLogoFooter" min="20" max="150" step="1" value="58" class="slider-control">
                     </div>
                 </div>
             </div>
@@ -1227,6 +1246,11 @@
         const adminPass = document.getElementById('adminPass');
         const passwordError = document.getElementById('passwordError');
 
+        // Check if already verified
+        if (sessionStorage.getItem('admin_verified') === 'true') {
+            document.getElementById('passwordOverlay').style.display = 'none';
+        }
+
         function doVerify() {
             if (adminPass.value === 'admin123') {
                 sessionStorage.setItem('admin_verified', 'true');
@@ -1278,10 +1302,11 @@
 
         // TEXT DEFAULT FALLBACK
         const defaultTextConfig = {
-            "logo-header-height": "32",
-            "logo-footer-height": "32",
+            "logo-header-height": "58",
+            "logo-footer-height": "58",
             "show-activities": "true",
-            "contact-email": "sin14756@gmail.com",
+            "show-about-gallery": "true",
+            "contact-email": "goldenseafresh.marketing@gmail.com",
             "home-hero-label": "FRESH FROM THE SEA",
             "home-hero-title": "CV. GOLDEN SEAFRESH",
             "home-hero-sub": "FROZEN SEAFOOD",
@@ -1326,6 +1351,10 @@
 
         // IMAGE CONFIG DEFAULT FALLBACK
         const defaultImageConfigFallback = {
+            "logo-header": { x: 0, y: 0, zoom: 1, aspectRatio: "original", src: "pic/uploads/CV. GOLDEN SEAFRESH.png" },
+            "logo-footer": { x: 0, y: 0, zoom: 1, aspectRatio: "original", src: "pic/uploads/CV. GOLDEN SEAFRESH.png" },
+            "cert-haccp": { x: 0, y: 0, zoom: 1, aspectRatio: "1/1", src: "pic/cert/haccp_badge.png" },
+            "cert-gmp": { x: 0, y: 0, zoom: 1, aspectRatio: "1/1", src: "pic/cert/gmp_badge.png" },
             "hero-company": { x: 0, y: 0, zoom: 1, aspectRatio: "original", src: "pic/MyCompany/1.png" },
             "qnav-product": { x: 0, y: 0, zoom: 1, aspectRatio: "original", src: "pic/baby octopus/1.jpeg" },
             "qnav-service": { x: 0, y: 0, zoom: 1, aspectRatio: "original", src: "pic/MyCompany/IMG_5448.jpg" },
@@ -1425,13 +1454,18 @@
                 currentTextConfig[key] = baseTexts[key] || defaultTextConfig[key];
             }
             
-            // Override with local modifications
+            // Override with local modifications with stale cache check
             var localTexts = localStorage.getItem('cms_text_config');
             if (localTexts) {
                 try {
                     var parsed = JSON.parse(localTexts);
-                    for (var k in parsed) {
-                        currentTextConfig[k] = parsed[k];
+                    if (typeof CMS_TEXT_CONFIG !== 'undefined' && CMS_TEXT_CONFIG._version && (!parsed._version || CMS_TEXT_CONFIG._version > parsed._version)) {
+                        console.log("Stale text config cache detected. Reverting to file defaults.");
+                        localStorage.removeItem('cms_text_config');
+                    } else {
+                        for (var k in parsed) {
+                            currentTextConfig[k] = parsed[k];
+                        }
                     }
                 } catch(e) { console.error(e); }
             }
@@ -1449,14 +1483,19 @@
                 };
             }
             
-            // Override with local modifications
+            // Override with local modifications with stale cache check
             var localImages = localStorage.getItem('cms_image_config');
             if (localImages) {
                 try {
                     var parsed = JSON.parse(localImages);
-                    for (var k in parsed) {
-                        if (currentImageConfig[k]) {
-                            currentImageConfig[k] = Object.assign(currentImageConfig[k], parsed[k]);
+                    if (typeof IMAGE_CONFIG !== 'undefined' && IMAGE_CONFIG._version && (!parsed._version || IMAGE_CONFIG._version > parsed._version)) {
+                        console.log("Stale image config cache detected. Reverting to file defaults.");
+                        localStorage.removeItem('cms_image_config');
+                    } else {
+                        for (var k in parsed) {
+                            if (currentImageConfig[k]) {
+                                currentImageConfig[k] = Object.assign(currentImageConfig[k], parsed[k]);
+                            }
                         }
                     }
                 } catch(e) { console.error(e); }
@@ -1510,6 +1549,10 @@
             if (chkShow) {
                 chkShow.checked = (currentTextConfig['show-activities'] !== 'false');
             }
+            const chkShowAboutGal = document.getElementById('chkShowAboutGallery');
+            if (chkShowAboutGal) {
+                chkShowAboutGal.checked = (currentTextConfig['show-about-gallery'] !== 'false');
+            }
 
             // Populate Logo Size Sliders
             const rangeHeader = document.getElementById('rangeLogoHeader');
@@ -1517,12 +1560,12 @@
             const valHeader = document.getElementById('valLogoHeader');
             const valFooter = document.getElementById('valLogoFooter');
             if (rangeHeader) {
-                const val = currentTextConfig['logo-header-height'] || "32";
+                const val = currentTextConfig['logo-header-height'] || "58";
                 rangeHeader.value = val;
                 if (valHeader) valHeader.textContent = val;
             }
             if (rangeFooter) {
-                const val = currentTextConfig['logo-footer-height'] || "32";
+                const val = currentTextConfig['logo-footer-height'] || "58";
                 rangeFooter.value = val;
                 if (valFooter) valFooter.textContent = val;
             }
@@ -1570,7 +1613,7 @@
             localStorage.setItem('cms_text_config', JSON.stringify(currentTextConfig));
             localStorage.setItem('cms_contact_email', currentTextConfig['contact-email']); // sync form submission target
             
-            alert("✅ อัปเดตบันทึกข้อมูลข้อความในบราวเซอร์สำเร็จแล้ว! อย่าลืมดาวน์โหลดไฟล์ไปอัปเดตบน Git ในแท็บสุดท้าย");
+            alert("✅ บันทึกข้อมูลข้อความทั้งหมดเรียบร้อยแล้ว!\n(หมายเหตุ: ข้อมูลบันทึกไว้ในบราวเซอร์เครื่องนี้ชั่วคราว อย่าลืมไปที่แท็บสุดท้ายเพื่อกดอัปโหลดขึ้น GitHub เพื่อแสดงผลจริงบนเว็บ)");
         });
 
         // Handle Activities toggle change
@@ -1583,10 +1626,20 @@
             });
         }
 
+        // Handle About Gallery toggle change
+        const chkShowAboutGallery = document.getElementById('chkShowAboutGallery');
+        if (chkShowAboutGallery) {
+            chkShowAboutGallery.addEventListener('change', () => {
+                currentTextConfig['show-about-gallery'] = chkShowAboutGallery.checked ? 'true' : 'false';
+                currentTextConfig._version = Date.now();
+                localStorage.setItem('cms_text_config', JSON.stringify(currentTextConfig));
+            });
+        }
+
         // Apply Logo size in real-time in Admin Panel
         function applyRealtimeLogoSizes() {
-            const hSize = currentTextConfig['logo-header-height'] || "32";
-            const fSize = currentTextConfig['logo-footer-height'] || "32";
+            const hSize = currentTextConfig['logo-header-height'] || "58";
+            const fSize = currentTextConfig['logo-footer-height'] || "58";
             let styleTag = document.getElementById('dyn-logo-sizes');
             if (!styleTag) {
                 styleTag = document.createElement('style');
@@ -1699,6 +1752,10 @@
 
             document.getElementById('btnSaveImageConfig').addEventListener('click', () => {
                 const key = currentActiveImgId;
+                if (!currentImageConfig[key]) {
+                    alert("⚠️ ไม่พบโครงสร้างข้อมูลรูปภาพสำหรับคีย์: " + key);
+                    return;
+                }
                 currentImageConfig[key].zoom = parseFloat(rangeZoom.value);
                 currentImageConfig[key].x = parseInt(rangeX.value);
                 currentImageConfig[key].y = parseInt(rangeY.value);
@@ -1707,7 +1764,7 @@
                 
                  currentImageConfig._version = Date.now();
                  localStorage.setItem('cms_image_config', JSON.stringify(currentImageConfig));
-                 alert("✅ บันทึกตำแหน่งและรูปภาพสำเร็จแล้ว! คุณสามารถเปิดดูที่หน้าหลักได้ทันที");
+                 alert("✅ บันทึกตำแหน่งและรูปภาพสำหรับการครอปสำเร็จแล้ว!\nตำแหน่ง: " + key + "\n(หมายเหตุ: อย่าลืมไปที่แท็บสุดท้ายเพื่อกดอัปโหลดขึ้น GitHub เพื่อแสดงผลจริงบนเว็บ)");
              });
  
              // --- Dynamic Gallery Picker Logic ---
@@ -1783,19 +1840,34 @@
         function loadSelectedImageToCropper() {
             currentActiveImgId = imgSelector.value;
             const cfg = currentImageConfig[currentActiveImgId];
+            if (!cfg) {
+                console.error("No config found for img ID: " + currentActiveImgId);
+                alert("⚠️ ไม่พบข้อมูลรูปภาพสำหรับ: " + currentActiveImgId);
+                return;
+            }
             
             rangeZoom.value = cfg.zoom || 1.0;
             rangeX.value = cfg.x || 0;
             rangeY.value = cfg.y || 0;
             selectAspect.value = cfg.aspectRatio || "original";
             
-            previewImg.src = cfg.src || defaultImageConfigFallback[currentActiveImgId].src;
-            imgNewFile.value = '';
-            imgUploadLabel.textContent = "📁 เลือกหรือวางรูปภาพใหม่ที่นี่";
-            
+            // Assign onload handler BEFORE setting the src to avoid race conditions on cached/fast images
             previewImg.onload = function() {
                 updateLivePreview();
             };
+            previewImg.onerror = function() {
+                console.error("Failed to load preview image: " + previewImg.src);
+                // Try fallback from default config
+                const fallbackSrc = defaultImageConfigFallback[currentActiveImgId] ? defaultImageConfigFallback[currentActiveImgId].src : "";
+                if (fallbackSrc && previewImg.src !== window.location.origin + '/' + fallbackSrc && previewImg.src !== fallbackSrc) {
+                    console.log("Attempting fallback to: " + fallbackSrc);
+                    previewImg.src = fallbackSrc;
+                }
+            };
+            
+            previewImg.src = cfg.src || (defaultImageConfigFallback[currentActiveImgId] ? defaultImageConfigFallback[currentActiveImgId].src : "");
+            imgNewFile.value = '';
+            imgUploadLabel.textContent = "📁 เลือกหรือวางรูปภาพใหม่ที่นี่";
             
             // Force rendering if image cached
             if (previewImg.complete) {
@@ -1910,6 +1982,14 @@
                 const val = chkShow.checked ? 'true' : 'false';
                 if (currentTextConfig['show-activities'] !== val) {
                     currentTextConfig['show-activities'] = val;
+                    changed = true;
+                }
+            }
+            const chkShowAboutGal = document.getElementById('chkShowAboutGallery');
+            if (chkShowAboutGal) {
+                const val = chkShowAboutGal.checked ? 'true' : 'false';
+                if (currentTextConfig['show-about-gallery'] !== val) {
+                    currentTextConfig['show-about-gallery'] = val;
                     changed = true;
                 }
             }
@@ -2037,7 +2117,7 @@
                 localStorage.setItem('gh_branch', branch);
                 localStorage.setItem('gh_token', token);
 
-                alert("✅ บันทึกข้อมูลเชื่อมโยง GitHub ลงในเครื่องสำเร็จแล้ว!");
+                alert("✅ บันทึกข้อมูลเชื่อมโยง GitHub (Username, Repository, Branch, Token) ลงในเครื่องนี้สำเร็จเรียบร้อยแล้ว!");
             });
 
             // Trigger Push
@@ -2047,7 +2127,7 @@
             const btnSaveActChecklist = document.getElementById('btnSaveActivitiesChecklist');
             if (btnSaveActChecklist) {
                 btnSaveActChecklist.addEventListener('click', () => {
-                    alert("💾 บันทึกเครื่องหมายและการแสดงผลกิจกรรมสำเร็จแล้ว! อย่าลืมไปที่แท็บสุดท้ายเพื่อกดอัปโหลดขึ้น GitHub");
+                    alert("✅ บันทึกเครื่องหมายการแสดงผลและลบกิจกรรมในบราวเซอร์เรียบร้อยแล้ว!\n(หมายเหตุ: อย่าลืมไปที่แท็บสุดท้ายเพื่อกดอัปโหลดขึ้น GitHub เพื่อแสดงผลจริงบนเว็บ)");
                 });
             }
         }
@@ -2071,6 +2151,11 @@
         }
 
         async function pushToGitHub() {
+            const btn = document.getElementById('btnPushToGitHub');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = `⏳ กำลังซิงก์ข้อมูลไปที่ GitHub...`;
+
             // Switch to export tab to show logs
             switchToTab('tab-export-config');
             
@@ -2081,6 +2166,8 @@
             
             if (!username || !repo || !branch || !token) {
                 alert("⚠️ กรุณาระบุข้อมูลการเชื่อมต่อ GitHub และ Personal Access Token ให้ครบถ้วน");
+                btn.disabled = false;
+                btn.innerHTML = originalText;
                 return;
             }
             
@@ -2249,6 +2336,9 @@
                 logGH(`เกิดข้อผิดพลาด: ${error.message}`, "error");
                 console.error(error);
                 alert(`❌ การอัปโหลดล้มเหลว: ${error.message}`);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
             }
         }
 

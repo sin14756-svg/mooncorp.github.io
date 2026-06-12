@@ -62,28 +62,45 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Show/hide about gallery based on configuration
+    var aboutGallery = document.querySelector('.about-gallery');
+    var aboutActivitiesText = document.querySelector('.about-activities-text');
+    if (aboutGallery) {
+        if (textConfig['show-about-gallery'] === 'false') {
+            aboutGallery.style.display = 'none';
+            if (aboutActivitiesText) {
+                aboutActivitiesText.classList.add('gallery-hidden');
+            }
+        } else {
+            aboutGallery.style.display = '';
+            if (aboutActivitiesText) {
+                aboutActivitiesText.classList.remove('gallery-hidden');
+            }
+        }
+    }
+
     // Apply dynamic logo sizes
     var logoHeaderHeight = textConfig['logo-header-height'] || "32";
     var logoFooterHeight = textConfig['logo-footer-height'] || "32";
     var logoStyleTag = document.createElement('style');
     logoStyleTag.innerHTML = '\
-        .logo-icon img { height: ' + logoHeaderHeight + 'px !important; }\
-        .footer-logo .logo-icon img { height: ' + logoFooterHeight + 'px !important; }\
+        .logo-icon img { height: ' + logoHeaderHeight + 'px !important; transition: none !important; }\
+        .footer-logo .logo-icon img { height: ' + logoFooterHeight + 'px !important; transition: none !important; }\
     ';
     document.head.appendChild(logoStyleTag);
 
     // Apply custom email in footers and other elements
-    var targetEmail = textConfig["contact-email"] || "sin14756@gmail.com";
+    var targetEmail = textConfig["contact-email"] || "goldenseafresh.marketing@gmail.com";
     localStorage.setItem('cms_contact_email', targetEmail); // sync for forms
 
     // Scan footer or other elements to replace default email display
     var emailElements = document.querySelectorAll('.footer-contact li, .site-footer li, .contact-info li, a[href^="mailto:"]');
     for (var j = 0; j < emailElements.length; j++) {
         var el = emailElements[j];
-        if (el.tagName.toLowerCase() === 'a' && el.getAttribute('href').indexOf('sin14756@gmail.com') !== -1) {
+        if (el.tagName.toLowerCase() === 'a' && (el.getAttribute('href').indexOf('sin14756@gmail.com') !== -1 || el.getAttribute('href').indexOf('goldenseafresh.marketing@gmail.com') !== -1)) {
             el.setAttribute('href', 'mailto:' + targetEmail);
             el.textContent = targetEmail;
-        } else if (el.textContent.indexOf('sin14756@gmail.com') !== -1) {
+        } else if (el.textContent.indexOf('sin14756@gmail.com') !== -1 || el.textContent.indexOf('goldenseafresh.marketing@gmail.com') !== -1) {
             el.innerHTML = '✉️ ' + targetEmail;
         }
     }
@@ -233,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var otherVal = form.querySelector('[name="other"]').value;
             var messageVal = form.querySelector('[name="message"]').value;
 
-            var mailTarget = localStorage.getItem('cms_contact_email') || "sin14756@gmail.com";
+            var mailTarget = localStorage.getItem('cms_contact_email') || "goldenseafresh.marketing@gmail.com";
             // ส่งข้อมูลไปยัง FormSubmit.co ด้วย AJAX
             fetch("https://formsubmit.co/ajax/" + mailTarget, {
                 method: "POST",
