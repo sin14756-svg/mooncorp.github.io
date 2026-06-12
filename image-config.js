@@ -130,9 +130,9 @@ var IMAGE_CONFIG = {
     "vision-bg": {
         "x": -4,
         "y": -132,
-        "zoom": 0.95,
+        "zoom": 1.05,
         "aspectRatio": "16/9",
-        "src": "pic/uploads/img_vision-bg_1781255813470.png"
+        "src": "pic/uploads/img_vision-bg_1781256577035.png"
     },
     "baby-octopus-detail": {
         "x": 0,
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1781256041673
+    "_version": 1781256581995
 };
