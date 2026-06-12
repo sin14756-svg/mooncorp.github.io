@@ -128,10 +128,10 @@ var IMAGE_CONFIG = {
         "src": "pic/Pama croaker/1.png"
     },
     "vision-bg": {
-        "x": -15,
-        "y": -109,
-        "zoom": 1.1,
-        "aspectRatio": "16/9",
+        "x": 0,
+        "y": 0,
+        "zoom": 1,
+        "aspectRatio": "original",
         "src": "pic/uploads/img_vision-bg_1781256577035.png"
     },
     "baby-octopus-detail": {
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1781256975557
+    "_version": 1781257068008
 };
