@@ -951,7 +951,8 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-success" style="margin-top:20px;">💾 บันทึกการอัปเดตข้อความ</button>
+                    <button type="submit" class="btn btn-success" style="margin-top:20px; width: 100%;">💾 บันทึกการอัปเดตข้อความ</button>
+                    <div id="saveTextStatusMsg" style="margin-top: 10px; padding: 10px; border-radius: 6px; font-size: 13px; display: none; text-align: center; font-weight: bold; transition: all 0.3s ease;"></div>
                 </form>
             </div>
         </div>
@@ -1120,6 +1121,7 @@
                             </span>
                         </div>
                         <button id="btnSaveImageConfig" class="btn" style="width: 100%;">💾 บันทึกรูปภาพและการจัดวาง</button>
+                        <div id="saveImageStatusMsg" style="margin-top: 10px; padding: 10px; border-radius: 6px; font-size: 13px; display: none; text-align: center; font-weight: bold; transition: all 0.3s ease; width: 100%; box-sizing: border-box;"></div>
                     </div>
                 </div>
             </div>
@@ -1641,6 +1643,16 @@
             currentTextConfig._version = Date.now();
             saveTextConfigToLocalStorage();
             
+            const statusMsg = document.getElementById('saveTextStatusMsg');
+            if (statusMsg) {
+                statusMsg.style.display = 'block';
+                statusMsg.style.backgroundColor = 'rgba(46, 200, 102, 0.15)';
+                statusMsg.style.color = '#2ec866';
+                statusMsg.style.border = '1px solid rgba(46, 200, 102, 0.3)';
+                statusMsg.innerHTML = "✅ บันทึกข้อความลงในบราวเซอร์สำเร็จแล้ว!<br>👉 อย่าลืมไปที่แท็บสุดท้ายเพื่อกด <strong>อัปโหลดขึ้น GitHub</strong> เพื่อแสดงผลจริง";
+                statusMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+            
             alert("✅ บันทึกข้อมูลข้อความทั้งหมดเรียบร้อยแล้ว!\n(หมายเหตุ: ข้อมูลบันทึกไว้ในบราวเซอร์เครื่องนี้ชั่วคราว อย่าลืมไปที่แท็บสุดท้ายเพื่อกดอัปโหลดขึ้น GitHub เพื่อแสดงผลจริงบนเว็บ)");
         });
 
@@ -1814,6 +1826,24 @@
                 console.log("Saving currentImageConfig to localStorage...", currentImageConfig);
                 const success = saveImageConfigToLocalStorage();
                 console.log("Save status:", success);
+                
+                const statusMsg = document.getElementById('saveImageStatusMsg');
+                if (statusMsg) {
+                    statusMsg.style.display = 'block';
+                    if (success) {
+                        statusMsg.style.backgroundColor = 'rgba(46, 200, 102, 0.15)';
+                        statusMsg.style.color = '#2ec866';
+                        statusMsg.style.border = '1px solid rgba(46, 200, 102, 0.3)';
+                        statusMsg.innerHTML = "✅ บันทึกตำแหน่งและรูปภาพลงในบราวเซอร์สำเร็จแล้ว!<br>👉 อย่าลืมไปที่แท็บสุดท้ายเพื่อกด <strong>อัปโหลดขึ้น GitHub</strong> เพื่อแสดงผลจริง";
+                    } else {
+                        statusMsg.style.backgroundColor = 'rgba(255, 107, 107, 0.15)';
+                        statusMsg.style.color = '#ff6b6b';
+                        statusMsg.style.border = '1px solid rgba(255, 107, 107, 0.3)';
+                        statusMsg.innerHTML = "⚠️ บันทึกในหน่วยความจำชั่วคราวแล้ว (โควตาบราวเซอร์เต็ม)<br><strong>กรุณาอย่าปิดหรือรีเฟรชหน้านี้</strong> และให้ไปแท็บสุดท้ายเพื่อกดอัปโหลดทันที!";
+                    }
+                    statusMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+                
                 if (success) {
                     alert("✅ บันทึกตำแหน่งและรูปภาพสำหรับการครอปสำเร็จแล้ว!\nตำแหน่ง: " + key + "\n(หมายเหตุ: อย่าลืมไปที่แท็บสุดท้ายเพื่อกดอัปโหลดขึ้น GitHub เพื่อแสดงผลจริงบนเว็บ)");
                 } else {
