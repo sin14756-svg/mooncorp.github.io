@@ -1733,6 +1733,7 @@
 
         function initImageEditor() {
             imgSelector.addEventListener('change', loadSelectedImageToCropper);
+            previewImg.addEventListener('load', updateLivePreview);
             rangeZoom.addEventListener('input', updateLivePreview);
             rangeX.addEventListener('input', updateLivePreview);
             rangeY.addEventListener('input', updateLivePreview);
@@ -1793,8 +1794,11 @@
             });
 
             document.getElementById('btnSaveImageConfig').addEventListener('click', () => {
+                console.log("btnSaveImageConfig clicked!");
                 const key = currentActiveImgId;
+                console.log("currentActiveImgId:", key);
                 if (!currentImageConfig[key]) {
+                    console.error("Key not found in currentImageConfig:", key);
                     alert("⚠️ ไม่พบโครงสร้างข้อมูลรูปภาพสำหรับคีย์: " + key);
                     return;
                 }
@@ -1807,7 +1811,9 @@
                 currentImageConfig[key].src = draftImageConfig.src;
                 
                 currentImageConfig._version = Date.now();
+                console.log("Saving currentImageConfig to localStorage...", currentImageConfig);
                 const success = saveImageConfigToLocalStorage();
+                console.log("Save status:", success);
                 if (success) {
                     alert("✅ บันทึกตำแหน่งและรูปภาพสำหรับการครอปสำเร็จแล้ว!\nตำแหน่ง: " + key + "\n(หมายเหตุ: อย่าลืมไปที่แท็บสุดท้ายเพื่อกดอัปโหลดขึ้น GitHub เพื่อแสดงผลจริงบนเว็บ)");
                 } else {
