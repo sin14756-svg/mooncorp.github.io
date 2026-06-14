@@ -385,6 +385,5 @@ var IMAGE_CONFIG = {
         "zoom": 1,
         "aspectRatio": "original",
         "src": "pic/service/5.png"
-    },
-    "_version": 1781459005048
+    }
 };
