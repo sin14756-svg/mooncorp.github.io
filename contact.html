@@ -27,7 +27,7 @@
                     textConfig[k] = CMS_TEXT_CONFIG[k];
                 }
             }
-            var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '';
+            var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '' || location.hostname.indexOf('vercel.app') !== -1;
             var localTextConfig = isLocal ? localStorage.getItem('cms_text_config') : null;
             if (localTextConfig) {
                 try {

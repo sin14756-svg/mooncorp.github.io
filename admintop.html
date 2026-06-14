@@ -1858,7 +1858,7 @@
                      });
 
                      imgWrap.addEventListener('click', () => {
-                         currentImageConfig[currentActiveImgId].src = filePath;
+                         draftImageConfig.src = filePath;
                          previewImg.src = filePath;
                          imgUploadLabel.textContent = `คลังรูป: ${folder}/${file}`;
                          updateLivePreview();

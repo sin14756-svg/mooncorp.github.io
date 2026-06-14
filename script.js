@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
     
-    var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '';
+    var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '' || location.hostname.indexOf('vercel.app') !== -1;
     var localTextConfig = isLocal ? localStorage.getItem('cms_text_config') : null;
     if (localTextConfig) {
         try {
@@ -371,7 +371,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         ];
 
-        var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '';
+        var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '' || location.hostname.indexOf('vercel.app') !== -1;
         var stored = isLocal ? localStorage.getItem('activities_list') : null;
         var activities = stored ? JSON.parse(stored) : ((typeof CMS_ACTIVITIES_CONFIG !== 'undefined') ? CMS_ACTIVITIES_CONFIG : defaultActivities);
 
@@ -546,15 +546,33 @@ function applyImageZoom(img, cfg) {
     img.style.height = baseH + 'px';
     img.style.transformOrigin = 'center center';
 
+    // Determine preview dimensions based on aspect ratio to scale relative offsets
+    var previewW = 300;
+    var previewH = 200;
+    var aspect = cfg.aspectRatio || "original";
+    if (aspect === '1/1') {
+        previewW = 240;
+        previewH = 240;
+    } else if (aspect === '16/9') {
+        previewW = 320;
+        previewH = 180;
+    } else if (aspect === '4/3') {
+        previewW = 280;
+        previewH = 210;
+    }
+
+    var scaledX = x * (pw / previewW);
+    var scaledY = y * (ph / previewH);
+
     // Apply the user's manual zoom and translations on top of the perfectly covering <img>
-    img.style.transform = 'translate(calc(-50% + ' + x + 'px), calc(-50% + ' + y + 'px)) scale(' + zoom + ')';
+    img.style.transform = 'translate(calc(-50% + ' + scaledX + 'px), calc(-50% + ' + scaledY + 'px)) scale(' + zoom + ')';
 }
 
 function processImages() {
     if (typeof IMAGE_CONFIG === 'undefined') return;
     
     // Merge custom image overrides from localStorage
-    var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '';
+    var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '' || location.hostname.indexOf('vercel.app') !== -1;
     var localImgConfig = isLocal ? localStorage.getItem('cms_image_config') : null;
     if (localImgConfig) {
         try {
