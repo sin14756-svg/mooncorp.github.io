@@ -46,16 +46,16 @@ var IMAGE_CONFIG = {
     "qnav-product": {
         "x": -1,
         "y": 0,
-        "zoom": 1.45,
+        "zoom": 1.1,
         "aspectRatio": "original",
         "src": "pic/baby octopus/1.jpeg"
     },
     "qnav-service": {
-        "x": 6,
+        "x": 11,
         "y": 11,
-        "zoom": 1.2,
+        "zoom": 1.05,
         "aspectRatio": "original",
-        "src": "pic/MyCompany/IMG_5269.jpg"
+        "src": "pic/MyCompany/IMG_5065.jpg"
     },
     "qnav-company": {
         "x": 0,
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1781456395695
+    "_version": 1781458907515
 };
