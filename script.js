@@ -68,11 +68,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if (aboutGallery) {
         if (textConfig['show-about-gallery'] === 'false') {
             aboutGallery.style.display = 'none';
+            aboutGallery.classList.add('gallery-hidden');
             if (aboutActivitiesText) {
                 aboutActivitiesText.classList.add('gallery-hidden');
             }
         } else {
             aboutGallery.style.display = '';
+            aboutGallery.classList.remove('gallery-hidden');
             if (aboutActivitiesText) {
                 aboutActivitiesText.classList.remove('gallery-hidden');
             }

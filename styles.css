@@ -2142,6 +2142,10 @@ a.train-head:active {
     height: 450px;
 }
 
+.about-gallery.gallery-hidden {
+    display: none !important;
+}
+
 .gallery-item {
     position: absolute;
     width: 360px;
