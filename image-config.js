@@ -46,14 +46,14 @@ var IMAGE_CONFIG = {
     "qnav-product": {
         "x": -1,
         "y": 0,
-        "zoom": 1.1,
+        "zoom": 0.9,
         "aspectRatio": "original",
         "src": "pic/baby octopus/1.jpeg"
     },
     "qnav-service": {
         "x": 11,
         "y": 11,
-        "zoom": 1.05,
+        "zoom": 0.9,
         "aspectRatio": "original",
         "src": "pic/MyCompany/IMG_5065.jpg"
     },
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1781458907515
+    "_version": 1781459005048
 };
