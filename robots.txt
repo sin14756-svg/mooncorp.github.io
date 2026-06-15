@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Disallow admin dashboard
+Disallow: /admintop
+Disallow: /admintop.html
+
+Sitemap: https://www.goldenseafresh.com/sitemap.xml
