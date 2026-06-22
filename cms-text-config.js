@@ -27,7 +27,7 @@ var CMS_TEXT_CONFIG = {
     "service-2-text": "We provide seafood processing and cutting according to each customer's specifications, making the products ideal for production, cooking, or distribution in different formats.<br>For example: Whole Round, Whole Clean, Cut, Peeling",
     "service-3-title": "Storage & Inventory Management",
     "service-3-text": "We store products using FIFO and FEFO systems to maintain the quality and freshness of seafood throughout the process. This helps control product quality and safety, while allowing product loading to be fast, accurate, and efficient. It is suitable for customers who require large-volume shipments or regular delivery schedules.",
-    "service-4-title": "Service",
+    "service-4-title": "Packaging",
     "service-4-text": "We can adjust the packaging format to match the customer's brand, helping make the products ready for sale.",
     "service-5-title": "Transportation",
     "service-5-text": "We support product arrangement according to orders, together with temperature-controlled transportation, to maintain product quality efficiently throughout the process.",
@@ -52,5 +52,5 @@ var CMS_TEXT_CONFIG = {
     "product-8-size": "500/800  800/1000  1000/1300  1300/1500  1500/1800",
     "product-9-type": "Whole round / GGS",
     "product-9-size": "60/80  80/100  100/150  150/200  200/250  250/300",
-    "_version": 1781459080617
+    "_version": 1782123634862
 };
