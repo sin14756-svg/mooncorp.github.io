@@ -34,15 +34,15 @@ var CMS_TEXT_CONFIG = {
     "contact-header-title": "CONTACT US",
     "contact-info-title": "Get In Touch",
     "contact-info-desc": "Contact us today to discuss how we can serve your business requirements. Our team is ready to provide you with the finest seafood solutions.",
-    "product-1-type": "Whole clean / Whole round / Cut",
+    "product-1-type": "Whole cleaned / Whole round / Cut",
     "product-1-size": "20/30  30/50  50/80  80/100  100/120",
     "product-2-type": "Flower - Ball",
     "product-2-size": "300/500  500/800  800/1200  1200/1600  1600/2000  2000up",
     "product-3-type": "Cut",
     "product-3-size": "M, L",
-    "product-4-type": "Whole clean / Whole round",
+    "product-4-type": "Whole cleaned / Whole round",
     "product-4-size": "20/40  40/60  60/80  80/100  100/200  200/300  300/500  500/800",
-    "product-5-type": "Whole clean / Whole round / Tube / Tentacle",
+    "product-5-type": "Whole cleaned / Whole round / Tube / Tentacle",
     "product-5-size": "1P, 2P, 3P, 4P, 5P    10/20  20/40  40/60",
     "product-6-type": "PUD / PD / Head on / Head less",
     "product-6-size": "16/20  21/25  26/30  31/40  41/50  51/60",
@@ -52,5 +52,5 @@ var CMS_TEXT_CONFIG = {
     "product-8-size": "500/800  800/1000  1000/1300  1300/1500  1500/1800",
     "product-9-type": "Whole round / GGS",
     "product-9-size": "60/80  80/100  100/150  150/200  200/250  250/300",
-    "_version": 1782123634862
+    "_version": 1782128911684
 };
