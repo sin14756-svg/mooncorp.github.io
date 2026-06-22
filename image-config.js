@@ -373,9 +373,9 @@ var IMAGE_CONFIG = {
         "src": "pic/service/3.png"
     },
     "service-img-4": {
-        "x": 0,
-        "y": 0,
-        "zoom": 1,
+        "x": -3,
+        "y": 85,
+        "zoom": 1.15,
         "aspectRatio": "original",
         "src": "pic/service/4.png"
     },
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1782123997881
+    "_version": 1782127808609
 };
