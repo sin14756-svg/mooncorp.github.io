@@ -101,21 +101,21 @@ var IMAGE_CONFIG = {
     },
     "vannamei-home": {
         "x": 15,
-        "y": 99,
+        "y": 15,
         "zoom": 1.1,
         "aspectRatio": "original",
         "src": "pic/uploads/img_vannamei-home_1782356990549.jpg"
     },
     "hard-clam-home": {
         "x": 0,
-        "y": -10,
+        "y": 11,
         "zoom": 1,
         "aspectRatio": "original",
         "src": "pic/uploads/img_hard-clam-home_1782356993112.webp"
     },
     "clam-meat-home": {
         "x": 3,
-        "y": 90,
+        "y": 17,
         "zoom": 1.05,
         "aspectRatio": "original",
         "src": "pic/uploads/img_clam-meat-home_1782356995542.jpg"
@@ -241,7 +241,7 @@ var IMAGE_CONFIG = {
     },
     "vannamei-detail": {
         "x": 14,
-        "y": 97,
+        "y": 21,
         "zoom": 1.1,
         "aspectRatio": "original",
         "src": "pic/uploads/img_vannamei-detail_1782357000535.jpg"
@@ -262,21 +262,21 @@ var IMAGE_CONFIG = {
     },
     "hard-clam-detail": {
         "x": 0,
-        "y": -9,
+        "y": 12,
         "zoom": 1,
         "aspectRatio": "original",
         "src": "pic/uploads/img_hard-clam-detail_1782357008656.webp"
     },
     "hard-clam-view1": {
         "x": 6,
-        "y": -17,
+        "y": 2,
         "zoom": 1.05,
         "aspectRatio": "original",
         "src": "pic/uploads/img_hard-clam-view1_1782357011142.jpg"
     },
     "hard-clam-view2": {
         "x": 0,
-        "y": 137,
+        "y": 85,
         "zoom": 1,
         "aspectRatio": "original",
         "src": "pic/uploads/img_hard-clam-view2_1782357013620.jpg"
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1782357018610
+    "_version": 1782357277169
 };
