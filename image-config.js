@@ -143,10 +143,10 @@ var IMAGE_CONFIG = {
     },
     "baby-octopus-view1": {
         "x": 0,
-        "y": 23,
+        "y": 0,
         "zoom": 1,
         "aspectRatio": "original",
-        "src": "pic/uploads/img_baby-octopus-view1_1782358140021.jpg"
+        "src": "pic/uploads/img_baby-octopus-view1_1782358376938.png"
     },
     "baby-octopus-view2": {
         "x": 0,
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1782358143082
+    "_version": 1782358381679
 };
