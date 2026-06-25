@@ -108,7 +108,7 @@ var IMAGE_CONFIG = {
     },
     "hard-clam-home": {
         "x": 0,
-        "y": 11,
+        "y": 0,
         "zoom": 1,
         "aspectRatio": "original",
         "src": "pic/uploads/img_hard-clam-home_1782356993112.webp"
@@ -116,7 +116,7 @@ var IMAGE_CONFIG = {
     "clam-meat-home": {
         "x": 3,
         "y": 17,
-        "zoom": 1.05,
+        "zoom": 1.6,
         "aspectRatio": "original",
         "src": "pic/uploads/img_clam-meat-home_1782356995542.jpg"
     },
@@ -262,7 +262,7 @@ var IMAGE_CONFIG = {
     },
     "hard-clam-detail": {
         "x": 0,
-        "y": 12,
+        "y": 0,
         "zoom": 1,
         "aspectRatio": "original",
         "src": "pic/uploads/img_hard-clam-detail_1782357008656.webp"
@@ -283,8 +283,8 @@ var IMAGE_CONFIG = {
     },
     "clam-meat-detail": {
         "x": 0,
-        "y": 94,
-        "zoom": 1,
+        "y": 26,
+        "zoom": 1.6,
         "aspectRatio": "original",
         "src": "pic/uploads/img_clam-meat-detail_1782357016095.jpg"
     },
@@ -386,5 +386,5 @@ var IMAGE_CONFIG = {
         "aspectRatio": "original",
         "src": "pic/service/5.png"
     },
-    "_version": 1782357277169
+    "_version": 1782357492036
 };
